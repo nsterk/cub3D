@@ -36,11 +36,15 @@
 *.x86_64
 *.hex
 
+# want zo heet mijn executable
+cub3d
+
 # Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+.vscode/
 
 # Kernel Module Compile Results
 *.mod*
@@ -50,3 +54,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# pdf files
+*.pdf
+
+# textedit files - my notes
+*.rtf
+
+# troepie woepies
+.DS_Store
