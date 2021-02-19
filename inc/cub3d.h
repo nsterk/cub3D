@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/17 17:48:14 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/02/19 14:22:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,49 @@
 # include <mlx.h>
 # include <get_next_line.h>
 
-typedef struct	s_mlx_data {
-	void	*img;
+/*
+**	Definitions
+*/
+
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define LEFT	123
+# define RIGHT	124
+# define ESC	53
+
+# define MLX_SYNC_IMAGE_WRITABLE		1
+# define MLX_SYNC_WIN_FLUSH_CMD			2
+# define MLX_SYNC_WIN_CMD_COMPLETED		3
+
+typedef struct	s_img {
+	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_mlx_data;
+}				t_img;
+
 
 typedef struct s_data
 {
-	void		*do_mlx;
+	void		*mlx;
 	void		*window;
 	int			y_res;
 	int			x_res;
-	t_mlx_data	mlx;
+	int			obj_height;
+	int			obj_width;
+	int			y_pos;
+	int			x_pos;
+	t_img		img;
 }				t_data;
 
 /*
 **	Global variables
 */
-t_data		data;
+/*
+t_data		data;*/
 int			map_x = 8;
 int			map_y = 8;
 int			map_size = 64;

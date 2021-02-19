@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/02/17 14:21:42 by nsterk        ########   odam.nl          #
+#    Updated: 2021/02/19 14:15:38 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,16 @@ W_FLAGS		=	-Wall -Werror -Wextra -std=c89
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx -Iinc -fsanitize=address -g
 
 # MLX_PATH	=	./mlx/
-GNL_PATH	=	./srcs/gnl/
+# GNL_PATH	=	./srcs/gnl/
 # LIBFT_PATH	=	./srcs/libft/
 
-GNL_C	=	get_next_line.c get_next_line_utils.c
+# GNL_C	=	get_next_line.c get_next_line_utils.c
 # LIBFT_SRCS	=	
 
-GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)
+# GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)
 
 # place main.c in srcs folder
-SRCS		=	main.c \
+SRCS		=	./srcs/main.c \
 				$(GNL_SRCS)
 
 OBJS		=	$(SRCS:.c=.o)
