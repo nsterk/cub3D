@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/19 14:43:13 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/02/19 18:10:08 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_data(t_data *data)
 {
 	data->obj_height = 30;
 	data->obj_width = 30;
-	data->y_res = 480;
+	data->y_res = 600;
 	data->x_res = 800;
 	data->y_pos = 210;
 	data->x_pos = 370;
@@ -103,13 +103,13 @@ int		keypress(int keycode, t_data *data)
 		if (data->y_pos > 0)
 			data->y_pos--;
 	if (keycode == 1)
-		if (data->y_pos < 480)
+		if (data->y_pos < (data->y_res - 4))
 			data->y_pos++;
 	if (keycode == 0)
 		if (data->x_pos > 0)
 			data->x_pos--;
 	if (keycode == 2)
-		if (data->x_pos < 800)
+		if (data->x_pos < (data->x_res - 4))
 			data->x_pos++;
 	/*draw_crosshair(data);*/
 	return (1);
@@ -175,10 +175,26 @@ void	draw_cube(int x1, int x2, int y1, int y2, int colour, t_data *data)
 
 void	draw_player(t_data *data)
 {
+	int x;
+	int y;
+
+	y = 0;
+	while (y < 4)
+	{
+		x = 0;
+		while (x < 4)
+		{
+			put_pixel(data->x_pos + x, data->y_pos + y, 0x00FF0000, data);
+			x++;
+		}
+		y++;
+	}
+	/*
 	put_pixel(data->x_pos, data->y_pos, 0x00FF0000, data);
 	put_pixel(data->x_pos, data->y_pos + 1, 0x00FF0000, data);
 	put_pixel(data->x_pos + 1, data->y_pos, 0x00FF0000, data);
 	put_pixel(data->x_pos + 1, data->y_pos + 1, 0x00FF0000, data);
+	*/
 }
 
 int		draw_2d_map(t_data *data)
@@ -187,18 +203,7 @@ int		draw_2d_map(t_data *data)
 	int y;
 	int xo;
 	int yo;
-
-	y = 0;
-	while (y < 480)
-	{
-		x = 0;
-		while (x < 800)
-		{
-			put_pixel(x, y, 0x00000000, data);
-			x++;
-		}
-		y++;
-	}
+	
 	y = 0;
 	x = 0;
 	while (y < map_y)
@@ -216,10 +221,25 @@ int		draw_2d_map(t_data *data)
 		}
 		y++;
 	}
+	draw_player(data);
+	/*
+	y = 0;
+	while (y < 4)
+	{
+		x = 0;
+		while (x < 4)
+		{
+			put_pixel(data->x_pos + x, data->y_pos + y, 0x00FF0000, data);
+			x++;
+		}
+		y++;
+	}
+	
 	put_pixel(data->x_pos, data->y_pos, 0x00FF0000, data);
 	put_pixel(data->x_pos, data->y_pos + 1, 0x00FF0000, data);
 	put_pixel(data->x_pos + 1, data->y_pos, 0x00FF0000, data);
 	put_pixel(data->x_pos + 1, data->y_pos + 1, 0x00FF0000, data);
+	*/
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
 	return (1);
 }
@@ -251,8 +271,8 @@ int		main(void)
 
 	init_data(&data);
 	start_mlx(&data);
-	/*
 	init_environment(&data);
+	/*
 	draw_2d_map(&data);
 	draw_player(&data);
 	*/
