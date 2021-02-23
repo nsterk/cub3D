@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/19 14:22:33 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/02/22 20:50:43 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define LEFT	123
 # define RIGHT	124
 # define ESC	53
+
+# define SPEED	3
 
 # define MLX_SYNC_IMAGE_WRITABLE		1
 # define MLX_SYNC_WIN_FLUSH_CMD			2
@@ -51,6 +53,7 @@ typedef struct s_data
 	int			obj_width;
 	int			y_pos;
 	int			x_pos;
+	int			speed;
 	t_img		img;
 }				t_data;
 

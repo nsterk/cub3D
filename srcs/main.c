@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/19 18:10:08 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/02/23 12:23:21 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,16 @@ int		keypress(int keycode, t_data *data)
 		exit_window(data);
 	if (keycode == 13)
 		if (data->y_pos > 0)
-			data->y_pos--;
+			data->y_pos -= SPEED;
 	if (keycode == 1)
 		if (data->y_pos < (data->y_res - 4))
-			data->y_pos++;
+			data->y_pos += SPEED;
 	if (keycode == 0)
 		if (data->x_pos > 0)
-			data->x_pos--;
+			data->x_pos -= SPEED;
 	if (keycode == 2)
 		if (data->x_pos < (data->x_res - 4))
-			data->x_pos++;
+			data->x_pos += SPEED;
 	/*draw_crosshair(data);*/
 	return (1);
 }
@@ -144,7 +144,7 @@ void	init_environment(t_data *data)
 		x = 0;
 		while (x < data->x_res)
 		{
-			put_pixel(x, y, 0x00FFFFFF, data);
+			put_pixel(x, y, 0x00000000, data);
 			/*
 			if (y < (data.y_res / 2))
 				put_pixel(x, y, 0x00c5c5c5);
@@ -173,7 +173,7 @@ void	draw_cube(int x1, int x2, int y1, int y2, int colour, t_data *data)
 	}
 }
 
-void	draw_player(t_data *data)
+int	draw_player(t_data *data)
 {
 	int x;
 	int y;
@@ -189,12 +189,9 @@ void	draw_player(t_data *data)
 		}
 		y++;
 	}
-	/*
-	put_pixel(data->x_pos, data->y_pos, 0x00FF0000, data);
-	put_pixel(data->x_pos, data->y_pos + 1, 0x00FF0000, data);
-	put_pixel(data->x_pos + 1, data->y_pos, 0x00FF0000, data);
-	put_pixel(data->x_pos + 1, data->y_pos + 1, 0x00FF0000, data);
-	*/
+	
+	/*mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);*/
+	return (1);
 }
 
 int		draw_2d_map(t_data *data)
@@ -214,45 +211,23 @@ int		draw_2d_map(t_data *data)
 			xo = x * map_size;
 			yo = y * map_size;
 			if (map[y * map_x + x] == 1)
-				draw_cube(xo + 1, xo + map_size - 1, yo + 1, yo + map_size - 1, 0x00000000, data);
-			else
 				draw_cube(xo + 1, xo + map_size - 1, yo + 1, yo + map_size - 1, 0x00FFFFFF, data);
+			else
+				draw_cube(xo + 1, xo + map_size - 1, yo + 1, yo + map_size - 1, 0x00000000, data);
 			x++;
 		}
 		y++;
 	}
-	draw_player(data);
-	/*
-	y = 0;
-	while (y < 4)
-	{
-		x = 0;
-		while (x < 4)
-		{
-			put_pixel(data->x_pos + x, data->y_pos + y, 0x00FF0000, data);
-			x++;
-		}
-		y++;
-	}
-	
-	put_pixel(data->x_pos, data->y_pos, 0x00FF0000, data);
-	put_pixel(data->x_pos, data->y_pos + 1, 0x00FF0000, data);
-	put_pixel(data->x_pos + 1, data->y_pos, 0x00FF0000, data);
-	put_pixel(data->x_pos + 1, data->y_pos + 1, 0x00FF0000, data);
-	*/
-	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
 	return (1);
 }
 
 int		window_loop(t_data *data)
 {
 	/*mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.img_ptr);
-	init_environment(data);
-	draw_2d_map(data);
-	draw_player(data);
 	*/
 	draw_2d_map(data);
-	/*draw_player(data);*/
+	draw_player(data);
+	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
 	/*mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, data->window);*/
 	return (1);
 }
@@ -260,8 +235,8 @@ int		window_loop(t_data *data)
 int		loops(t_data *data)
 {
 	mlx_hook(data->window, 17, 0L, exit_window, data);
-	mlx_hook(data->window, 2, (1L<<0), keypress, data);
-	mlx_loop_hook(data->mlx, draw_2d_map, data);
+	mlx_hook(data->window, 2, (1L << 0), keypress, data);
+	mlx_loop_hook(data->mlx, window_loop, data);
 	mlx_loop(data->mlx);
 	return (0);
 }
@@ -272,13 +247,6 @@ int		main(void)
 	init_data(&data);
 	start_mlx(&data);
 	init_environment(&data);
-	/*
-	draw_2d_map(&data);
-	draw_player(&data);
-	*/
 	loops(&data);
-	/*mlx_key_hook(data.window, key_press_hook, &data);*/
-
-	
 	return (0);
 }

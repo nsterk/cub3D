@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/19 14:14:05 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/02/22 20:44:47 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_data(t_data *data)
 	data->x_res = 1024;
 	data->y_pos = 100;
 	data->x_pos = 100;
+	data->speed = 1;
 /*
 	data->map.map_x = 8;
 	data->map.map_y = 8;
