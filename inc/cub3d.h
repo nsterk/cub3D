@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/22 20:50:43 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/02/23 20:03:14 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 # include <get_next_line.h>
 
 /*
-**	Definitions
+**	DEFINES
 */
-
 # define W		13
 # define A		0
 # define S		1
@@ -34,7 +33,13 @@
 # define MLX_SYNC_WIN_FLUSH_CMD			2
 # define MLX_SYNC_WIN_CMD_COMPLETED		3
 
-typedef struct	s_img {
+# define WHITE	0x00FFFFFF
+# define BLACK	0x00000000
+
+# define PI		3.14
+
+typedef struct	s_img
+{
 	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
@@ -42,17 +47,17 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
-
 typedef struct s_data
 {
 	void		*mlx;
 	void		*window;
 	int			y_res;
 	int			x_res;
-	int			obj_height;
-	int			obj_width;
 	int			y_pos;
 	int			x_pos;
+	float		dx_pos;
+	float		dy_pos;
+	float		angle_pos;
 	int			speed;
 	t_img		img;
 }				t_data;
@@ -60,21 +65,6 @@ typedef struct s_data
 /*
 **	Global variables
 */
-/*
-t_data		data;*/
-int			map_x = 8;
-int			map_y = 8;
-int			map_size = 64;
-int			map[] =
-{
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 1, 1, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 1, 0, 0, 1,
-	1, 0, 0, 0, 1, 0, 0, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
-};
 
+void	init_data(t_data *data);
 #endif

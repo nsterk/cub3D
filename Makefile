@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/02/19 14:15:38 by nsterk        ########   odam.nl          #
+#    Updated: 2021/02/23 17:58:03 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx -Iinc -fsanitize=address -
 # GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)
 
 # place main.c in srcs folder
-SRCS		=	./srcs/main.c \
+SRCS		=	./srcs/main.c ./srcs/init.c \
 				$(GNL_SRCS)
 
 OBJS		=	$(SRCS:.c=.o)

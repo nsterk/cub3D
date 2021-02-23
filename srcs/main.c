@@ -6,22 +6,27 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/23 12:23:21 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/02/23 19:50:29 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 #include <stdio.h>
+#include <math.h>
 
-void	init_data(t_data *data)
-{
-	data->obj_height = 30;
-	data->obj_width = 30;
-	data->y_res = 600;
-	data->x_res = 800;
-	data->y_pos = 210;
-	data->x_pos = 370;
-}
+int			map_size = 64;
+int			map_x = 8;
+int			map_y = 8;
+int			map[8][8] = {
+	{1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 0, 0, 0, 0, 1},
+	{1, 0, 1, 0, 0, 0, 0, 1},
+	{1, 0, 1, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 1, 0, 0, 1},
+	{1, 0, 0, 0, 1, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1}
+};
 
 int		exit_window(t_data *data)
 {
@@ -30,89 +35,12 @@ int		exit_window(t_data *data)
 	return (1);
 }
 
-int		create_trgb(int t, int r, int g, int b)
-{
-	return(t << 24 | r << 16 | g << 8 | b);
-}
-
-int		get_t(int trgb)
-{
-	return (trgb & (0xFF << 24));
-}
-
-int		get_r(int trgb)
-{
-	return (trgb & (0xFF << 16));
-}
-
-int		get_g(int trgb)
-{
-	return (trgb & (0xFF << 8));
-}
-
-int		get_b(int trgb)
-{
-	return (trgb & 0xFF);
-}
-
 void	put_pixel(int x, int y, int colour, t_data *data)
 {
 	char	*dst;
 
 	dst = data->img.addr + (y * data->img.line_length + x * (data->img.bits_per_pixel / 8));
 	*(unsigned int*)dst = colour;
-}
-
-int	draw_crosshair(t_data *data)
-{
-	int		y;
-	int		x;
-	
-	y = 0;
-	while (y < 480)
-	{
-		x = 0;
-		while (x < 800)
-		{
-			put_pixel(x, y, 0x00000000, data);
-			x++;
-		}
-		y++;
-	}
-	x = 0;
-	y = 0;
-	while (y < data->obj_height)
-	{
-		put_pixel(data->x_pos + (data->obj_width / 2), data->y_pos + y, 0x00FFFFFF, data);
-		y++;
-	}
-	while (x < data->obj_width)
-	{
-		put_pixel(data->x_pos + x, data->y_pos + (data->obj_width / 2), 0x00FFFFFF, data);
-		x++;
-	}
-/*	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);*/
-	return (1);
-}
-
-int		keypress(int keycode, t_data *data)
-{
-	if (keycode == 53)
-		exit_window(data);
-	if (keycode == 13)
-		if (data->y_pos > 0)
-			data->y_pos -= SPEED;
-	if (keycode == 1)
-		if (data->y_pos < (data->y_res - 4))
-			data->y_pos += SPEED;
-	if (keycode == 0)
-		if (data->x_pos > 0)
-			data->x_pos -= SPEED;
-	if (keycode == 2)
-		if (data->x_pos < (data->x_res - 4))
-			data->x_pos += SPEED;
-	/*draw_crosshair(data);*/
-	return (1);
 }
 
 static void	*start_mlx(t_data *data)
@@ -132,6 +60,26 @@ static void	*start_mlx(t_data *data)
 	return ("1");
 }
 
+int		keypress(int keycode, t_data *data)
+{
+	if (keycode == ESC)
+		exit_window(data);
+	if (keycode == W)
+	{
+		if (map[(data->y_pos - data->speed) / map_size][data->x_pos / map_size] != 1)
+			data->y_pos -= data->speed;
+	}
+	if (keycode == S)
+		if (map[(data->y_pos + data->speed) / map_size][data->x_pos / map_size] != 1)
+			data->y_pos += data->speed;
+	if (keycode == A)
+		if (map[data->y_pos / map_size][(data->x_pos - data->speed)/ map_size] != 1)
+			data->x_pos -= data->speed;
+	if (keycode == D)
+		if (map[data->y_pos / map_size][(data->x_pos + data->speed)/ map_size] != 1)
+			data->x_pos += data->speed;
+	return (1);
+}
 
 void	init_environment(t_data *data)
 {
@@ -144,14 +92,14 @@ void	init_environment(t_data *data)
 		x = 0;
 		while (x < data->x_res)
 		{
-			put_pixel(x, y, 0x00000000, data);
+			put_pixel(x, y, 0x00c5c5c5, data);
 			/*
 			if (y < (data.y_res / 2))
 				put_pixel(x, y, 0x00c5c5c5);
 			else
 				put_pixel(x, y, 0x007fbebe);
 			*/
-		x++;
+			x++;
 		}
 		y++;
 	}
@@ -189,8 +137,6 @@ int	draw_player(t_data *data)
 		}
 		y++;
 	}
-	
-	/*mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);*/
 	return (1);
 }
 
@@ -202,7 +148,6 @@ int		draw_2d_map(t_data *data)
 	int yo;
 	
 	y = 0;
-	x = 0;
 	while (y < map_y)
 	{
 		x = 0;
@@ -210,10 +155,10 @@ int		draw_2d_map(t_data *data)
 		{
 			xo = x * map_size;
 			yo = y * map_size;
-			if (map[y * map_x + x] == 1)
-				draw_cube(xo + 1, xo + map_size - 1, yo + 1, yo + map_size - 1, 0x00FFFFFF, data);
+			if (map[y][x] == 1)
+				draw_cube(xo + 1, xo + map_size - 1, yo + 1, yo + map_size - 1, WHITE, data);
 			else
-				draw_cube(xo + 1, xo + map_size - 1, yo + 1, yo + map_size - 1, 0x00000000, data);
+				draw_cube(xo + 1, xo + map_size - 1, yo + 1, yo + map_size - 1, BLACK, data);
 			x++;
 		}
 		y++;
@@ -223,12 +168,11 @@ int		draw_2d_map(t_data *data)
 
 int		window_loop(t_data *data)
 {
-	/*mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.img_ptr);
-	*/
+	/*	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.img_ptr);	*/
 	draw_2d_map(data);
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
-	/*mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, data->window);*/
+	/*	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, data->window);	*/
 	return (1);
 }
 
@@ -240,6 +184,7 @@ int		loops(t_data *data)
 	mlx_loop(data->mlx);
 	return (0);
 }
+
 int		main(void)
 {
 	t_data		data;

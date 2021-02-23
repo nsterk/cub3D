@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
+/*   colours.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/23 18:00:19 by nsterk        ########   odam.nl         */
+/*   Created: 2021/02/23 17:24:39 by nsterk        #+#    #+#                 */
+/*   Updated: 2021/02/23 17:24:50 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
-
-void	init_data(t_data *data)
+int		create_trgb(int t, int r, int g, int b)
 {
-	data->y_res = 600;
-	data->x_res = 1024;
-	data->y_pos = 100;
-	data->x_pos = 100;
-	data->speed = 2;
+	return(t << 24 | r << 16 | g << 8 | b);
+}
+
+int		get_t(int trgb)
+{
+	return (trgb & (0xFF << 24));
+}
+
+int		get_r(int trgb)
+{
+	return (trgb & (0xFF << 16));
+}
+
+int		get_g(int trgb)
+{
+	return (trgb & (0xFF << 8));
+}
+
+int		get_b(int trgb)
+{
+	return (trgb & 0xFF);
 }
