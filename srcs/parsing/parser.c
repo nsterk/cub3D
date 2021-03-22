@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/22 15:51:48 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/22 16:59:04 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ static int	id_path(t_file *file, char *s)
 {
 	static const t_id	id[3] = {
 		[0] = &parse_res,
-		[1] = &parse_colour,
+		[1] = &colour,
 	};
 
 	return (((*(u_int16_t *)s == *(u_int16_t *) "R ") && id[0](file, s + 1))
-		|| ((*(u_int16_t *)s == *(u_int16_t *) "C ")
-			&& id[1](file->ceiling, s + 1)) || ((*(u_int16_t *)s
-				== *(u_int16_t *) "F ") && id[1](file->floor, s + 1)));
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "C ") && id[1](file, s))
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "F ") && id[1](file, s)));
 }
 
 static char	first_char(char *str)
@@ -59,7 +58,7 @@ int	parse_start(t_file *file)
 		{
 			while (!ft_isalpha(file->line[i]))
 				i++;
-			if (!id_path(file, file->line + i))
+			if (id_path(file, file->line + i))
 			{
 				return (1);
 			}
@@ -71,7 +70,6 @@ int	parse_start(t_file *file)
 		*/
 	}
 	free(file->line);
-	printf("res.x: %i, res.y: %i\n", file->res.x, file->res.y);
 	close(fd);
 	return (0);
 }
@@ -92,6 +90,13 @@ int	parse_res(t_file *file, char *line)
 		return (1);
 	file->res.y = ft_atoi(line);
 	return (0);
+}
+
+int	colour(t_file *file, char *line)
+{
+	if (*line == 'C')
+		return (parse_colour(&file->ceiling, line + 1));
+	return (parse_colour(&file->floor, line + 1));
 }
 
 int	parse_colour(t_colour *colour, char *line)

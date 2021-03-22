@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/03/09 17:48:08 by nsterk        ########   odam.nl          #
+#    Updated: 2021/03/22 15:58:57 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ PARSE_PATH	=	./srcs/parsing/
 CUB3D_PATH	=	./srcs/
 
 LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
+				ft_free_array.c \
 				ft_isalnum.c ft_isalpha.c ft_isdigit.c \
 				ft_skipspace.c \
 				ft_strchr.c ft_strcpy.c ft_strlcpy.c \

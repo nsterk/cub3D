@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/22 15:22:28 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/22 16:15:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void		init_data(t_data *data);
 typedef int	(*t_id)(t_file *file, char *id);
 int			parse_start(t_file *file);
 int			parse_res(t_file *file, char *line);
+int			colour(t_file *file, char *line);
 int			parse_colour(t_colour *colour, char *line);
 
 /*
