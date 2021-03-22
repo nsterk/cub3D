@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/09 19:28:22 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/22 15:03:59 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	id_path(t_file *file, char *s)
 	};
 
 	return (((*(u_int16_t *)s == *(u_int16_t *) "R ") && id[0](file, s + 1))
-		|| ((*(u_int16_t *)s == *(u_int16_t *) "C ") && id[1](file, s))
-		|| ((*(u_int16_t *)s == *(u_int16_t *) "F ") && id[1](file, s)));
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "C ") && id[1](file->ceiling, s + 1))
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "F ") && id[1](file->floor, s + 1)));
 }
 
 static char	first_char(char *str)
@@ -93,12 +93,12 @@ int	parse_res(t_file *file, char *line)
 	return (1);
 }
 
-int	parse_colour(t_file *file, char *line)
+int	parse_colour(t_colour *colour, char *line)
 {
+	char  **str;
 	if (file)
 		return (1);
 	if (line)
 		return (1);
 	return (1);
 }
-
