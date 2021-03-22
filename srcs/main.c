@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/09 18:12:35 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/22 15:27:26 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	loops(t_data *data)
 	mlx_hook(data->window, 2, (1L << 0), keypress, data);
 	mlx_loop_hook(data->mlx, &window_loop, data);
 	mlx_loop(data->mlx);
-	return (0);
+	return (1);
 }
 
 int	validate_input(int argc, char **argv, t_file *file)
@@ -95,15 +95,15 @@ int	validate_input(int argc, char **argv, t_file *file)
 		file->str = argv[1];
 	}
 	else
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (!validate_input(argc, argv, &data.file))
+	if (validate_input(argc, argv, &data.file))
 		return (0);
 	init_data(&data);
 	parse_start(&data.file);
