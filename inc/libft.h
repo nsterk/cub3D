@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 11:00:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/22 15:54:38 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/24 16:27:05 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,16 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 
 /*
-**	own additions
+**	Own additions.
+**	ft_strcdup, ft_strclen, and ft_strccpy differ from the standard versions in that
+**	they take a character 'c' which is to be ignored for the return value.
 */
 
 size_t				ft_strnlen(const char *s, size_t maxlen);
+size_t				ft_strclen(const char *s, char c);
+char				*ft_strcdup(const char *src, char c);
 char				*ft_strcpy(char *dest, const char *src);
+char				*ft_strccpy(char *dest, char *src, char c);
 const char			*ft_skipspace(const char *str);
 int					ft_free_array(char **str);
 

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/22 16:59:04 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/24 15:44:04 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ static char	first_char(char *str)
 		str++;
 	return (*str);
 }
-/*
+
 static int	ready_for_map(t_file *file)
 {
-	if (!file->res.x || file->res.y)
+	if (!file->res.x || !file->res.y || !file->floor.R
+		|| !file->floor.G || !file->floor.B
+		|| !file->ceiling.R || file->ceiling.G
+		|| !file->ceiling.B)
 		return (0);
 	return (1);
 }
-*/
+
 int	parse_start(t_file *file)
 {
 	int		fd;
@@ -63,11 +66,9 @@ int	parse_start(t_file *file)
 				return (1);
 			}
 		}
-		free(file->line);
-		ret = get_next_line(fd, &file->line);
-		/*
 		else if (ready_for_map(file) && ft_isdigit(first_char(file->line)))
-		*/
+		free(file->line);
+		ret = get_next_line(fd, &file->line);	
 	}
 	free(file->line);
 	close(fd);
