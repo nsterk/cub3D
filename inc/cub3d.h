@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/22 16:15:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/29 14:58:07 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_file
 {
 	const char	*str;
 	char		*line;
+	char		**map;
 	t_i2vec		res;
 	char		*tex_north;
 	char		*tex_south;
