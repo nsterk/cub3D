@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 15:35:22 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/03 01:36:48 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/03/31 16:37:30 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,23 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		current->next = new;
 	}
 }
+/*
+void	*ft_lstadd_back(t_list **lst, char *content)
+{
+	t_list	*new;
+	t_list	*temp;
+
+	if (!lst)
+		return ;
+	new = ft_lstnew(content);
+	if (!temp)
+		return (NULL);
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		temp = ft_lstlast(*lst);
+		temp->next = new;
+	}
+}
+*/
