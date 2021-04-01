@@ -6,7 +6,7 @@
 /*   By: nsterk <marvin@codam.nl>                     +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/16 12:26:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/24 16:17:45 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/01 19:48:09 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ size_t	ft_strclen(const char *s, char c)
 	i = 0;
 	if (s)
 	{
-		while (s[i] != '\0')
+		while (*s != '\0')
 		{
-			if (s[i] != c)
+			if (*s != c)
 				i++;
+			s++;
 		}
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/01 14:59:45 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/01 19:36:31 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	parse_map(int fd, t_file *file, int ret)
 	t_list	*head;
 	t_list	*temp;
 
-	head = ft_lstnew(ft_strdup(file->line));
+	head = ft_lstnew(ft_strcdup(file->line, ' '));
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
 		if (ret < 0)
 			return (1);
-		ft_stradd_back(&head, ft_strdup(line));
+		ft_stradd_back(&head, ft_strcdup(line, ' '));
 		free(line);
 	}
 	temp = head;

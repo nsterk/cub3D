@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 11:00:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/31 17:04:02 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/01 19:14:43 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ size_t				ft_strnlen(const char *s, size_t maxlen);
 size_t				ft_strclen(const char *s, char c);
 char				*ft_strcdup(const char *src, char c);
 char				*ft_strcpy(char *dest, const char *src);
-char				*ft_strccpy(char *dest, char *src, char c);
+char				*ft_strccpy(char *dest, const char *src, char c);
 const char			*ft_skipspace(const char *str);
 int					ft_free_array(char **str);
 void				*ft_stradd_back(t_list **lst, char *content);
