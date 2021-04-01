@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/29 17:22:02 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/01 17:00:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ static char	first_char(char *str)
 
 static int	ready_for_map(t_file *file)
 {
-	if (!file->res.x || !file->res.y || !file->floor.R
-		|| !file->floor.G || !file->floor.B
-		|| !file->ceiling.R || file->ceiling.G
-		|| !file->ceiling.B)
+	if (file->res.x < 0 || file->res.y < 0)
+		return (0);
+	if (file->floor.R < 0 || file->floor.G < 0
+		|| file->floor.B < 0)
+		return (0);
+	if (file->ceiling.R < 0 || file->ceiling.G < 0
+		|| file->ceiling.B < 0)
 		return (0);
 	return (1);
 }
@@ -53,9 +56,10 @@ int	parse_start(t_file *file)
 	fd = open(file->str, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	ret = get_next_line(fd, &file->line);
+	ret = 1;
 	while (ret > 0)
 	{
+		ret = get_next_line(fd, &file->line);
 		i = 0;
 		if (ft_isalpha(first_char(file->line)))
 		{
@@ -67,10 +71,12 @@ int	parse_start(t_file *file)
 			}
 		}
 		else if (ready_for_map(file) && ft_isdigit(first_char(file->line)))
+		{
+			if (parse_map(fd, file, ret))
+				return (1);
+		}
 		free(file->line);
-		ret = get_next_line(fd, &file->line);	
 	}
-	free(file->line);
 	close(fd);
 	return (0);
 }

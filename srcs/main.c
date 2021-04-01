@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/22 16:20:00 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/01 15:12:42 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exit_window(t_data *data)
 	exit(1);
 	return (1);
 }
-
+/*
 static void	*start_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
@@ -40,7 +40,7 @@ static void	*start_mlx(t_data *data)
 		return (NULL);
 	return ("1");
 }
-
+*/
 int	keypress(int keycode, t_data *data)
 {
 	if (keycode == ESC)
@@ -107,8 +107,8 @@ int	main(int argc, char **argv)
 		return (0);
 	init_data(&data);
 	parse_start(&data.file);
-	start_mlx(&data);
 	/*
+	start_mlx(&data);
 	init_environment(&data);
 	loops(&data);
 	*/

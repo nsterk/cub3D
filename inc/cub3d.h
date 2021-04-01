@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/31 16:37:22 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/01 14:51:00 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ int			parse_start(t_file *file);
 int			parse_res(t_file *file, char *line);
 int			colour(t_file *file, char *line);
 int			parse_colour(t_colour *colour, char *line);
+int			parse_map(int fd, t_file *file, int ret);
 
 /*
 **	Raycasting functions.
