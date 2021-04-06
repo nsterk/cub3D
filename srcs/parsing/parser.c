@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/01 19:45:28 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/06 18:50:32 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	parse_start(t_file *file)
 
 	fd = open(file->str, O_RDONLY);
 	if (fd < 0)
-		return (1);
+		return (0);
 	ret = 1;
 	while (ret > 0)
 	{
@@ -65,18 +65,18 @@ int	parse_start(t_file *file)
 		{
 			while (!ft_isalpha(file->line[i]))
 				i++;
-			if (id_path(file, file->line + i))
-			{
-				return (1);
-			}
+			if (!id_path(file, file->line + i))
+				return (0);
 		}
 		else if (ready_for_map(file) && ft_isdigit(first_char(file->line)))
 		{
-			if (parse_map(fd, file, ret))
-				return (1);
+			if (!parse_map(fd, file, ret))
+				return (0);
+			else
+				ret = 0;
 		}
 		free(file->line);
 	}
 	close(fd);
-	return (0);
+	return (1);
 }

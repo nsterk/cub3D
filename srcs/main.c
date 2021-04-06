@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/01 15:12:42 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/06 23:53:25 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exit_window(t_data *data)
 	exit(1);
 	return (1);
 }
-/*
+
 static void	*start_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
@@ -40,11 +40,21 @@ static void	*start_mlx(t_data *data)
 		return (NULL);
 	return ("1");
 }
-*/
+
 int	keypress(int keycode, t_data *data)
 {
 	if (keycode == ESC)
 		exit_window(data);
+	if (keycode == D)
+	{
+		data->pos.x += data->plane.y * data->speed;
+	}
+	if (keycode == A)
+		data->pos.x -= data->plane.y * data->speed;
+	if (keycode == W)
+		data->pos.y--;
+	if (keycode == S)
+		data->pos.y++;
 	return (1);
 }
 
@@ -71,11 +81,18 @@ void	init_environment(t_data *data)
 
 int	window_loop(t_data *data)
 {
-	/*mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.img_ptr);*/
+	int	x;
+
+	x = 0;
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.img_ptr);
 	init_environment(data);
-	raycaster(data);
+	while (x < data->res.x)
+	{
+		raycaster(data, x);
+		x++;
+	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
-	/*mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, data->window);*/
+	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, data->window);
 	return (1);
 }
 
@@ -95,22 +112,21 @@ int	validate_input(int argc, char **argv, t_file *file)
 		file->str = argv[1];
 	}
 	else
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (validate_input(argc, argv, &data.file))
+	if (!validate_input(argc, argv, &data.file))
 		return (0);
 	init_data(&data);
 	parse_start(&data.file);
-	/*
+	complete_data(&data);
 	start_mlx(&data);
 	init_environment(&data);
 	loops(&data);
-	*/
 	return (0);
 }

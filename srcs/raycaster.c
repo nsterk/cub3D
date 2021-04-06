@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/03 08:27:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/06 23:40:03 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,43 @@
 #include <math.h>
 #include <stdio.h>
 
-void	raycaster(t_data *data)
+void	calc_line(t_data *data, t_ray *ray)
 {
-	int		x;
+	if (!ray->side)
+		ray->perp_dist = (ray->map.x - data->pos.x + (1 - ray->step.x) / 2)
+		/ ray->dir.x;
+	else
+		ray->perp_dist = (ray->map.y - data->pos.y + (1 - ray->step.y) / 2)
+		/ ray->dir.y;
+	ray->line_height = (int)(data->res.y / ray->perp_dist);
+	ray->line_start = -ray->line_height / 2 + data->res.y / 2;
+	if (ray->line_start < 0)
+		ray->line_start = 0;
+	ray->line_end = ray->line_height / 2 + data->res.y / 2;
+	if (ray->line_end >= data->res.y)
+		ray->line_end = data->res.y - 1;
+}
+
+void	raycaster(t_data *data, int x)
+{
 	int		colour;
 	t_ray	ray;
 
-	x = 0;
-	while (x < data->res.x)
-	{
-		ray.camera_x = 2 * x / (double)data->res.x - 1;
-		ray.dir.x = data->dir.x + data->plane.x * ray.camera_x;
-		ray.dir.y = data->dir.y + data->plane.y * ray.camera_x;
-		ray.map.x = (int)data->pos.x;
-		ray.map.y = (int)data->pos.y;
-		ray.delta_dist.x = fabs(1 / ray.dir.x);
-		ray.delta_dist.y = fabs(1 / ray.dir.y);
-		ray.hit = 0;
-		calc_step_distance(data, &ray);
-		differential_analysis(data, &ray);
-		ray.line_height = (int)(data->res.x / ray.perp_dist);
-		ray.line_start = -ray.line_height / 2 + data->res.x / 2;
-		if (ray.line_start < 0)
-			ray.line_start = 0;
-		ray.line_end = ray.line_height / 2 + data->res.x / 2;
-		if (ray.line_end >= data->res.x)
-			ray.line_end = data->res.x - 1;
-	}
+	ray.camera_x = 2 * x / (double)data->res.x - 1;
+	ray.dir.x = data->dir.x + data->plane.x * ray.camera_x;
+	ray.dir.y = data->dir.y + data->plane.y * ray.camera_x;
+	ray.map.x = (int)data->pos.x;
+	ray.map.y = (int)data->pos.y;
+	ray.delta_dist.x = fabs(1 / ray.dir.x);
+	ray.delta_dist.y = fabs(1 / ray.dir.y);
+	ray.hit = 0;
+	calc_step_distance(data, &ray);
+	differential_analysis(data, &ray);
+	calc_line(data, &ray);
 	colour = RED;
 	if (ray.side == 1)
 		colour /= 2;
 	put_line(x, ray.line_start, ray.line_end, colour, &data->img);
-	x++;
 }
 
 void	calc_step_distance(t_data *data, t_ray *ray)
@@ -93,4 +98,5 @@ void	differential_analysis(t_data *data, t_ray *ray)
 		if (data->map[ray->map.y][ray->map.x] == '1')
 			ray->hit = 1;
 	}
+
 }

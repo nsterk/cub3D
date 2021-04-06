@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/29 17:22:11 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/06 17:26:29 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int	parse_res(t_file *file, char *line)
 	i = 0;
 	line = (char *)ft_skipspace(line);
 	if (!ft_isdigit(*line))
-		return (1);
+		return (0);
 	file->res.x = ft_atoi(line);
 	while (ft_isdigit(line[i]))
 		i++;
 	line = (char *)ft_skipspace(line + i);
 	if (!ft_isdigit(*line))
-		return (1);
+		return (0);
 	file->res.y = ft_atoi(line);
-	return (0);
+	return (1);
 }
 
 int	colour(t_file *file, char *line)
@@ -51,5 +51,5 @@ int	parse_colour(t_colour *colour, char *line)
 		|| colour->R > 255 || colour->G > 255
 		|| colour->B > 255)
 		return (ft_free_array(str));
-	return (0);
+	return (1);
 }

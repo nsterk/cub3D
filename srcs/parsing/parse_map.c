@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/01 19:36:31 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/06 17:27:59 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,38 @@ int	parse_map(int fd, t_file *file, int ret)
 {
 	char	*line;
 	t_list	*head;
-	t_list	*temp;
 
-	head = ft_lstnew(ft_strcdup(file->line, ' '));
+	head = ft_lstnew(ft_strdup(file->line));
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
 		if (ret < 0)
-			return (1);
-		ft_stradd_back(&head, ft_strcdup(line, ' '));
+			return (0);
+		ft_stradd_back(&head, ft_strdup(line));
 		free(line);
 	}
-	temp = head;
-	while (temp)
-	{
-		printf("%s\n", temp->content);
-		temp = temp->next;
-	}
-	return (0);
+	file->map = copy_map(head, ft_lstsize(head));
+	if (!file->map)
+		return (0);
+	ft_lstclear(&head, free);
+	return (1);
 }
-/*
-char	**alloc_map(int n, char **old)
+
+char	**copy_map(t_list *list, int size)
 {
-	char	**new;
+	char	**map;
 	int		i;
 
+	map = (char **)malloc(sizeof(char *) * (size + 1));
+	if (!map)
+		return (NULL);
 	i = 0;
-	new = malloc(sizeof(**new) * (n + 2));
-	if (!new)
-	return (NULL);
-	while (old[i] != NULL)
+	while (list)
 	{
-		new[i] = ft_strdup(old[i]);
-		free(old[i]);
+		map[i] = ft_strdup(list->content);
+		list = list->next;
 		i++;
 	}
-	free(old);
-	return (new);
+	map[i] = NULL;
+	return (map);
 }
-*/

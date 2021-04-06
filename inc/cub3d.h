@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/01 14:51:00 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/06 23:50:45 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,7 @@ typedef struct s_data
 	t_d2vec		pos;
 	t_d2vec		dir;
 	t_d2vec		plane;
-	t_ray		ray;
-	int			speed;
+	double		speed;
 	t_img		img;
 	int			map_size;
 	int			map_x;
@@ -151,6 +150,7 @@ typedef struct s_data
 }			t_data;
 
 void		init_data(t_data *data);
+void		complete_data(t_data *data);
 
 /*
 **	Parsing functions.
@@ -161,14 +161,16 @@ int			parse_res(t_file *file, char *line);
 int			colour(t_file *file, char *line);
 int			parse_colour(t_colour *colour, char *line);
 int			parse_map(int fd, t_file *file, int ret);
+char		**copy_map(t_list *list, int size);
 
 /*
 **	Raycasting functions.
 */
 
-void		raycaster(t_data *data);
+void		raycaster(t_data *data, int x);
 void		calc_step_distance(t_data *data, t_ray *ray);
 void		differential_analysis(t_data *data, t_ray *ray);
+void		calc_line(t_data *data, t_ray *ray);
 void		rotate_left(t_data *data);
 void		rotate_right(t_data *data);
 
