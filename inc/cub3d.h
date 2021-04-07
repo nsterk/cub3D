@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/06 23:50:45 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 14:11:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define RED	0x00FF0000
 # define GREEN	0x0000FF00
 # define YELLOW	0x00FFFF00
+# define LIGHTGRAY	0x009E9F8C
+# define DARKGRAY	0x007e7f70
 
 # define PI		3.1415926
 

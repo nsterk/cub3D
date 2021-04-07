@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/06 23:40:03 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 14:11:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	raycaster(t_data *data, int x)
 	calc_step_distance(data, &ray);
 	differential_analysis(data, &ray);
 	calc_line(data, &ray);
-	colour = RED;
+	colour = LIGHTGRAY;
 	if (ray.side == 1)
-		colour /= 2;
+		colour = DARKGRAY;
 	put_line(x, ray.line_start, ray.line_end, colour, &data->img);
 }
 
