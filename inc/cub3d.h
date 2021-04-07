@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 14:45:25 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 16:11:37 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ typedef struct s_ray
 	t_d2vec		delta_dist;
 	double		perp_dist;
 	t_i2vec		step;
-	int			hit;
 	int			side;
 	int			line_height;
 	int			line_start;

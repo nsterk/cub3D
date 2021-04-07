@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 14:11:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 18:47:28 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	calc_line(t_data *data, t_ray *ray)
 {
-	if (!ray->side)
+	if (ray->side == 0)
 		ray->perp_dist = (ray->map.x - data->pos.x + (1 - ray->step.x) / 2)
 		/ ray->dir.x;
 	else
@@ -39,17 +39,41 @@ void	raycaster(t_data *data, int x)
 	ray.camera_x = 2 * x / (double)data->res.x - 1;
 	ray.dir.x = data->dir.x + data->plane.x * ray.camera_x;
 	ray.dir.y = data->dir.y + data->plane.y * ray.camera_x;
-	ray.map.x = (int)data->pos.x;
-	ray.map.y = (int)data->pos.y;
+	ray.map.x = data->pos.x;
+	ray.map.y = data->pos.y;
 	ray.delta_dist.x = fabs(1 / ray.dir.x);
 	ray.delta_dist.y = fabs(1 / ray.dir.y);
-	ray.hit = 0;
+	/*
+	if (ray.dir.y == 0)
+		ray.delta_dist.x = 0;
+	else if (ray.dir.x == 0)
+		ray.delta_dist.x = 1;
+	else
+		ray.delta_dist.x = fabs(1 / ray.dir.x);
+	if (ray.dir.x == 0)
+		ray.delta_dist.y = 0;
+	else if (ray.dir.y == 0)
+		ray.delta_dist.y = 1;
+	else
+		ray.delta_dist.y = fabs(1 / ray.dir.y);
+		*/
 	calc_step_distance(data, &ray);
 	differential_analysis(data, &ray);
 	calc_line(data, &ray);
 	colour = LIGHTGRAY;
 	if (ray.side == 1)
 		colour = DARKGRAY;
+	/*
+	if (x == 150)
+	{
+		printf("camera_x: %f\nmap x ,y: %i, %i\n", ray.camera_x, ray.map.x, ray.map.y);
+		printf("dir x,y: %f, %f\n", ray.dir.x, ray.dir.y);
+		printf("side_dist x,y: %f, %f\n", ray.side_dist.x, ray.side_dist.y);
+		printf("delta_dist x,y: %f, %f\n", ray.delta_dist.x, ray.delta_dist.y);
+		printf("step x,y: %i, %i\n", ray.step.x, ray.step.y);
+		printf("perp_dist: %f\nside: %i\nline_height: %i\nline_start: %i\nline_end: %i\n", ray.perp_dist, ray.side, ray.line_height, ray.line_start, ray.line_end);
+	}
+	*/
 	put_line(x, ray.line_start, ray.line_end, colour, &data->img);
 }
 
@@ -81,7 +105,7 @@ void	calc_step_distance(t_data *data, t_ray *ray)
 
 void	differential_analysis(t_data *data, t_ray *ray)
 {
-	while (!ray->hit)
+	while (1)
 	{
 		if (ray->side_dist.x < ray->side_dist.y)
 		{
@@ -96,7 +120,6 @@ void	differential_analysis(t_data *data, t_ray *ray)
 			ray->side = 1;
 		}
 		if (data->map[ray->map.y][ray->map.x] == '1')
-			ray->hit = 1;
+			break ;
 	}
-
 }

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 14:46:11 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 15:24:04 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	keypress(int keycode, t_data *data)
 	}
 	if (keycode == LEFT)
 		rotate_left(data);
+	if (keycode == RIGHT)
+		rotate_right(data);
 	return (1);
 }
 

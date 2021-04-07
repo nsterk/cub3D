@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 14:26:51 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 18:50:38 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_data(t_data *data)
 	data->res.y = 400;
 	data->res.x = 400;
 	data->pos.x = 7;
-	data->pos.y = 7;
+	data->pos.y = 3;
 	data->dir.x = -1;
 	data->dir.y = 0;
 	data->plane.x = 0;
