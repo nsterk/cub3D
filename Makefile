@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/04/06 17:24:20 by nsterk        ########   odam.nl          #
+#    Updated: 2021/04/07 14:44:17 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx -g
 LIBFT_PATH	=	./srcs/libft/
 GNL_PATH	=	./srcs/gnl/
 PARSE_PATH	=	./srcs/parsing/
+MOVE_PATH	=	./srcs/moving/
 CUB3D_PATH	=	./srcs/
 
 LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
@@ -34,27 +35,30 @@ LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
 				ft_strtrim.c ft_split.c
 GNL_C		=	get_next_line.c get_next_line_utils.c
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c
+MOVE_C		=	move.c rotate.c
 CUB3D_C		=	main.c init.c raycaster.c draw.c
 
 LIBFT_SRCS	=	$(LIBFT_C:%=$(LIBFT_PATH)%)
 GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)
 PARSE_SRCS	=	$(PARSE_C:%=$(PARSE_PATH)%)
+MOVE_SRCS	=	$(MOVE_C:%=$(MOVE_PATH)%)
 CUB3D_SRCS	=	$(CUB3D_C:%=$(CUB3D_PATH)%)
 
 # place main.c in srcs folder
 SRCS		= 	$(LIBFT_SRCS) $(GNL_SRCS) \
-				$(PARSE_SRCS) $(CUB3D_SRCS)			
+				$(PARSE_SRCS) $(MOVE_SRCS) \
+				$(CUB3D_SRCS)			
 OBJS		=	$(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME):
-	# make -C ./mlx
-	# cp ./mlx/libmlx.dylib .
+# make -C ./mlx
+# cp ./mlx/libmlx.dylib .
 	$(CC) $(W_FLAGS) $(MLX_FLAGS) $(SRCS) libmlx.dylib -o $(NAME)
 
 clean:
-	# make clean -C ./mlx
+# make clean -C ./mlx
 	rm -rf $(OBJS)
 
 fclean: clean
@@ -62,4 +66,4 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all clean
+.PHONY: all clean fclean re

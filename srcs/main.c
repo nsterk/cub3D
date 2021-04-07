@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 14:03:55 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 14:46:11 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,22 @@ int	keypress(int keycode, t_data *data)
 		exit_window(data);
 	if (keycode == D)
 	{
-		data->pos.x += data->plane.y * data->speed;
+		move_right(data);
 	}
 	if (keycode == A)
 	{
-		if (data->map[(int)data->pos.y][(int)(data->pos.x - data->plane.x * data->speed)] != '1')
-			data->pos.x -= data->plane.x * data->speed;
-		if (data->map[(int)(data->pos.y + data->plane.y * data->speed)][(int)data->pos.x] != '1')
-			data->pos.y -= data->plane.y * data->speed;
+		move_left(data);
 	}
 	if (keycode == W)
 	{
-		if (data->map[(int)data->pos.y][(int)(data->pos.x + data->dir.x * data->speed)] != '1')
-			data->pos.x += data->dir.x * data->speed;
-		if (data->map[(int)(data->pos.y + data->dir.y * data->speed)][(int)data->pos.x] != '1')
-			data->pos.y += data->dir.y * data->speed;
+		move_up(data);
 	}
 	if (keycode == S)
-		data->pos.y++;
+	{
+		move_down(data);
+	}
+	if (keycode == LEFT)
+		rotate_left(data);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 14:11:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/07 14:45:25 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # define LEFT	123
 # define RIGHT	124
 # define ESC	53
-
-# define SPEED	3
 
 # define MLX_SYNC_IMAGE_WRITABLE		1
 # define MLX_SYNC_WIN_FLUSH_CMD			2
@@ -142,7 +140,8 @@ typedef struct s_data
 	t_d2vec		pos;
 	t_d2vec		dir;
 	t_d2vec		plane;
-	double		speed;
+	double		move_speed;
+	double		rot_speed;
 	t_img		img;
 	int			map_size;
 	int			map_x;
@@ -164,6 +163,15 @@ int			colour(t_file *file, char *line);
 int			parse_colour(t_colour *colour, char *line);
 int			parse_map(int fd, t_file *file, int ret);
 char		**copy_map(t_list *list, int size);
+
+/*
+**	Moving functions.
+*/
+
+void		move_up(t_data *data);
+void		move_down(t_data *data);
+void		move_left(t_data *data);
+void		move_right(t_data *data);
 
 /*
 **	Raycasting functions.
