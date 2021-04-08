@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/06 17:27:59 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 17:40:18 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	parse_map(int fd, t_file *file, int ret)
 {
 	char	*line;
 	t_list	*head;
+	int		i;
 
 	head = ft_lstnew(ft_strdup(file->line));
 	while (ret > 0)
@@ -27,10 +28,19 @@ int	parse_map(int fd, t_file *file, int ret)
 		ft_stradd_back(&head, ft_strdup(line));
 		free(line);
 	}
-	file->map = copy_map(head, ft_lstsize(head));
+	file->map_y = ft_lstsize(head);
+	file->map = copy_map(head, file->map_y);
 	if (!file->map)
 		return (0);
 	ft_lstclear(&head, free);
+	file->map_x = get_width(file);
+	i = 0;
+	while (i < file->map_y)
+	{
+		printf("%i: %s\nlen: %i\n", i, file->map[i], file->map_x[i]);
+		i++;
+	}
+	printf("file->map_y: %i\n", file->map_y);
 	return (1);
 }
 
@@ -51,4 +61,22 @@ char	**copy_map(t_list *list, int size)
 	}
 	map[i] = NULL;
 	return (map);
+}
+
+int		*get_width(t_file *file)
+{
+	int	i;
+	int	*map_x;
+
+	i = 0;
+	map_x = malloc(sizeof(int) * (file->map_y + 1));
+	if (!map_x)
+		return (NULL);
+	while (i < file->map_y)
+	{
+		map_x[i] = (int)ft_strlen(file->map[i]);
+		i++;
+	}
+	map_x[i] = 0;
+	return (map_x);
 }

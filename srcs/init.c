@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/08 13:44:51 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 17:05:32 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,4 @@ void	init_data(t_data *data)
 	data->rot_speed = 0.05;
 	data->time = 0;
 	data->old_time = 0;
-	data->map_size = 64;
-	data->map_x = 24;
-	data->map_y = 16;
 }

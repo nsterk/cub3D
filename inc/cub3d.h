@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/08 13:42:16 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 17:19:55 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_file
 	const char	*str;
 	char		*line;
 	char		**map;
+	int			*map_x;
+	int			map_y;
 	t_i2vec		res;
 	char		*tex_north;
 	char		*tex_south;
@@ -143,10 +145,9 @@ typedef struct s_data
 	double		move_speed;
 	double		rot_speed;
 	t_img		img;
-	int			map_size;
-	int			map_x;
-	int			map_y;
 	char		**map;
+	int			*map_x;
+	int			map_y;
 	int			ceiling;
 	int			floor;
 	t_file		file;
@@ -165,6 +166,7 @@ int			colour(t_file *file, char *line);
 int			parse_colour(t_colour *colour, char *line);
 int			parse_map(int fd, t_file *file, int ret);
 char		**copy_map(t_list *list, int size);
+int			*get_width(t_file *file);
 int			create_trgb(int t, int r, int g, int b);
 
 /*
