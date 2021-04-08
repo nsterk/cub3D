@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/08 17:19:55 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 18:59:55 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ typedef struct s_file
 	const char	*str;
 	char		*line;
 	char		**map;
+	char		**map_check;
 	int			*map_x;
 	int			map_y;
 	t_i2vec		res;
+	t_i2vec		spawn;
 	char		*tex_north;
 	char		*tex_south;
 	char		*tex_west;
@@ -167,6 +169,8 @@ int			parse_colour(t_colour *colour, char *line);
 int			parse_map(int fd, t_file *file, int ret);
 char		**copy_map(t_list *list, int size);
 int			*get_width(t_file *file);
+int			validate_map(t_file *file);
+int			floodfill(int y, int x, t_file *file);
 int			create_trgb(int t, int r, int g, int b);
 
 /*

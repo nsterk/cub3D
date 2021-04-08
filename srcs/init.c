@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/08 17:05:32 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 18:54:04 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static void	init_file(t_file *file)
 {
 	file->line = NULL;
 	file->map = NULL;
+	file->map_check = NULL;
 	file->res.x = 0;
 	file->res.y = 0;
+	file->spawn = (t_i2vec){7, 3};
 	file->tex_north = NULL;
 	file->tex_south = NULL;
 	file->tex_west = NULL;

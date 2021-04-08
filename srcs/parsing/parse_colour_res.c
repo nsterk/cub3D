@@ -6,11 +6,12 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/06 17:26:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 18:57:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+#include <stdio.h>
 
 int	parse_res(t_file *file, char *line)
 {
@@ -50,6 +51,10 @@ int	parse_colour(t_colour *colour, char *line)
 	if (colour->R < 0 || colour->G < 0 || colour->B < 0
 		|| colour->R > 255 || colour->G > 255
 		|| colour->B > 255)
-		return (ft_free_array(str));
+	{
+		ft_free_array(str);
+		printf("Invalid ceiling or floor colour\n");
+		return (0);
+	}
 	return (1);
 }

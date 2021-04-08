@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/08 17:40:18 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 18:58:41 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	parse_map(int fd, t_file *file, int ret)
 {
 	char	*line;
 	t_list	*head;
-	int		i;
 
 	head = ft_lstnew(ft_strdup(file->line));
 	while (ret > 0)
@@ -34,13 +33,8 @@ int	parse_map(int fd, t_file *file, int ret)
 		return (0);
 	ft_lstclear(&head, free);
 	file->map_x = get_width(file);
-	i = 0;
-	while (i < file->map_y)
-	{
-		printf("%i: %s\nlen: %i\n", i, file->map[i], file->map_x[i]);
-		i++;
-	}
-	printf("file->map_y: %i\n", file->map_y);
+	if (!validate_map(file))
+		return (0);
 	return (1);
 }
 
