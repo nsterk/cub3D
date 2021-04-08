@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 16:11:37 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 13:42:16 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_file
 **	delta_dist:	distance from one x- or y-side to next.
 **	perp_dist:	perpendicular distance to wall.
 **	step:		what x- and -y direction to step in (+1 or -1).
-**	hit:		if wall is hit.
 **	side:		if horizontal (y/NS) wall or vertical (x/EW) wall is hit.
 **	line_height: the height of the line corresponding to the ray.
 **	line_start:	the y-coordinate to start drawing the line at.
@@ -127,6 +126,8 @@ typedef struct s_ray
 **	the time of the previous frame: difference between them determines
 **	the speed player moves at (in order to keep speed constant no matter how
 **	long the calculation takes).
+**	ceiling:	ceiling colour.
+**	floor:		floor colour.
 */
 
 typedef struct s_data
@@ -146,6 +147,8 @@ typedef struct s_data
 	int			map_x;
 	int			map_y;
 	char		**map;
+	int			ceiling;
+	int			floor;
 	t_file		file;
 }			t_data;
 
@@ -162,6 +165,7 @@ int			colour(t_file *file, char *line);
 int			parse_colour(t_colour *colour, char *line);
 int			parse_map(int fd, t_file *file, int ret);
 char		**copy_map(t_list *list, int size);
+int			create_trgb(int t, int r, int g, int b);
 
 /*
 **	Moving functions.

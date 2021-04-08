@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 15:24:04 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 13:47:00 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	init_environment(t_data *data)
 		while (x < data->res.x)
 		{
 			if (y < (data->res.y / 2))
-				put_pixel(x, y, 0x00c5c5c5, &data->img);
+				put_pixel(x, y, data->ceiling, &data->img);
 			else
-				put_pixel(x, y, 0x007fbebe, &data->img);
+				put_pixel(x, y, data->floor, &data->img);
 			x++;
 		}
 		y++;

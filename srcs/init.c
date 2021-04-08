@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 18:50:38 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/08 13:44:51 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	complete_data(t_data *data)
 	data->res.x = data->file.res.x;
 	data->res.y = data->file.res.y;
 	data->map = data->file.map;
+	data->ceiling = create_trgb(0, data->file.ceiling.R,
+		data->file.ceiling.G, data->file.ceiling.B);
+	data->floor = create_trgb(0, data->file.floor.R,
+		data->file.floor.G, data->file.floor.B);
 }
 
 void	init_data(t_data *data)

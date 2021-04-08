@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/04/07 14:44:17 by nsterk        ########   odam.nl          #
+#    Updated: 2021/04/08 13:42:54 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
 GNL_C		=	get_next_line.c get_next_line_utils.c
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c
 MOVE_C		=	move.c rotate.c
-CUB3D_C		=	main.c init.c raycaster.c draw.c
+CUB3D_C		=	main.c init.c raycaster.c draw.c colours.c
 
 LIBFT_SRCS	=	$(LIBFT_C:%=$(LIBFT_PATH)%)
 GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)
