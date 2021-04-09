@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/07 18:47:28 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/09 20:01:53 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 void	calc_line(t_data *data, t_ray *ray)
 {
 	if (ray->side == 0)
-		ray->perp_dist = (ray->map.x - data->pos.x + (1 - ray->step.x) / 2)
-		/ ray->dir.x;
+		ray->perp_dist = (ray->map.x - data->pos.x + \
+		(1 - ray->step.x) / 2) / ray->dir.x;
 	else
-		ray->perp_dist = (ray->map.y - data->pos.y + (1 - ray->step.y) / 2)
-		/ ray->dir.y;
+		ray->perp_dist = (ray->map.y - data->pos.y + \
+		(1 - ray->step.y) / 2) / ray->dir.y;
 	ray->line_height = (int)(data->res.y / ray->perp_dist);
+	if (ray->line_height < 0)
+		ray->line_height = data->res.y - 1;
 	ray->line_start = -ray->line_height / 2 + data->res.y / 2;
 	if (ray->line_start < 0)
 		ray->line_start = 0;
