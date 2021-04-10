@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/09 20:01:53 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/10 13:41:11 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	raycaster(t_data *data, int x)
 		printf("perp_dist: %f\nside: %i\nline_height: %i\nline_start: %i\nline_end: %i\n", ray.perp_dist, ray.side, ray.line_height, ray.line_start, ray.line_end);
 	}
 	*/
-	put_line(x, ray.line_start, ray.line_end, colour, &data->img);
+	put_line(x, ray, colour, &data->img);
 }
 
 void	calc_step_distance(t_data *data, t_ray *ray)

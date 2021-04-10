@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/09 16:24:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/10 13:41:38 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void		rotate_right(t_data *data);
 **	Drawing functions.
 */
 void		put_pixel(int x, int y, int colour, t_img *img);
-void		put_line(int x, int y0, int y1, int colour, t_img *img);
+void		put_line(int x, t_ray ray, int colour, t_img *img);
 void		init_environment(t_data *data);
 
 #endif

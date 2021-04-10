@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 15:58:54 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/03/03 06:35:50 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/10 13:42:10 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	put_pixel(int x, int y, int colour, t_img *img)
 	*(unsigned int *)dst = colour;
 }
 
-void	put_line(int x, int y0, int y1, int colour, t_img *img)
+void	put_line(int x, t_ray ray, int colour, t_img *img)
 {
-	while (y0 < y1)
+	while (ray.line_start < ray.line_end)
 	{
-		put_pixel(x, y0, colour, img);
-		y0++;
+		put_pixel(x, ray.line_start, colour, img);
+		ray.line_start++;
 	}
 }
