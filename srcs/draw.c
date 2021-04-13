@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 15:58:54 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/10 13:42:10 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/12 18:34:16 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,10 @@ void	put_line(int x, t_ray ray, int colour, t_img *img)
 		ray.line_start++;
 	}
 }
+/*
+t_colour	get_colour()
+{
+	t_colour	colour;
+	char		*dst;
+}
+*/

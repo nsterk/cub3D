@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/09 16:06:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/13 14:24:08 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	main(int argc, char **argv)
 	if (!validate_input(argc, argv, &data.file))
 		return (0);
 	init_data(&data);
-	parse_start(&data.file);
+	parse_start(&data);
 	complete_data(&data);
 	start_mlx(&data);
 	init_environment(&data);

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/10 13:41:11 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/13 16:21:07 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	calc_line(t_data *data, t_ray *ray)
 {
 	if (ray->side == 0)
 		ray->perp_dist = (ray->map.x - data->pos.x + \
-		(1 - ray->step.x) / 2) / ray->dir.x;
+		(1.0 - ray->step.x) / 2) / ray->dir.x;
 	else
 		ray->perp_dist = (ray->map.y - data->pos.y + \
-		(1 - ray->step.y) / 2) / ray->dir.y;
+		(1.0 - ray->step.y) / 2) / ray->dir.y;
 	ray->line_height = (int)(data->res.y / ray->perp_dist);
 	if (ray->line_height < 0)
 		ray->line_height = data->res.y - 1;
@@ -41,8 +41,8 @@ void	raycaster(t_data *data, int x)
 	ray.camera_x = 2 * x / (double)data->res.x - 1;
 	ray.dir.x = data->dir.x + data->plane.x * ray.camera_x;
 	ray.dir.y = data->dir.y + data->plane.y * ray.camera_x;
-	ray.map.x = data->pos.x;
-	ray.map.y = data->pos.y;
+	ray.map.x = (int)data->pos.x;
+	ray.map.y = (int)data->pos.y;
 	ray.delta_dist.x = fabs(1 / ray.dir.x);
 	ray.delta_dist.y = fabs(1 / ray.dir.y);
 	/*
@@ -121,7 +121,7 @@ void	differential_analysis(t_data *data, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (data->map[ray->map.y][ray->map.x] == '1')
+		if (data->map.map[ray->map.y][ray->map.x] == '1')
 			break ;
 	}
 }

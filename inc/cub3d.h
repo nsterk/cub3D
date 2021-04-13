@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/10 13:41:38 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/13 16:20:12 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <get_next_line.h>
 # include <libft.h>
+# include <stdio.h>
 
 /*
 **	DEFINES
@@ -78,6 +79,17 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
+typedef struct	s_tex
+{
+	char	*path;
+	void	*img_ptr;
+	char	*addr;
+	int		bits_pp;
+	int		line_length;
+	int		endian;
+}				t_tex;
+
+
 typedef struct s_file
 {
 	const char	*str;
@@ -86,12 +98,7 @@ typedef struct s_file
 	char		**map_check;
 	int			*map_x;
 	int			map_y;
-	t_i2vec		res;
 	t_i2vec		spawn;
-	char		*tex_north;
-	char		*tex_south;
-	char		*tex_west;
-	char		*tex_east;
 	char		*tex_sprite;
 	t_colour	floor;
 	t_colour	ceiling;
@@ -113,6 +120,8 @@ typedef struct s_file
 typedef struct s_ray
 {
 	double		camera_x;
+	double		wall_x;
+	t_i2vec		tex;
 	t_i2vec		map;
 	t_d2vec		dir;
 	t_d2vec		side_dist;
@@ -124,6 +133,16 @@ typedef struct s_ray
 	int			line_start;
 	int			line_end;
 }				t_ray;
+
+typedef struct	s_map
+{
+	char		**map;
+	char		**check;
+	int			*x;
+	int			y;
+	t_i2vec		spawn;
+}				t_map;
+
 
 /*
 **	Time stores the time of the current frame, old_time stores
@@ -147,12 +166,13 @@ typedef struct s_data
 	double		move_speed;
 	double		rot_speed;
 	t_img		img;
-	char		**map;
-	int			*map_x;
-	int			map_y;
+	int			tex_width;
+	int			tex_height;
+	t_map		map;
 	int			ceiling;
 	int			floor;
 	t_file		file;
+	t_tex		tex[4];
 }			t_data;
 
 void		init_data(t_data *data);
@@ -161,16 +181,17 @@ void		complete_data(t_data *data);
 /*
 **	Parsing functions.
 */
-typedef int	(*t_id)(t_file *file, char *id);
-int			parse_start(t_file *file);
-int			parse_res(t_file *file, char *line);
-int			colour(t_file *file, char *line);
+typedef int	(*t_id)(t_data *data, char *id);
+int			parse_start(t_data *data);
+int			parse_res(t_i2vec *res, char *line);
+int			parse_tex(t_tex *tex, char *line);
+int			colour(t_data *data, char *line);
 int			parse_colour(t_colour *colour, char *line);
-int			parse_map(int fd, t_file *file, int ret);
+int			parse_map(int fd, t_data *data, int ret);
 char		**copy_map(t_list *list, int size);
-int			*get_width(t_file *file);
-int			validate_map(t_file *file);
-int			floodfill(int y, int x, t_file *file);
+int			*get_width(t_map map);
+int			validate_map(t_map *map, char **grid);
+int			floodfill(int y, int x, t_map *map);
 int			create_trgb(int t, int r, int g, int b);
 
 /*

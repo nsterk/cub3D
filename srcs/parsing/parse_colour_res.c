@@ -6,14 +6,14 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/08 18:57:48 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/13 16:00:25 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 #include <stdio.h>
 
-int	parse_res(t_file *file, char *line)
+int	parse_res(t_i2vec *res, char *line)
 {
 	size_t	i;
 
@@ -21,21 +21,21 @@ int	parse_res(t_file *file, char *line)
 	line = (char *)ft_skipspace(line);
 	if (!ft_isdigit(*line))
 		return (0);
-	file->res.x = ft_atoi(line);
+	res->x = ft_atoi(line);
 	while (ft_isdigit(line[i]))
 		i++;
 	line = (char *)ft_skipspace(line + i);
 	if (!ft_isdigit(*line))
 		return (0);
-	file->res.y = ft_atoi(line);
+	res->y = ft_atoi(line);
 	return (1);
 }
 
-int	colour(t_file *file, char *line)
+int	colour(t_data *data, char *line)
 {
 	if (*line == 'C')
-		return (parse_colour(&file->ceiling, line + 1));
-	return (parse_colour(&file->floor, line + 1));
+		return (parse_colour(&data->file.ceiling, line + 1));
+	return (parse_colour(&data->file.floor, line + 1));
 }
 
 int	parse_colour(t_colour *colour, char *line)
