@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 12:54:39 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/16 14:22:26 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void		move_right(t_data *data);
 
 void		raycaster(t_data *data, int x);
 void		calc_step_distance(t_d2vec pos, t_ray *ray);
-void		differential_analysis(char **map, t_ray *ray);
+void		differential_analysis(t_data *data);
 void		calc_line(t_d2vec pos, t_i2vec res, t_ray *ray);
 void		rotate_left(t_data *data);
 void		rotate_right(t_data *data);

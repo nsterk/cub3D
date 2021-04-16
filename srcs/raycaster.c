@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/15 19:34:52 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/16 14:22:08 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	raycaster(t_data *data, int x)
 	ray->delta_dist.x = fabs(1 / ray->dir.x);
 	ray->delta_dist.y = fabs(1 / ray->dir.y);
 	calc_step_distance(data->pos, ray);
-	differential_analysis(data->map.grid, ray);
+	differential_analysis(data);
 	calc_line(data->pos, data->res, ray);
 	colour = LIGHTGRAY;
 	if (ray->side == 1)
@@ -78,23 +78,23 @@ void	calc_step_distance(t_d2vec pos, t_ray *ray)
 	}
 }
 
-void	differential_analysis(char **map, t_ray *ray)
+void	differential_analysis(t_data *data)
 {
 	while (1)
 	{
-		if (ray->side_dist.x < ray->side_dist.y)
+		if (data->ray.side_dist.x < data->ray.side_dist.y)
 		{
-			ray->side_dist.x += ray->delta_dist.x;
-			ray->map.x += ray->step.x;
-			ray->side = 0;
+			data->ray.side_dist.x += data->ray.delta_dist.x;
+			data->ray.map.x += data->ray.step.x;
+			data->ray.side = 0;
 		}
 		else
 		{
-			ray->side_dist.y += ray->delta_dist.y;
-			ray->map.y += ray->step.y;
-			ray->side = 1;
+			data->ray.side_dist.y += data->ray.delta_dist.y;
+			data->ray.map.y += data->ray.step.y;
+			data->ray.side = 1;
 		}
-		if (map[ray->map.y][ray->map.x] == '1')
+		if (data->map.grid[data->ray.map.y][data->ray.map.x] == '1')
 			break ;
 	}
 }
