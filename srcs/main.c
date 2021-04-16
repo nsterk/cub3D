@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 17:57:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/16 20:50:11 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	*start_mlx(t_data *data)
 	if (!data->img.img_ptr)
 		return (NULL);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bits_pp,
-			&data->img.line_length, &data->img.endian);
+			&data->img.len, &data->img.endian);
 	if (!data->img.addr)
 		return (NULL);
 	return ("1");
@@ -134,8 +134,8 @@ int	main(int argc, char **argv)
 		return (0);
 	init_data(&data);
 	parse_start(&data);
-	complete_data(&data);
 	start_mlx(&data);
+	complete_data(&data);
 	init_environment(&data);
 	loops(&data);
 	return (0);

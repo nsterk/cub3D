@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/04/12 18:34:41 by nsterk        ########   odam.nl          #
+#    Updated: 2021/04/16 20:08:21 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ GNL_C		=	get_next_line.c get_next_line_utils.c
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c \
 				parse_tex.c validate_map.c
 MOVE_C		=	move.c rotate.c
-CUB3D_C		=	main.c init.c raycaster.c draw.c colours.c
+CUB3D_C		=	main.c init.c raycaster.c draw.c colours.c \
+				textures.c
 
 LIBFT_SRCS	=	$(LIBFT_C:%=$(LIBFT_PATH)%)
 GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)

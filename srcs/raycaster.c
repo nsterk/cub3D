@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 14:22:08 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/16 20:58:16 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ void	raycaster(t_data *data, int x)
 	calc_step_distance(data->pos, ray);
 	differential_analysis(data);
 	calc_line(data->pos, data->res, ray);
-	colour = LIGHTGRAY;
-	if (ray->side == 1)
-		colour = DARKGRAY;
-	put_line(x, *ray, colour, &data->img);
+	put_texture(data, x);
 }
 
 void	calc_step_distance(t_d2vec pos, t_ray *ray)

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 14:22:26 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/16 20:38:06 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_img
 	void	*img_ptr;
 	char	*addr;
 	int		bits_pp;
-	int		line_length;
+	int		len;
 	int		endian;
 }				t_img;
 
@@ -73,6 +73,8 @@ typedef struct	s_tex
 	int		x;
 	int		y;
 	double	wall_x;
+	double	step;
+	double	pos;
 	int		width;
 	int		height;
 }				t_tex;
@@ -194,12 +196,15 @@ void		differential_analysis(t_data *data);
 void		calc_line(t_d2vec pos, t_i2vec res, t_ray *ray);
 void		rotate_left(t_data *data);
 void		rotate_right(t_data *data);
+void		calc_texture(t_data *data);
+void		put_texture(t_data *data, int x);
+int			get_colour(t_tex *tex);
 
 /*
 **	Drawing functions.
 */
 void		put_pixel(int x, int y, int colour, t_img *img);
-void		put_line(int x, t_ray ray, int colour, t_img *img);
+void		put_line(int x, t_ray *ray, int colour, t_img *img);
 void		init_environment(t_data *data);
 
 #endif
