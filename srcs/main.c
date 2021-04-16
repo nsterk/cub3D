@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/13 14:24:08 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/15 17:13:31 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	validate_input(int argc, char **argv, t_file *file)
 {
 	if (argc >= 2)
 	{
-		file->str = argv[1];
+		file->path = argv[1];
 	}
 	else
 		return (0);

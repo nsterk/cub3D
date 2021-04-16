@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/13 16:04:40 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/16 12:55:47 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,37 @@
 
 static void	init_file(t_file *file)
 {
+	file->path = NULL;
 	file->line = NULL;
-	file->map = NULL;
-	file->map_check = NULL;
-	file->res = (t_i2vec){0,0};
-	file->spawn = (t_i2vec){9, 6};
 	file->tex_north = NULL;
+	file->tex_east = NULL;
 	file->tex_south = NULL;
 	file->tex_west = NULL;
-	file->tex_east = NULL;
-	file->tex_sprite = NULL;
-	file->floor = (t_colour){-1, -1, -1};
-	file->ceiling = (t_colour){-1, -1, -1};
+}
 
+static void	init_ray(t_ray *ray)
+{
+	
+	ray->time = 0;
+	ray->old_time = 0;
 }
 
 void	complete_data(t_data *data)
 {
-	data->ceiling = create_trgb(0, data->file.ceiling.R,
-		data->file.ceiling.G, data->file.ceiling.B);
-	data->floor = create_trgb(0, data->file.floor.R,
-		data->file.floor.G, data->file.floor.B);
+	if (data)
+		return ;
 }
 
 void	init_data(t_data *data)
 {
 	init_file(&data->file);
-	data->res = (t_i2vec){400, 400};
+	init_ray(&data->ray);
+	data->res = (t_i2vec){-1, -1};
+	data->plane = (t_d2vec){0.0, 0.66};
 	data->pos = (t_d2vec){9, 6};
 	data->dir = (t_d2vec){-1, 0};
-	data->plane = (t_d2vec){0.0, 0.66};
+	data->map.spawn = (t_i2vec){9, 6};
+	data->map.spawn_dir = (t_d2vec){-1, 0};
 	data->move_speed = 0.15;
 	data->rot_speed = 0.05;
-	data->time = 0;
-	data->old_time = 0;
-	data->tex_width = 64;
-	data->tex_height = 64;
 }

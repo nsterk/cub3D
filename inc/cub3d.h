@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/13 16:20:12 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/16 12:54:39 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@
 # define LIGHTGRAY	0x009E9F8C
 # define DARKGRAY	0x007e7f70
 
-# define PI		3.1415926
-
 /*
-**	Struct for vector of type double
+**	Structs for vectors of type double & integer
 */
 
 typedef struct s_d2vec
@@ -53,22 +51,11 @@ typedef struct s_d2vec
 	double	y;
 }				t_d2vec;
 
-/*
-**	Struct for vector of type integer
-*/
-
 typedef struct s_i2vec
 {
 	int	x;
 	int	y;
 }				t_i2vec;
-
-typedef struct s_colour
-{
-	int	R;
-	int	G;
-	int	B;
-}				t_colour;
 
 typedef struct s_img
 {
@@ -82,26 +69,32 @@ typedef struct s_img
 typedef struct	s_tex
 {
 	char	*path;
-	void	*img_ptr;
-	char	*addr;
-	int		bits_pp;
-	int		line_length;
-	int		endian;
+	t_img	img;
+	int		x;
+	int		y;
+	double	wall_x;
+	int		width;
+	int		height;
 }				t_tex;
 
+typedef struct	s_map
+{
+	char		**grid;
+	char		**check;
+	int			*x;
+	int			y;
+	t_i2vec		spawn;
+	t_d2vec		spawn_dir;
+}				t_map;
 
 typedef struct s_file
 {
-	const char	*str;
+	const char	*path;
 	char		*line;
-	char		**map;
-	char		**map_check;
-	int			*map_x;
-	int			map_y;
-	t_i2vec		spawn;
-	char		*tex_sprite;
-	t_colour	floor;
-	t_colour	ceiling;
+	char		*tex_north;
+	char		*tex_east;
+	char		*tex_south;
+	char		*tex_west;
 }				t_file;
 
 /*
@@ -119,9 +112,8 @@ typedef struct s_file
 
 typedef struct s_ray
 {
+	t_d2vec		plane;
 	double		camera_x;
-	double		wall_x;
-	t_i2vec		tex;
 	t_i2vec		map;
 	t_d2vec		dir;
 	t_d2vec		side_dist;
@@ -132,17 +124,9 @@ typedef struct s_ray
 	int			line_height;
 	int			line_start;
 	int			line_end;
+	double		time;
+	double		old_time;
 }				t_ray;
-
-typedef struct	s_map
-{
-	char		**map;
-	char		**check;
-	int			*x;
-	int			y;
-	t_i2vec		spawn;
-}				t_map;
-
 
 /*
 **	Time stores the time of the current frame, old_time stores
@@ -157,22 +141,19 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*window;
-	double		time;
-	double		old_time;
+	t_img		img;
+	t_file		file;
+	t_ray		ray;
+	t_map		map;
+	t_tex		tex[4];
 	t_i2vec		res;
 	t_d2vec		pos;
 	t_d2vec		dir;
 	t_d2vec		plane;
 	double		move_speed;
 	double		rot_speed;
-	t_img		img;
-	int			tex_width;
-	int			tex_height;
-	t_map		map;
 	int			ceiling;
 	int			floor;
-	t_file		file;
-	t_tex		tex[4];
 }			t_data;
 
 void		init_data(t_data *data);
@@ -183,10 +164,10 @@ void		complete_data(t_data *data);
 */
 typedef int	(*t_id)(t_data *data, char *id);
 int			parse_start(t_data *data);
-int			parse_res(t_i2vec *res, char *line);
-int			parse_tex(t_tex *tex, char *line);
+int			parse_res(t_data *data, char *line);
+int			parse_tex(t_data *data, char *line);
 int			colour(t_data *data, char *line);
-int			parse_colour(t_colour *colour, char *line);
+int			parse_colour(int *colour, char *line);
 int			parse_map(int fd, t_data *data, int ret);
 char		**copy_map(t_list *list, int size);
 int			*get_width(t_map map);
@@ -208,9 +189,9 @@ void		move_right(t_data *data);
 */
 
 void		raycaster(t_data *data, int x);
-void		calc_step_distance(t_data *data, t_ray *ray);
-void		differential_analysis(t_data *data, t_ray *ray);
-void		calc_line(t_data *data, t_ray *ray);
+void		calc_step_distance(t_d2vec pos, t_ray *ray);
+void		differential_analysis(char **map, t_ray *ray);
+void		calc_line(t_d2vec pos, t_i2vec res, t_ray *ray);
 void		rotate_left(t_data *data);
 void		rotate_right(t_data *data);
 

@@ -6,12 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/13 16:19:32 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/15 18:46:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-#include <stdio.h>
 
 int	parse_map(int fd, t_data *data, int ret)
 {
@@ -28,12 +27,12 @@ int	parse_map(int fd, t_data *data, int ret)
 		free(line);
 	}
 	data->map.y = ft_lstsize(head);
-	data->map.map = copy_map(head, data->map.y);
-	if (!data->map.map)
+	data->map.grid = copy_map(head, data->map.y);
+	if (!data->map.grid)
 		return (0);
 	ft_lstclear(&head, free);
 	data->map.x = get_width(data->map);
-	if (!validate_map(&data->map, data->map.map))
+	if (!validate_map(&data->map, data->map.grid))
 		return (0);
 	return (1);
 }
@@ -68,7 +67,7 @@ int		*get_width(t_map map)
 		return (NULL);
 	while (i < map.y)
 	{
-		map_x[i] = (int)ft_strlen(map.map[i]);
+		map_x[i] = (int)ft_strlen(map.grid[i]);
 		i++;
 	}
 	map_x[i] = 0;
