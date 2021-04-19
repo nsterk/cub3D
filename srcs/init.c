@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 13:34:22 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 14:11:43 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_data(t_data *data)
 {
 	init_ray(&data->ray);
 	data->file.line = NULL;
-	data->file.spawn_char = '1';
+	data->map.spawn_char = '@';
 	data->res = (t_i2vec){600, 400};
 	data->plane = (t_d2vec){0.0, 0.66};
 	data->pos = (t_d2vec){9, 6};

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 13:43:23 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 14:11:49 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,39 @@ char	**copy_map(t_list *list, int size)
 int	get_map_info(t_map *map)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	map->x = malloc(sizeof(int) * (map->y + 1));
 	if (!map->x)
 		return (0);
 	while (i < map->y)
 	{
 		map->x[i] = (int)ft_strlen(map->grid[i]);
-		while (j < map->x[i])
-		{
-			if (ft_strchr("NSEW", map->grid[i][j]))
-			{
-				if (map->spawn_char != '1')
-					return (0);
-				map->spawn_char = map->grid[i][j];
-				map->spawn_pos = (t_i2vec){j, i};
-			}
-			j++;
-		}
-		j = 0;
+		if (!get_spawn_info(map, i))
+			return (0);
 		i++;
 	}
+	printf("char: %c\nx: %i, y: %i\n", map->spawn_char, map->spawn_pos.x, map->spawn_pos.y);
 	map->x[i] = 0;
+	return (1);
+}
+
+int	get_spawn_info(t_map *map, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < map->x[i])
+	{
+		if (ft_strchr("NSEW", map->grid[i][j]))
+		{
+			if (map->spawn_char != '@')
+				return (0);
+			map->spawn_char = map->grid[i][j];
+			map->spawn_pos = (t_i2vec){j, i};
+			map->grid[i][j] = '0';
+		}
+		j++;
+	}
 	return (1);
 }
