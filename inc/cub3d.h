@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 13:48:25 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 17:15:46 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ typedef struct s_map
 	int			*x;
 	int			y;
 	char		spawn_char;
-	t_i2vec		spawn_pos;
+	t_d2vec		spawn_pos;
 	t_d2vec		spawn_dir;
+	t_d2vec		plane;
 }				t_map;
 
 typedef struct s_file
@@ -172,6 +173,7 @@ int			parse_map(int fd, t_data *data, int ret);
 char		**copy_map(t_list *list, int size);
 int			get_map_info(t_map *map);
 int			get_spawn_info(t_map *map, int i);
+void		set_spawn_dir(t_map *map);
 int			validate_map(t_map *map, char **grid);
 int			floodfill(int y, int x, t_map *map);
 int			create_trgb(int t, int r, int g, int b);

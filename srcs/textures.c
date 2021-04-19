@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 16:17:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 20:55:45 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 17:23:30 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	put_texture(t_data *data, int x)
 	y = ray->line_start;
 	tex->step = 1.0 * tex->height / ray->line_height;
 	tex->pos = (ray->line_start - data->res.y / 2
-		+ ray->line_height / 2) * tex->step;
+			+ ray->line_height / 2) * tex->step;
 	while (y < ray->line_end)
 	{
 		tex->y = (int)(tex->pos) & (tex->height - 1);

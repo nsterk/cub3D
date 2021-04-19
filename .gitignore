@@ -36,9 +36,6 @@
 *.x86_64
 *.hex
 
-# want zo heet mijn executable
-cub3d
-
 # Debug files
 *.dSYM/
 *.su
@@ -70,6 +67,3 @@ mlx/mlx_init.swiftmodule
 mlx/mlx_window.swiftdoc
 mlx/mlx_window.swiftmodule
 
-# oefen shit
-check.c
-text.cub

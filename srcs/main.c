@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 14:00:54 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 17:22:52 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <math.h>
 #include <fcntl.h>
 #include <unistd.h>
-/*
+
 int	exit_window(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->window);
@@ -28,7 +28,7 @@ static void	*start_mlx(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (NULL);
-	data->window = mlx_new_window(data->mlx, data->res.x, data->res.y, "mert");
+	data->window = mlx_new_window(data->mlx, data->res.x, data->res.y, "cub3d");
 	if (!data->window)
 		return (NULL);
 	data->img.img_ptr = mlx_new_image(data->mlx, data->res.x, data->res.y);
@@ -114,7 +114,6 @@ int	loops(t_data *data)
 	mlx_loop(data->mlx);
 	return (1);
 }
-*/
 
 int	validate_input(int argc, char **argv, t_file *file)
 {
@@ -135,11 +134,9 @@ int	main(int argc, char **argv)
 		return (0);
 	init_data(&data);
 	parse_start(&data);
-	/*
 	start_mlx(&data);
 	complete_data(&data);
 	init_environment(&data);
 	loops(&data);
-	*/
 	return (0);
 }
