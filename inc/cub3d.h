@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 20:38:06 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 13:30:25 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
-typedef struct	s_tex
+typedef struct s_tex
 {
 	char	*path;
 	t_img	img;
@@ -79,13 +79,14 @@ typedef struct	s_tex
 	int		height;
 }				t_tex;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	char		**grid;
 	char		**check;
 	int			*x;
 	int			y;
-	t_i2vec		spawn;
+	char		spawn_char;
+	t_i2vec		spawn_pos;
 	t_d2vec		spawn_dir;
 }				t_map;
 
@@ -93,10 +94,7 @@ typedef struct s_file
 {
 	const char	*path;
 	char		*line;
-	char		*tex_north;
-	char		*tex_east;
-	char		*tex_south;
-	char		*tex_west;
+	char		spawn_char;
 }				t_file;
 
 /*
@@ -172,7 +170,7 @@ int			colour(t_data *data, char *line);
 int			parse_colour(int *colour, char *line);
 int			parse_map(int fd, t_data *data, int ret);
 char		**copy_map(t_list *list, int size);
-int			*get_width(t_map map);
+int			get_width(t_map *map);
 int			validate_map(t_map *map, char **grid);
 int			floodfill(int y, int x, t_map *map);
 int			create_trgb(int t, int r, int g, int b);

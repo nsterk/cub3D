@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/13 16:13:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 13:35:53 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	validate_map(t_map *map, char **grid)
 			return (0);
 		i++;
 	}
-	if (!floodfill(map->spawn.y, map->spawn.x, map))
+	if (!floodfill(map->spawn_pos.y, map->spawn_pos.x, map))
 		return (0);
 	free_validate(map);
 	return (1);

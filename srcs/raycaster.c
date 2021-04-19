@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 20:58:16 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/19 12:06:29 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	calc_line(t_d2vec pos, t_i2vec res, t_ray *ray)
 
 void	raycaster(t_data *data, int x)
 {
-	int		colour;
 	t_ray	*ray;
 
 	ray = &data->ray;
