@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/21 16:25:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/21 18:05:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	get_spawn_info(t_map *map, int i)
 
 void	set_spawn_dir(t_map *map)
 {
-	if (map->spawn_char == 'N')
+	if (map->spawn_char == 'S')
 	{
 		map->spawn_dir = (t_d2vec){0, -1};
 		map->plane = (t_d2vec){-0.66, 0};
@@ -109,7 +109,7 @@ void	set_spawn_dir(t_map *map)
 		map->spawn_dir = (t_d2vec){1, 0};
 		map->plane = (t_d2vec){0, -0.66};
 	}
-	if (map->spawn_char == 'S')
+	if (map->spawn_char == 'N')
 	{
 		map->spawn_dir = (t_d2vec){0, 1};
 		map->plane = (t_d2vec){0.66, 0};
