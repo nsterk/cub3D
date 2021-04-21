@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 12:06:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/21 16:38:14 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	raycaster(t_data *data, int x)
 	t_ray	*ray;
 
 	ray = &data->ray;
+	ray->side = 0;
 	ray->camera_x = 2 * x / (double)data->res.x - 1;
 	ray->dir.x = data->dir.x + data->plane.x * ray->camera_x;
 	ray->dir.y = data->dir.y + data->plane.y * ray->camera_x;
@@ -47,7 +48,10 @@ void	raycaster(t_data *data, int x)
 	calc_step_distance(data->pos, ray);
 	differential_analysis(data);
 	calc_line(data->pos, data->res, ray);
-	put_texture(data, x);
+	if (ray->hit == 2)
+		put_line(x, ray, 0x00000000, &data->img);
+	else
+		put_texture(data, x);
 }
 
 void	calc_step_distance(t_d2vec pos, t_ray *ray)
@@ -90,7 +94,15 @@ void	differential_analysis(t_data *data)
 			data->ray.map.y += data->ray.step.y;
 			data->ray.side = 1;
 		}
-		if (data->map.grid[data->ray.map.y][data->ray.map.x] == '1')
+		if (data->map.grid[data->ray.map.x][data->ray.map.y] == '1')
+		{
+			data->ray.hit = 1;
 			break ;
+		}
+		if (data->map.grid[data->ray.map.x][data->ray.map.y] == '2')
+		{
+			data->ray.hit = 2;
+			break ;
+		}
 	}
 }

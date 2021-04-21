@@ -67,3 +67,7 @@ mlx/mlx_init.swiftmodule
 mlx/mlx_window.swiftdoc
 mlx/mlx_window.swiftmodule
 
+srcs/parsing/validate_map copy.c
+srcs/parsing/parse_map copy.c
+srcs/moving/move copy.c
+srcs/raycaster copy.c

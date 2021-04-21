@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 17:15:46 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/21 16:37:52 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct s_ray
 	int			line_end;
 	double		time;
 	double		old_time;
+	int			hit;
 }				t_ray;
 
 /*
