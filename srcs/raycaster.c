@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/21 16:38:14 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/21 16:41:59 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	differential_analysis(t_data *data)
 			data->ray.map.y += data->ray.step.y;
 			data->ray.side = 1;
 		}
-		if (data->map.grid[data->ray.map.x][data->ray.map.y] == '1')
+		if (data->map.grid[data->ray.map.y][data->ray.map.x] == '1')
 		{
 			data->ray.hit = 1;
 			break ;
 		}
-		if (data->map.grid[data->ray.map.x][data->ray.map.y] == '2')
+		if (data->map.grid[data->ray.map.y][data->ray.map.x] == '2')
 		{
 			data->ray.hit = 2;
 			break ;
