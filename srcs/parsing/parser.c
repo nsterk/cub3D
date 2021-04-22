@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/16 12:54:06 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/22 12:19:55 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static int	id_path(t_data *data, char *s)
 	return (((*(u_int16_t *)s == *(u_int16_t *) "R ") && id[0](data, s + 1))
 		|| ((*(u_int16_t *)s == *(u_int16_t *) "C ") && id[1](data, s))
 		|| ((*(u_int16_t *)s == *(u_int16_t *) "F ") && id[1](data, s))
-		|| ((*(u_int16_t *)s == *(u_int16_t *) "NO") && id[2](data, s)));
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "NO") && id[2](data, s))
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "EA") && id[2](data, s))
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "SO") && id[2](data, s))
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "WE") && id[2](data, s)));
 }
 
 static char	first_char(char *str)

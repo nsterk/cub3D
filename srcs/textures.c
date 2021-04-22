@@ -6,20 +6,20 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 16:17:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 17:23:30 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/22 19:33:53 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 #include <math.h>
 
-void	calc_texture(t_data *data)
+void	calc_texture(t_data *data, int i)
 {
 	t_ray	*ray;
 	t_tex	*tex;
 
 	ray = &data->ray;
-	tex = &data->tex[0];
+	tex = &data->tex[i];
 	if (!ray->side)
 		tex->wall_x = data->pos.y + ray->perp_dist * ray->dir.y;
 	else
@@ -38,10 +38,19 @@ void	put_texture(t_data *data, int x)
 	t_tex	*tex;
 	int		colour;
 	int		y;
+	int		i;
 
 	ray = &data->ray;
-	tex = &data->tex[0];
-	calc_texture(data);
+	if (ray->side == 1 && ray->dir.y >= 0)
+		i = 1;
+	else if (ray->side == 1 && ray->dir.y < 0)
+		i = 2;
+	else if (ray->dir.x >= 0)
+		i = 0;
+	else
+		i = 3;
+	tex = &data->tex[i];
+	calc_texture(data, i);
 	y = ray->line_start;
 	tex->step = 1.0 * tex->height / ray->line_height;
 	tex->pos = (ray->line_start - data->res.y / 2

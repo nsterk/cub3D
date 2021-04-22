@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/21 18:09:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/22 12:32:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ typedef struct s_data
 
 void		init_data(t_data *data);
 void		complete_data(t_data *data);
+void		complete_tex(t_data *data);
 
 /*
 **	Parsing functions.
@@ -197,7 +198,7 @@ void		differential_analysis(t_data *data);
 void		calc_line(t_d2vec pos, t_i2vec res, t_ray *ray);
 void		rotate_left(t_data *data);
 void		rotate_right(t_data *data);
-void		calc_texture(t_data *data);
+void		calc_texture(t_data *data, int i);
 void		put_texture(t_data *data, int x);
 int			get_colour(t_tex *tex);
 
