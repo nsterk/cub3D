@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/20 13:29:32 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/26 16:50:50 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	*start_mlx(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (NULL);
-	data->window = mlx_new_window(data->mlx, data->res.x, data->res.y, "cub3d");
+	data->window = mlx_new_window(data->mlx, data->res.x, data->res.y, "cub3D");
 	if (!data->window)
 		return (NULL);
 	data->img.img_ptr = mlx_new_image(data->mlx, data->res.x, data->res.y);
@@ -41,7 +41,44 @@ static void	*start_mlx(t_data *data)
 	return ("1");
 }
 
-int	keypress(int keycode, t_data *data)
+int	key_press(int keycode, t_data *data)
+{
+	if (keycode == ESC)
+		exit_window(data);
+	if (keycode == D)
+		data->keys.d = 1;
+	if (keycode == A)
+		data->keys.a = 1;
+	if (keycode == W)
+		data->keys.w = 1;
+	if (keycode == S)
+		data->keys.s = 1;
+	if (keycode == LEFT)
+		data->keys.left = 1;
+	if (keycode == RIGHT)
+		data->keys.right = 1;
+	return (1);
+}
+
+int	key_release(int keycode, t_data *data)
+{
+	if (keycode == D)
+		data->keys.d = 0;
+	if (keycode == A)
+		data->keys.a = 0;
+	if (keycode == W)
+		data->keys.w = 0;
+	if (keycode == S)
+		data->keys.s = 0;
+	if (keycode == LEFT)
+		data->keys.left = 0;
+	if (keycode == RIGHT)
+		data->keys.right = 0;
+	return (1);
+}
+
+/*
+int	key_press(int keycode, t_data *data)
 {
 	if (keycode == ESC)
 		exit_window(data);
@@ -67,7 +104,7 @@ int	keypress(int keycode, t_data *data)
 		rotate_right(data);
 	return (1);
 }
-
+*/
 void	init_environment(t_data *data)
 {
 	int	x;
@@ -96,6 +133,7 @@ int	window_loop(t_data *data)
 	x = 0;
 	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.img_ptr);
 	init_environment(data);
+	move_hooks(data);
 	while (x < data->res.x)
 	{
 		raycaster(data, x);
@@ -109,8 +147,9 @@ int	window_loop(t_data *data)
 int	loops(t_data *data)
 {
 	mlx_hook(data->window, 17, 0L, exit_window, data);
-	mlx_hook(data->window, 2, (1L << 0), keypress, data);
+	mlx_hook(data->window, 2, (1L << 0), key_press, data);
 	mlx_loop_hook(data->mlx, &window_loop, data);
+	mlx_hook(data->window, 3, (1L << 1), key_release, data);
 	mlx_loop(data->mlx);
 	return (1);
 }

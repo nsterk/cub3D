@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/22 12:32:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/26 16:51:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ typedef struct s_map
 	t_d2vec		plane;
 }				t_map;
 
+typedef struct s_keys
+{
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			left;
+	int			right;
+}				t_keys;
+
 typedef struct s_file
 {
 	const char	*path;
@@ -147,6 +157,7 @@ typedef struct s_data
 	t_ray		ray;
 	t_map		map;
 	t_tex		tex[4];
+	t_keys		keys;
 	t_i2vec		res;
 	t_d2vec		pos;
 	t_d2vec		dir;
@@ -160,6 +171,8 @@ typedef struct s_data
 void		init_data(t_data *data);
 void		complete_data(t_data *data);
 void		complete_tex(t_data *data);
+int			key_press(int keycode, t_data *data);
+int			key_release(int keycode, t_data *data);
 
 /*
 **	Parsing functions.
@@ -183,6 +196,7 @@ int			create_trgb(int t, int r, int g, int b);
 **	Moving functions.
 */
 
+void		move_hooks(t_data *data);
 void		move_up(t_data *data);
 void		move_down(t_data *data);
 void		move_left(t_data *data);
