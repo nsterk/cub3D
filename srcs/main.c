@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/26 16:50:50 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/28 14:33:20 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	*start_mlx(t_data *data)
 	data->img.img_ptr = mlx_new_image(data->mlx, data->res.x, data->res.y);
 	if (!data->img.img_ptr)
 		return (NULL);
-	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bits_pp,
+	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
 			&data->img.len, &data->img.endian);
 	if (!data->img.addr)
 		return (NULL);
@@ -77,34 +77,6 @@ int	key_release(int keycode, t_data *data)
 	return (1);
 }
 
-/*
-int	key_press(int keycode, t_data *data)
-{
-	if (keycode == ESC)
-		exit_window(data);
-	if (keycode == D)
-	{
-		move_right(data);
-	}
-	if (keycode == A)
-	{
-		move_left(data);
-	}
-	if (keycode == W)
-	{
-		move_up(data);
-	}
-	if (keycode == S)
-	{
-		move_down(data);
-	}
-	if (keycode == LEFT)
-		rotate_left(data);
-	if (keycode == RIGHT)
-		rotate_right(data);
-	return (1);
-}
-*/
 void	init_environment(t_data *data)
 {
 	int	x;

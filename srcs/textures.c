@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 16:17:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/22 19:33:53 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/28 14:32:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	put_texture(t_data *data, int x)
 	}
 }
 
-int		get_colour(t_tex *tex)
+int	get_colour(t_tex *tex)
 {
 	int	colour;
-	
-	colour = *(int*) (tex->img.addr + (tex->y * tex->img.len
-		+ tex->x * (tex->img.bits_pp / 8)));
+
+	colour = *(int *)(tex->img.addr + (tex->y * tex->img.len
+				+ tex->x * (tex->img.bpp / 8)));
 	return (colour);
 }

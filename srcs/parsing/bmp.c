@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw.c                                             :+:    :+:            */
+/*   bmp.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/02/26 15:58:54 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/28 14:33:35 by nsterk        ########   odam.nl         */
+/*   Created: 2021/04/28 14:27:57 by nsterk        #+#    #+#                 */
+/*   Updated: 2021/04/28 16:25:10 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	put_pixel(int x, int y, int colour, t_img *img)
+void	fill_pixel_array(t_data *data)
 {
-	char	*dst;
+	int x;
+	int y;
+	int height;
 
-	dst = img->addr + (y * img->len + x * (img->bpp / 8));
-	*(unsigned int *)dst = colour;
-}
-
-void	put_line(int x, t_ray *ray, int colour, t_img *img)
-{
-	while (ray->line_start < ray->line_end)
-	{
-		put_pixel(x, ray->line_start, colour, img);
-		ray->line_start++;
-	}
+	y = 0;
+	while (y < height)
 }

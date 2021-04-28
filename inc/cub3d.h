@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/26 16:51:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/28 14:35:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 /*
 **	DEFINES
 */
+
 # define W		13
 # define A		0
 # define S		1
@@ -28,18 +29,6 @@
 # define LEFT	123
 # define RIGHT	124
 # define ESC	53
-
-# define MLX_SYNC_IMAGE_WRITABLE		1
-# define MLX_SYNC_WIN_FLUSH_CMD			2
-# define MLX_SYNC_WIN_CMD_COMPLETED		3
-
-# define WHITE	0x00FFFFFF
-# define BLACK	0x00000000
-# define RED	0x00FF0000
-# define GREEN	0x0000FF00
-# define YELLOW	0x00FFFF00
-# define LIGHTGRAY	0x009E9F8C
-# define DARKGRAY	0x007e7f70
 
 /*
 **	Structs for vectors of type double & integer
@@ -57,11 +46,35 @@ typedef struct s_i2vec
 	int	y;
 }				t_i2vec;
 
+typedef struct s_bmp_h
+{
+	char			type[2];
+	unsigned int	header_size;
+	unsigned int	na;
+	unsigned int	offset;
+}				t_bmp_h;
+
+typedef struct s_dib_h
+{
+	unsigned int		header_size;
+	int					width;
+	int					height;
+	unsigned short int	colourplanes;
+	unsigned short int	bpp;
+	unsigned int		compression;
+	unsigned int		img_size;
+	int					res_x;
+	int					res_y;
+	unsigned int		nr_clrs;
+	unsigned int		nr_important_clrs;
+
+}				t_dib_h;
+
 typedef struct s_img
 {
 	void	*img_ptr;
 	char	*addr;
-	int		bits_pp;
+	int		bpp;
 	int		len;
 	int		endian;
 }				t_img;
