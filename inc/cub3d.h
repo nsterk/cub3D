@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/29 19:18:41 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/29 20:42:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,6 @@ typedef struct s_i2vec
 	int	x;
 	int	y;
 }				t_i2vec;
-
-typedef struct s_bmp_h
-{
-	char			type[2];
-	unsigned int	header_size;
-	unsigned int	na;
-	unsigned int	offset;
-}				t_bmp_h;
-
-typedef struct s_dib_h
-{
-	unsigned int		header_size;
-	int					width;
-	int					height;
-	unsigned short int	colourplanes;
-	unsigned short int	bpp;
-	unsigned int		compression;
-	unsigned int		img_size;
-	int					res_x;
-	int					res_y;
-	unsigned int		nr_clrs;
-	unsigned int		nr_important_clrs;
-
-}				t_dib_h;
 
 typedef struct s_img
 {
@@ -237,9 +213,5 @@ void		put_pixel(int x, int y, int colour, t_img *img);
 void		put_line(int x, t_ray *ray, int colour, t_img *img);
 void		init_environment(t_data *data);
 
-/*
-**	BMP functions.
-*/
 int			create_bmp(t_i2vec res, t_img *img);
-
 #endif
