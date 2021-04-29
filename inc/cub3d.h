@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/28 14:35:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/29 19:18:41 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_file
 	const char	*path;
 	char		*line;
 	char		spawn_char;
+	int			BMP;
 }				t_file;
 
 /*
@@ -235,5 +236,10 @@ int			get_colour(t_tex *tex);
 void		put_pixel(int x, int y, int colour, t_img *img);
 void		put_line(int x, t_ray *ray, int colour, t_img *img);
 void		init_environment(t_data *data);
+
+/*
+**	BMP functions.
+*/
+int			create_bmp(t_i2vec res, t_img *img);
 
 #endif

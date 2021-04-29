@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/26 16:49:02 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/29 13:28:40 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	complete_tex(t_data *data)
 		data->tex[i].img.img_ptr = mlx_xpm_file_to_image(data->mlx,
 			data->tex[i].path, &data->tex[i].width, &data->tex[i].height);
 		data->tex[i].img.addr = mlx_get_data_addr(data->tex[i].img.img_ptr,
-			&data->tex[i].img.bits_pp, &data->tex[i].img.len,
+			&data->tex[i].img.bpp, &data->tex[i].img.len,
 			&data->tex[i].img.endian);
 		i++;
 	}
