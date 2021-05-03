@@ -6,11 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 16:17:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:12:46 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3D.h>
 #include <math.h>
 
 void	calc_texture(t_data *data, int i)
@@ -32,23 +32,14 @@ void	calc_texture(t_data *data, int i)
 		tex->x = tex->width - tex->x - 1;
 }
 
-void	put_texture(t_data *data, int x)
+void	put_texture(t_data *data, int x, int i)
 {
 	t_ray	*ray;
 	t_tex	*tex;
 	int		colour;
 	int		y;
-	int		i;
 
 	ray = &data->ray;
-	if (ray->side == 1 && ray->dir.y >= 0)
-		i = 2;
-	else if (ray->side == 1 && ray->dir.y < 0)
-		i = 0;
-	else if (ray->dir.x >= 0)
-		i = 1;
-	else
-		i = 3;
 	tex = &data->tex[i];
 	calc_texture(data, i);
 	y = ray->line_start;

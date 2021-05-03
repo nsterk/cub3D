@@ -6,11 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 18:26:56 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/15 19:39:08 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3D.h>
 
 int	parse_tex(t_data *data, char *line)
 {

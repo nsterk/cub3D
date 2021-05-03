@@ -6,11 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/24 15:21:37 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/02/24 15:48:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3D.h>
 
 void	put_line_low(int x0, int y0, int x1, int y1, t_data *data)
 {

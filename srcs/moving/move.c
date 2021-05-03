@@ -6,11 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/07 14:28:37 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/26 17:46:23 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3D.h>
 
 void	move_hooks(t_data *data)
 {

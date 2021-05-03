@@ -6,11 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/29 19:07:17 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3D.h>
 #include <stdio.h>
 #include <math.h>
 #include <fcntl.h>

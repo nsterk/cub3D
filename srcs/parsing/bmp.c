@@ -6,11 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/28 14:27:57 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 14:44:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3D.h>
 #include <bmp.h>
 
 int	create_bmp(t_i2vec res, t_img *img)

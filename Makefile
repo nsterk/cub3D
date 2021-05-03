@@ -6,11 +6,11 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/04/29 13:09:21 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/03 18:24:14 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	cub3d
+NAME		=	cub3D
 CC			=	gcc
 W_FLAGS		=	-Wall -Werror -Wextra -std=c89 -Iinc
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx -g -fsanitize=address

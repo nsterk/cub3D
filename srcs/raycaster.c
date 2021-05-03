@@ -6,11 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 16:56:52 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3D.h>
 #include <math.h>
 
 void	calc_line(t_d2vec pos, t_i2vec res, t_ray *ray)
@@ -47,7 +47,14 @@ void	raycaster(t_data *data, int x)
 	calc_step_distance(data->pos, ray);
 	differential_analysis(data);
 	calc_line(data->pos, data->res, ray);
-	put_texture(data, x);
+	if (ray->side == 1 && ray->dir.y >= 0)
+		put_texture(data, x, 2);
+	else if (ray->side == 1 && ray->dir.y < 0)
+		put_texture(data, x, 0);
+	else if (ray->dir.x >= 0)
+		put_texture(data, x, 1);
+	else
+		put_texture(data, x, 3);
 }
 
 void	calc_step_distance(t_d2vec pos, t_ray *ray)
