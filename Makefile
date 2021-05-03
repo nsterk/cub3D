@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/03 18:24:14 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/03 18:33:10 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx -g -fsanitize=address
 # MLX_PATH	=	./mlx/
 LIBFT_PATH	=	./srcs/libft/
 GNL_PATH	=	./srcs/gnl/
+EXTRA_PATH	=	./srcs/extra/
 PARSE_PATH	=	./srcs/parsing/
-MOVE_PATH	=	./srcs/moving/
+RAYCST_PATH	=	./srcs/raycasting/
 CUB3D_PATH	=	./srcs/
 
 LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
@@ -34,22 +35,24 @@ LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
 				ft_strlen.c ft_strclen.c ft_substr.c \
 				ft_strtrim.c ft_split.c
 GNL_C		=	get_next_line.c get_next_line_utils.c
+EXTRA_C		=	bmp.c init.c draw.c colours.c
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c \
-				parse_tex.c validate_map.c bmp.c
-MOVE_C		=	move.c rotate.c
-CUB3D_C		=	main.c init.c raycaster.c draw.c colours.c \
+				parse_tex.c validate_map.c
+RAYCST_C	=	move.c rotate.c raycaster.c \
 				textures.c
+CUB3D_C		=	main.c
 
 LIBFT_SRCS	=	$(LIBFT_C:%=$(LIBFT_PATH)%)
 GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)
+EXTRA_SRCS	=	$(EXTRA_C:%=$(EXTRA_PATH)%)
 PARSE_SRCS	=	$(PARSE_C:%=$(PARSE_PATH)%)
-MOVE_SRCS	=	$(MOVE_C:%=$(MOVE_PATH)%)
+RAYCST_SRCS	=	$(RAYCST_C:%=$(RAYCST_PATH)%)
 CUB3D_SRCS	=	$(CUB3D_C:%=$(CUB3D_PATH)%)
 
 # place main.c in srcs folder
 SRCS		= 	$(LIBFT_SRCS) $(GNL_SRCS) \
-				$(PARSE_SRCS) $(MOVE_SRCS) \
-				$(CUB3D_SRCS)			
+				$(EXTRA_SRCS) $(PARSE_SRCS) \
+				$(RAYCST_SRCS) $(CUB3D_SRCS)
 OBJS		=	$(SRCS:.c=.o)
 
 all: $(NAME)

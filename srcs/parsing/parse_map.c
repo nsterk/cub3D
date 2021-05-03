@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:41:31 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	get_spawn_info(t_map *map, int y)
 			if (map->spawn_char != '@')
 				return (0);
 			map->spawn_char = map->grid[y][x];
-			map->spawn_pos = (t_d2vec){x, y};
+			map->spawn_pos = (t_d2vec){x + 0.5, y + 0.5};
 			map->grid[y][x] = '0';
 		}
 		x++;
