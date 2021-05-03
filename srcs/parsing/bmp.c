@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/28 14:27:57 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/30 01:46:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 14:22:24 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,12 @@ int	write_fileh_to_file(t_file_h *info, t_bmp_extra *bmp)
 
 int	write_to_file(t_i2vec res, t_img *img, t_bmp_extra *bmp)
 {
-	int	x;
 	int	y;
 
 	y = res.y - 1;
 	while (y >= 0)
 	{
-		x = 0;
-		while (x < res.x)
-		{
-			write(bmp->fd, img->addr + (y * img->len + x * img->bpp / 8), sizeof(int));
-			x++;
-		}
-		write(bmp->fd, bmp->padding, bmp->pad_size);
+		write(bmp->fd, img->addr + (y * img->len), res.x * sizeof(int));
 		y--;
 	}
 	return (1);
@@ -80,8 +73,8 @@ int	write_to_file(t_i2vec res, t_img *img, t_bmp_extra *bmp)
 void	fill_info_header(t_info_h *dib, t_img *img, t_i2vec res)
 {
 	dib->header_size = 40;
-	dib->width = res.x * (img->bpp / 8);
-	dib->height = res.y * (img->bpp / 8);
+	dib->width = res.x;
+	dib->height = res.y;
 	dib->colourplanes = 1;
 	dib->bpp = img->bpp;
 	dib->compression = 0;
@@ -96,7 +89,7 @@ void	fill_file_header(t_file_h *header, t_img *img, t_i2vec res, int pad_size)
 {
 	header->type[0] = 'B';
 	header->type[1] = 'M';
-	header->file_size = 54 + (((img->bpp / 8) * res.x + pad_size ) * res.y);
+	header->file_size = 54 + (((img->bpp / 8) * (res.x + pad_size)) * res.y);
 	header->na = 0;
 	header->offset = 54;
 }
