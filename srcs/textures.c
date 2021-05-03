@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 16:17:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/28 14:32:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 18:12:46 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	put_texture(t_data *data, int x)
 
 	ray = &data->ray;
 	if (ray->side == 1 && ray->dir.y >= 0)
-		i = 1;
-	else if (ray->side == 1 && ray->dir.y < 0)
 		i = 2;
-	else if (ray->dir.x >= 0)
+	else if (ray->side == 1 && ray->dir.y < 0)
 		i = 0;
+	else if (ray->dir.x >= 0)
+		i = 1;
 	else
 		i = 3;
 	tex = &data->tex[i];

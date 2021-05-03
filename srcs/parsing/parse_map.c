@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/21 18:05:33 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 17:06:06 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,46 +77,46 @@ int	get_map_info(t_map *map)
 	return (1);
 }
 
-int	get_spawn_info(t_map *map, int i)
+int	get_spawn_info(t_map *map, int y)
 {
-	int	j;
+	int	x;
 
-	j = 0;
-	while (j < map->x[i])
+	x = 0;
+	while (x < map->x[y])
 	{
-		if (ft_strchr("NSEW", map->grid[i][j]))
+		if (ft_strchr("NSEW", map->grid[y][x]))
 		{
 			if (map->spawn_char != '@')
 				return (0);
-			map->spawn_char = map->grid[i][j];
-			map->spawn_pos = (t_d2vec){j, i};
-			map->grid[i][j] = '0';
+			map->spawn_char = map->grid[y][x];
+			map->spawn_pos = (t_d2vec){x, y};
+			map->grid[y][x] = '0';
 		}
-		j++;
+		x++;
 	}
 	return (1);
 }
 
 void	set_spawn_dir(t_map *map)
 {
-	if (map->spawn_char == 'S')
+	if (map->spawn_char == 'N')
 	{
 		map->spawn_dir = (t_d2vec){0, -1};
-		map->plane = (t_d2vec){-0.66, 0};
+		map->plane = (t_d2vec){0.66, 0};
 	}
 	if (map->spawn_char == 'E')
 	{
 		map->spawn_dir = (t_d2vec){1, 0};
-		map->plane = (t_d2vec){0, -0.66};
+		map->plane = (t_d2vec){0, 0.66};
 	}
-	if (map->spawn_char == 'N')
+	if (map->spawn_char == 'S')
 	{
 		map->spawn_dir = (t_d2vec){0, 1};
-		map->plane = (t_d2vec){0.66, 0};
+		map->plane = (t_d2vec){-0.66, 0};
 	}
 	if (map->spawn_char == 'W')
 	{
 		map->spawn_dir = (t_d2vec){-1, 0};
-		map->plane = (t_d2vec){0, 0.66};
+		map->plane = (t_d2vec){0, -0.66};
 	}
 }

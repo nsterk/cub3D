@@ -6,14 +6,14 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/24 15:38:53 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/19 15:32:46 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 17:08:09 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 #include <math.h>
 
-void	rotate_left(t_data *data)
+void	rotate_right(t_data *data)
 {
 	double	old_dirx;
 	double	old_planex;
@@ -30,7 +30,7 @@ void	rotate_left(t_data *data)
 		+ data->plane.y * cos(data->rot_speed);
 }
 
-void	rotate_right(t_data *data)
+void	rotate_left(t_data *data)
 {
 	double	old_dirx;
 	double	old_planex;

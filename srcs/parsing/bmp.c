@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/28 14:27:57 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 14:22:24 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/03 14:44:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,46 @@
 
 int	create_bmp(t_i2vec res, t_img *img)
 {
-	t_file_h		file_header;
-	t_info_h		info_header;
-	t_bmp_extra		bmp;
+	t_info_h	info_header;
+	int			fd;
+	int			pad_size;
+	int			y;
 
-	bmp.fd = open("image.bmp", O_CREAT | O_TRUNC | O_RDWR, 0644);
-	if (bmp.fd < 1)
+	fd = open("image.bmp", O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (fd < 1)
 		printf("opening failed\n");
 	if ((res.x * (img->bpp / 8)) % 4 == 0)
-		bmp.pad_size = 0;
+		pad_size = 0;
 	else
-	{
-		bmp.pad_size = 4 - (res.x * (img->bpp / 8) % 4);
-		bmp.padding = ft_calloc(sizeof(char), bmp.pad_size);
-	}
-	fill_file_header(&file_header, img, res, bmp.pad_size);
+		pad_size = 4 - (res.x * (img->bpp / 8) % 4);
+	write_fileh_to_file(img->bpp, pad_size, fd, res);
 	fill_info_header(&info_header, img, res);
-	write_fileh_to_file(&file_header, &bmp);
-	write(bmp.fd, &info_header, 40);
-	write_to_file(res, img, &bmp);
-	return (1);
-}
-
-/*
-**
-*/
-int	write_fileh_to_file(t_file_h *info, t_bmp_extra *bmp)
-{
-	unsigned char	*header;
-
-	header = ft_calloc(14, sizeof(unsigned char));
-	header[0] = 'B';
-	header[1] = 'M';
-	header[3] = info->file_size;
-	header[3] = info->file_size >> 8;
-	header[4] = info->file_size >> 16;
-	header[5] = info->file_size >> 24;
-	header[10] = 54;
-	write(bmp->fd, header, 14);
-	free(header);
-	return (1);
-}
-
-int	write_to_file(t_i2vec res, t_img *img, t_bmp_extra *bmp)
-{
-	int	y;
-
+	write(fd, &info_header, 40);
 	y = res.y - 1;
 	while (y >= 0)
 	{
-		write(bmp->fd, img->addr + (y * img->len), res.x * sizeof(int));
+		write(fd, img->addr + (y * img->len), res.x * sizeof(int));
 		y--;
 	}
+	return (1);
+}
+
+int	write_fileh_to_file(int bpp, int pad_size, int fd, t_i2vec res)
+{
+	unsigned char	*header;
+	unsigned int	size;
+
+	size = 54 + (((bpp / 8) * (res.x + pad_size)) * res.y);
+	header = ft_calloc(14, sizeof(unsigned char));
+	header[0] = 'B';
+	header[1] = 'M';
+	header[3] = size;
+	header[3] = size >> 8;
+	header[4] = size >> 16;
+	header[5] = size >> 24;
+	header[10] = 54;
+	write(fd, header, 14);
+	free(header);
 	return (1);
 }
 
@@ -83,13 +71,4 @@ void	fill_info_header(t_info_h *dib, t_img *img, t_i2vec res)
 	dib->y_px_per_meter = 0;
 	dib->nr_clrs = 0;
 	dib->nr_important_clrs = 0;
-}
-
-void	fill_file_header(t_file_h *header, t_img *img, t_i2vec res, int pad_size)
-{
-	header->type[0] = 'B';
-	header->type[1] = 'M';
-	header->file_size = 54 + (((img->bpp / 8) * (res.x + pad_size)) * res.y);
-	header->na = 0;
-	header->offset = 54;
 }
