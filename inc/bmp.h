@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/29 19:18:46 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/04/29 20:43:53 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/04/30 01:34:01 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_bmp_extra
 }				t_bmp_extra;
 
 void		fill_info_header(t_info_h *dib, t_img *img, t_i2vec res);
-void		fill_file_header(t_file_h *header, t_img *img, t_i2vec res);
+void		fill_file_header(t_file_h *header, t_img *img, t_i2vec res, int pad_size);
+int			write_fileh_to_file(t_file_h *info, t_bmp_extra *bmp);
 int			write_to_file(t_i2vec res, t_img *img, t_bmp_extra *bmp);
 #endif
