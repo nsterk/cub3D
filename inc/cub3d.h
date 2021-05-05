@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:21:04 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/05 14:33:58 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,23 @@ typedef struct s_tex
 	int		height;
 }				t_tex;
 
+typedef struct s_sprite
+{
+	char	*path;
+	int		amount;
+	t_img	img;
+	t_d2vec	*pos;
+	int		width;
+	int		height;
+}				t_sprite;
+
 typedef struct s_map
 {
 	char		**grid;
 	char		**check;
 	int			*x;
 	int			y;
+	int			nr_sprites;
 	char		spawn_char;
 	t_d2vec		spawn_pos;
 	t_d2vec		spawn_dir;
@@ -127,6 +138,7 @@ typedef struct s_ray
 	int			line_end;
 	double		time;
 	double		old_time;
+	double		*z_buffer;
 }				t_ray;
 
 /*
@@ -147,6 +159,7 @@ typedef struct s_data
 	t_ray		ray;
 	t_map		map;
 	t_tex		tex[4];
+	t_sprite	sprite;
 	t_keys		keys;
 	t_i2vec		res;
 	t_d2vec		pos;

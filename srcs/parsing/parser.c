@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/04 18:25:22 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	id_path(t_data *data, char *s)
 		|| ((*(u_int16_t *)s == *(u_int16_t *) "NO") && id[2](data, s))
 		|| ((*(u_int16_t *)s == *(u_int16_t *) "EA") && id[2](data, s))
 		|| ((*(u_int16_t *)s == *(u_int16_t *) "SO") && id[2](data, s))
-		|| ((*(u_int16_t *)s == *(u_int16_t *) "WE") && id[2](data, s)));
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "WE") && id[2](data, s))
+		|| ((*(u_int16_t *)s == *(u_int16_t *) "S ") && id[2](data, s)));
 }
 
 static char	first_char(char *str)
@@ -40,6 +41,17 @@ static char	first_char(char *str)
 
 static int	ready_for_map(t_data *data)
 {
+	size_t	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->tex[i].path == NULL)
+			return (0);
+		i++;
+	}
+	if (data->sprite.path == NULL)
+		return (0);
 	if (data->res.x < 0 || data->res.y < 0)
 		return (0);
 	if (data->floor < 0 || data->ceiling < 0)

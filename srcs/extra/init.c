@@ -6,17 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/05 14:40:23 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
-
-static void	init_ray(t_ray *ray)
-{
-	ray->time = 0;
-	ray->old_time = 0;
-}
 
 static void	init_keys(t_keys *keys)
 {
@@ -30,12 +24,21 @@ static void	init_keys(t_keys *keys)
 
 void	init_data(t_data *data)
 {
-	init_ray(&data->ray);
+	size_t	i;
+
 	init_keys(&data->keys);
 	data->file.line = NULL;
+	data->sprite.path = NULL;
+	data->map.nr_sprites = 0;
 	data->map.spawn_char = '@';
 	data->move_speed = 0.15;
 	data->rot_speed = 0.05;
+	i = 0;
+	while (i < 4)
+	{
+		data->tex[i].path = NULL;
+		i++;
+	}
 }
 
 void	complete_data(t_data *data)
@@ -60,4 +63,9 @@ void	complete_tex(t_data *data)
 			&data->tex[i].img.endian);
 		i++;
 	}
+	data->sprite.img.img_ptr =  mlx_xpm_file_to_image(data->mlx,
+		data->sprite.path, &data->sprite.width, &data->sprite.height);
+	data->sprite.img.addr = mlx_get_data_addr(data->sprite.img.img_ptr,
+			&data->sprite.img.bpp, &data->sprite.img.len,
+			&data->sprite.img.endian);
 }
