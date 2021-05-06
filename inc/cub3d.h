@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/05 14:33:58 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/05 19:32:40 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,23 @@ typedef struct s_tex
 	int		width;
 	int		height;
 }				t_tex;
-
+/*
 typedef struct s_sprite
 {
-	char	*path;
-	int		amount;
-	t_img	img;
-	t_d2vec	*pos;
-	int		width;
-	int		height;
+	t_d2vec	pos;
+	int		order;
+}				t_sprite;
+*/
+typedef struct s_sprite
+{
+	char		*path;
+	int			amount;
+	t_img		img;
+	int			width;
+	int			height;
+	t_d2vec		*pos;
+	int			order;
+	double		distance;
 }				t_sprite;
 
 typedef struct s_map
@@ -159,7 +167,7 @@ typedef struct s_data
 	t_ray		ray;
 	t_map		map;
 	t_tex		tex[4];
-	t_sprite	sprite;
+	t_sprite	sprites;
 	t_keys		keys;
 	t_i2vec		res;
 	t_d2vec		pos;
@@ -172,7 +180,8 @@ typedef struct s_data
 }			t_data;
 
 void		init_data(t_data *data);
-void		complete_data(t_data *data);
+void		complete_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
+int			complete_data(t_data *data);
 void		complete_tex(t_data *data);
 int			key_press(int keycode, t_data *data);
 int			key_release(int keycode, t_data *data);

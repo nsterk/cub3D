@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/03 18:33:10 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/05 19:15:21 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
 				ft_strlen.c ft_strclen.c ft_substr.c \
 				ft_strtrim.c ft_split.c
 GNL_C		=	get_next_line.c get_next_line_utils.c
-EXTRA_C		=	bmp.c init.c draw.c colours.c
+EXTRA_C		=	bmp.c init.c complete_data.c draw.c \
+				colours.c
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c \
 				parse_tex.c validate_map.c
 RAYCST_C	=	move.c rotate.c raycaster.c \

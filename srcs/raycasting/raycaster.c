@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/26 12:53:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/05 15:41:35 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	raycaster(t_data *data, int x)
 	calc_step_distance(data->pos, ray);
 	differential_analysis(data);
 	calc_line(data->pos, data->res, ray);
+	ray->z_buffer[x] = ray->perp_dist;
 	if (ray->side == 1 && ray->dir.y >= 0)
 		put_texture(data, x, 2);
 	else if (ray->side == 1 && ray->dir.y < 0)
