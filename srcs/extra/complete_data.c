@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 19:14:28 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/06 12:27:41 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/06 18:02:06 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	complete_data(t_data *data)
 {
-	int	i;
-	i = 0;
 	complete_tex(data);
 	data->pos = data->map.spawn_pos;
 	data->dir = data->map.spawn_dir;
@@ -24,32 +22,45 @@ int	complete_data(t_data *data)
 	data->ray.z_buffer = malloc(sizeof(*(data->ray.z_buffer)) * data->res.x);
 	if (!data->ray.z_buffer)
 		return (0);
-	data->sprites.pos = malloc(sizeof(t_d2vec) * data->sprites.amount);
-	if (!data->sprites.pos)
+	if (!alloc_sprite(&data->sprites))
 		return (0);
-	complete_sprites(data->map.grid, data->sprites.pos, data->map.x, data->map.y);
+	complete_sprites(data->map.grid, data->sprites.pos, data->map.x,
+		data->map.y);
 	return (1);
 }
 
 void	complete_tex(t_data *data)
 {
-	int	i;
+	int			i;
+	t_tex		*tex;
+	t_sprite	*spr;
 
 	i = 0;
 	while (i < 4)
 	{
-		data->tex[i].img.img_ptr = mlx_xpm_file_to_image(data->mlx,
-			data->tex[i].path, &data->tex[i].width, &data->tex[i].height);
-		data->tex[i].img.addr = mlx_get_data_addr(data->tex[i].img.img_ptr,
-			&data->tex[i].img.bpp, &data->tex[i].img.len,
-			&data->tex[i].img.endian);
+		tex = &data->tex[i];
+		tex->img.ptr = mlx_xpm_file_to_image(data->mlx, tex->path,
+				&tex->img.width, &tex->img.height);
+		tex->img.addr = mlx_get_data_addr(tex->img.ptr, &tex->img.bpp,
+				&tex->img.len, &tex->img.endian);
 		i++;
 	}
-	data->sprites.img.img_ptr =  mlx_xpm_file_to_image(data->mlx,
-		data->sprites.path, &data->sprites.width, &data->sprites.height);
-	data->sprites.img.addr = mlx_get_data_addr(data->sprites.img.img_ptr,
-			&data->sprites.img.bpp, &data->sprites.img.len,
-			&data->sprites.img.endian);
+	spr = &data->sprites;
+	spr->img.ptr = mlx_xpm_file_to_image(data->mlx,
+			spr->path, &spr->img.width, &spr->img.height);
+	spr->img.addr = mlx_get_data_addr(spr->img.ptr,
+			&spr->img.bpp, &spr->img.len, &spr->img.endian);
+}
+
+int		alloc_sprite(t_sprite *sprites)
+{
+	sprites->pos = malloc(sizeof(t_d2vec) * sprites->amount);
+	if (!sprites->pos)
+		return (0);
+	sprites->distance = malloc(sizeof(double) * sprites->amount);
+	if (!sprites->distance)
+		return (0);
+	return (1);
 }
 
 void	complete_sprites(char **map, t_d2vec *pos, int *xmax, int ymax)

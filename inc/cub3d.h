@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/05 19:32:40 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/07 14:02:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ typedef struct s_i2vec
 
 typedef struct s_img
 {
-	void	*img_ptr;
+	void	*ptr;
 	char	*addr;
 	int		bpp;
 	int		len;
 	int		endian;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef struct s_tex
@@ -64,26 +66,25 @@ typedef struct s_tex
 	double	wall_x;
 	double	step;
 	double	pos;
-	int		width;
-	int		height;
 }				t_tex;
-/*
-typedef struct s_sprite
-{
-	t_d2vec	pos;
-	int		order;
-}				t_sprite;
-*/
+
 typedef struct s_sprite
 {
 	char		*path;
 	int			amount;
 	t_img		img;
-	int			width;
-	int			height;
 	t_d2vec		*pos;
-	int			order;
-	double		distance;
+	double		*distance;
+	int			stripe;
+	t_d2vec		cam;
+	double		inv;
+	t_d2vec		transform;
+	int			screen_x;
+	int			height;
+	int			width;
+	t_i2vec		start;
+	t_i2vec		end;
+	t_i2vec		tex;
 }				t_sprite;
 
 typedef struct s_map
@@ -181,6 +182,7 @@ typedef struct s_data
 
 void		init_data(t_data *data);
 void		complete_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
+int			alloc_sprite(t_sprite *sprites);
 int			complete_data(t_data *data);
 void		complete_tex(t_data *data);
 int			key_press(int keycode, t_data *data);
@@ -227,6 +229,13 @@ void		rotate_right(t_data *data);
 void		calc_texture(t_data *data, int i);
 void		put_texture(t_data *data, int x, int i);
 int			get_colour(t_tex *tex);
+
+int			draw_sprites(t_data *data);
+void		fill_distances(t_d2vec pos, t_sprite *spr);
+void		sort_sprites(t_sprite *spr);
+void		calculate_sprite(t_data *data, int i);
+void		put_sprite(t_data *data);
+void		put_pixel_sprite(t_data *data, int y);
 
 /*
 **	Drawing functions.

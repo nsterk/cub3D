@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/05 19:15:21 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/07 13:15:05 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ EXTRA_C		=	bmp.c init.c complete_data.c draw.c \
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c \
 				parse_tex.c validate_map.c
 RAYCST_C	=	move.c rotate.c raycaster.c \
-				textures.c
+				textures.c sprites.c
 CUB3D_C		=	main.c
 
 LIBFT_SRCS	=	$(LIBFT_C:%=$(LIBFT_PATH)%)

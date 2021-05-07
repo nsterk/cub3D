@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/07 13:38:51 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static void	*start_mlx(t_data *data)
 	data->window = mlx_new_window(data->mlx, data->res.x, data->res.y, "cub3D");
 	if (!data->window)
 		return (NULL);
-	data->img.img_ptr = mlx_new_image(data->mlx, data->res.x, data->res.y);
-	if (!data->img.img_ptr)
+	data->img.ptr = mlx_new_image(data->mlx, data->res.x, data->res.y);
+	if (!data->img.ptr)
 		return (NULL);
-	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
+	data->img.addr = mlx_get_data_addr(data->img.ptr, &data->img.bpp,
 			&data->img.len, &data->img.endian);
 	if (!data->img.addr)
 		return (NULL);
@@ -103,7 +103,7 @@ int	window_loop(t_data *data)
 	int	x;
 
 	x = 0;
-	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.img_ptr);
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, data->img.ptr);
 	init_environment(data);
 	move_hooks(data);
 	while (x < data->res.x)
@@ -111,12 +111,13 @@ int	window_loop(t_data *data)
 		raycaster(data, x);
 		x++;
 	}
+	draw_sprites(data);
 	if (data->file.BMP)
 	{
 		data->file.BMP = 0;
 		create_bmp(data->res, &data->img);
 	}
-	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->window, data->img.ptr, 0, 0);
 	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, data->window);
 	return (1);
 }
