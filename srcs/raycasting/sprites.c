@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:03:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/07 14:05:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 18:04:06 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	draw_sprites(t_data *data)
 	int	i;
 
 	i = 0;
-	fill_distances(data->pos, &data->sprites);
-	sort_sprites(&data->sprites);
-	while (i < data->sprites.amount)
+	fill_distances(data->pos, &data->spr);
+	sort_sprites(&data->spr);
+	while (i < data->spr.amount)
 	{
 		calculate_sprite(data, i);
 		put_sprite(data);
@@ -75,7 +75,7 @@ void	calculate_sprite(t_data *data, int i)
 {
 	t_sprite	*spr;
 
-	spr = &data->sprites;
+	spr = &data->spr;
 	spr->cam.x = spr->pos[i].x - data->pos.x;
 	spr->cam.y = spr->pos[i].y - data->pos.y;
 	spr->inv = 1.0 / ((data->plane.x * data->dir.y)
@@ -107,7 +107,7 @@ void	put_sprite(t_data *data)
 	t_sprite	*spr;
 	int			y;
 
-	spr = &data->sprites;
+	spr = &data->spr;
 	spr->stripe = spr->start.x;
 	while (spr->stripe < spr->end.x)
 	{
@@ -133,7 +133,7 @@ void	put_pixel_sprite(t_data *data, int y)
 	int			colour;
 	t_sprite	*spr;
 
-	spr = &data->sprites;
+	spr = &data->spr;
 	d = (y * 256) - (data->res.y * 128) + (spr->height * 128);
 	spr->tex.y = (d * spr->img.height) / spr->height / 256;
 	colour = *(int *)(spr->img.addr + (spr->tex.y * spr->img.len

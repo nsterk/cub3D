@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/10 16:31:07 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/10 18:23:06 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx -g -fsanitize=address
 # MLX_PATH	=	./mlx/
 LIBFT_PATH	=	./srcs/libft/
 GNL_PATH	=	./srcs/gnl/
+INIT_PATH	=	./srcs/init/
 EXTRA_PATH	=	./srcs/extra/
 PARSE_PATH	=	./srcs/parsing/
 RAYCST_PATH	=	./srcs/raycasting/
@@ -35,8 +36,8 @@ LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
 				ft_strlen.c ft_strclen.c ft_substr.c \
 				ft_strtrim.c ft_split.c
 GNL_C		=	get_next_line.c get_next_line_utils.c
-EXTRA_C		=	bmp.c init.c complete_data.c draw.c \
-				colours.c keys.c
+INIT_C		=	complete_data.c complete_sprites.c init.c
+EXTRA_C		=	bmp.c draw.c colours.c keys.c
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c \
 				parse_tex.c validate_map.c
 RAYCST_C	=	move.c rotate.c raycaster.c \
@@ -46,13 +47,15 @@ CUB3D_C		=	main.c
 
 LIBFT_SRCS	=	$(LIBFT_C:%=$(LIBFT_PATH)%)
 GNL_SRCS	=	$(GNL_C:%=$(GNL_PATH)%)
+INIT_SRCS	=	$(INIT_C:%=$(INIT_PATH)%)
 EXTRA_SRCS	=	$(EXTRA_C:%=$(EXTRA_PATH)%)
 PARSE_SRCS	=	$(PARSE_C:%=$(PARSE_PATH)%)
 RAYCST_SRCS	=	$(RAYCST_C:%=$(RAYCST_PATH)%)
 CUB3D_SRCS	=	$(CUB3D_C:%=$(CUB3D_PATH)%)
 
 SRCS		= 	$(LIBFT_SRCS) $(GNL_SRCS) \
-				$(EXTRA_SRCS) $(PARSE_SRCS) \
+				$(INIT_SRCS) $(EXTRA_SRCS) \
+				$(PARSE_SRCS) \
 				$(RAYCST_SRCS) $(CUB3D_SRCS)
 OBJS		=	$(SRCS:.c=.o)
 

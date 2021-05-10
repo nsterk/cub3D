@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 16:21:21 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 18:11:55 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ typedef struct s_data
 	t_ray		ray;
 	t_map		map;
 	t_tex		tex[4];
-	t_sprite	sprites;
+	t_sprite	spr;
 	t_keys		keys;
 	t_i2vec		res;
 	t_d2vec		pos;
@@ -181,10 +181,11 @@ typedef struct s_data
 }			t_data;
 
 void		init_data(t_data *data);
-void		complete_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
+void		pos_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
 int			alloc_sprite(t_sprite *sprites);
 int			complete_data(t_data *data);
 void		complete_tex(t_data *data);
+int			complete_sprites(t_data *data);
 
 /*
 **	Window management.
