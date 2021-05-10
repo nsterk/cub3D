@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 18:11:55 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 18:58:02 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,6 @@ void		put_texture(t_data *data, int x, int i);
 int			get_colour(t_tex *tex);
 
 int			draw_sprites(t_data *data);
-void		fill_distances(t_d2vec pos, t_sprite *spr);
 void		sort_sprites(t_sprite *spr);
 void		calculate_sprite(t_data *data, int i);
 void		put_sprite(t_data *data);

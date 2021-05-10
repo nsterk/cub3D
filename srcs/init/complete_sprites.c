@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 17:54:52 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 18:23:42 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 18:39:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@ int	complete_sprites(t_data *data)
 {
 	size_t		len;
 
+	data->spr.amount = data->map.nr_sprites;
 	if (!alloc_sprite(&data->spr))
 		return (0);
 	len = ft_strlen(data->spr.path);
-	data->spr.img.ptr = mlx_xpm_file_to_image(data->mlx, data->spr.path,
-			&data->spr.img.width, &data->spr.img.height);
-	data->spr.img.addr = mlx_get_data_addr(data->spr.img.ptr,
-			&data->spr.img.bpp, &data->spr.img.len, &data->spr.img.endian);
-	pos_sprites(data->map.grid, data->spr.pos, data->map.x,
-		data->map.y);
+	if (data->spr.path[len - 1] == 'm')
+		data->spr.img.ptr = mlx_xpm_file_to_image(data->mlx, data->spr.path, \
+		&data->spr.img.width, &data->spr.img.height);
+	else
+		data->spr.img.ptr = mlx_png_file_to_image(data->mlx, data->spr.path, \
+		&data->spr.img.width, &data->spr.img.height);
+	data->spr.img.addr = mlx_get_data_addr(data->spr.img.ptr, &data->spr.img.bpp, \
+	&data->spr.img.len, &data->spr.img.endian);
+	pos_sprites(data->map.grid, data->spr.pos, data->map.x, data->map.y);
 	return (1);
 }
 

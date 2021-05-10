@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 16:17:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/07 13:12:20 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 19:55:12 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,25 @@ void	calc_texture(t_data *data, int i)
 
 void	put_texture(t_data *data, int x, int i)
 {
-	t_ray	*ray;
-	t_tex	*tex;
 	int		colour;
 	int		y;
 
-	ray = &data->ray;
-	tex = &data->tex[i];
 	calc_texture(data, i);
-	y = ray->line_start;
-	tex->step = 1.0 * tex->img.height / ray->line_height;
-	tex->pos = (ray->line_start - data->res.y / 2
-			+ ray->line_height / 2) * tex->step;
-	while (y < ray->line_end)
+	y = data->ray.line_start;
+	data->tex[i].step = 1.0 * data->tex[i].img.height / data->ray.line_height;
+	data->tex[i].pos = (data->ray.line_start - data->res.y / 2 \
+		+ data->ray.line_height / 2) * data->tex[i].step;
+	while (y < data->ray.line_end)
 	{
-		tex->y = (int)(tex->pos) & (tex->img.height - 1);
-		tex->pos += tex->step;
-		colour = get_colour(tex);
-		if (ray->side == 1)
+		data->tex[i].y = (int)(data->tex[i].pos) & \
+			(data->tex[i].img.height - 1);
+		data->tex[i].pos += data->tex[i].step;
+		colour = *(int *)(data->tex[i].img.addr + \
+			(data->tex[i].y * data->tex[i].img.len + \
+			data->tex[i].x * (data->tex[i].img.bpp / 8)));
+		if (data->ray.side == 1)
 			colour = (colour >> 1) & 8355711;
 		put_pixel(x, y, colour, &data->img);
 		y++;
 	}
-}
-
-int	get_colour(t_tex *tex)
-{
-	int	colour;
-
-	colour = *(int *)(tex->img.addr + (tex->y * tex->img.len
-				+ tex->x * (tex->img.bpp / 8)));
-	return (colour);
 }

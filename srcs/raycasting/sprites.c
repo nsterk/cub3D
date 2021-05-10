@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:03:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 18:04:06 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 19:48:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,14 @@ int	draw_sprites(t_data *data)
 	int	i;
 
 	i = 0;
-	fill_distances(data->pos, &data->spr);
+	while (i < data->spr.amount)
+	{
+		data->spr.distance[i] = ((data->pos.x - data->spr.pos[i].x) * \
+			(data->pos.x - data->spr.pos[i].x)) + ((data->pos.y - data->spr.pos[i].y) \
+			* (data->pos.y - data->spr.pos[i].y));
+		i++;
+	}
+	i = 0;
 	sort_sprites(&data->spr);
 	while (i < data->spr.amount)
 	{
@@ -27,20 +34,6 @@ int	draw_sprites(t_data *data)
 		i++;
 	}
 	return (0);
-}	
-
-void	fill_distances(t_d2vec pos, t_sprite *spr)
-{
-	int	i;
-
-	i = 0;
-	while (i < spr->amount)
-	{
-		spr->distance[i] = ((pos.x - spr->pos[i].x)
-				* (pos.x - spr->pos[i].x)) + ((pos.y - spr->pos[i].y)
-				* (pos.y - spr->pos[i].y));
-		i++;
-	}
 }
 
 void	sort_sprites(t_sprite *spr)
@@ -73,57 +66,53 @@ void	sort_sprites(t_sprite *spr)
 
 void	calculate_sprite(t_data *data, int i)
 {
-	t_sprite	*spr;
-
-	spr = &data->spr;
-	spr->cam.x = spr->pos[i].x - data->pos.x;
-	spr->cam.y = spr->pos[i].y - data->pos.y;
-	spr->inv = 1.0 / ((data->plane.x * data->dir.y)
-			- (data->dir.x * data->plane.y));
-	spr->transform.x = spr->inv * ((data->dir.y * spr->cam.x)
-			- (data->dir.x * spr->cam.y));
-	spr->transform.y = spr->inv * ((-data->plane.y * spr->cam.x)
-			+ (data->plane.x * spr->cam.y));
-	spr->screen_x = (int)((data->res.x / 2) * (1
-				+ (spr->transform.x / spr->transform.y)));
-	spr->height = abs((int)(1 * (data->res.y / spr->transform.y)));
-	spr->start.y = (-spr->height / 2) + (data->res.y / 2);
-	if (spr->start.y < 0)
-		spr->start.y = 0;
-	spr->end.y = (spr->height / 2) + (data->res.y / 2);
-	if (spr->end.y >= data->res.y)
-		spr->end.y = data->res.y - 1;
-	spr->width = abs((int)(1 * (data->res.y / spr->transform.y)));
-	spr->start.x = -spr->width / 2 + spr->screen_x;
-	if (spr->start.x < 0)
-		spr->start.x = 0;
-	spr->end.x = spr->width / 2 + spr->screen_x;
-	if (spr->end.x >= data->res.x)
-		spr->end.x = data->res.x - 1;
+	data->spr.cam.x = data->spr.pos[i].x - data->pos.x;
+	data->spr.cam.y = data->spr.pos[i].y - data->pos.y;
+	data->spr.inv = 1.0 / ((data->plane.x * data->dir.y) - \
+		(data->dir.x * data->plane.y));
+	data->spr.transform.x = data->spr.inv * ((data->dir.y * data->spr.cam.x) - \
+		(data->dir.x * data->spr.cam.y));
+	data->spr.transform.y = data->spr.inv * ((-data->plane.y * data->spr.cam.x) + \
+		(data->plane.x * data->spr.cam.y));
+	data->spr.screen_x = (int)((data->res.x / 2) * (1 + \
+		(data->spr.transform.x / data->spr.transform.y)));
+	data->spr.height = abs((int)(1 * (data->res.y / data->spr.transform.y)));
+	data->spr.start.y = (-data->spr.height / 2) + (data->res.y / 2);
+	if (data->spr.start.y < 0)
+		data->spr.start.y = 0;
+	data->spr.end.y = (data->spr.height / 2) + (data->res.y / 2);
+	if (data->spr.end.y >= data->res.y)
+		data->spr.end.y = data->res.y - 1;
+	data->spr.width = abs((int)(1 * (data->res.y / data->spr.transform.y)));
+	data->spr.start.x = -data->spr.width / 2 + data->spr.screen_x;
+	if (data->spr.start.x < 0)
+		data->spr.start.x = 0;
+	data->spr.end.x = data->spr.width / 2 + data->spr.screen_x;
+	if (data->spr.end.x >= data->res.x)
+		data->spr.end.x = data->res.x - 1;
 }
 
 void	put_sprite(t_data *data)
 {
-	t_sprite	*spr;
 	int			y;
 
-	spr = &data->spr;
-	spr->stripe = spr->start.x;
-	while (spr->stripe < spr->end.x)
+	data->spr.stripe = data->spr.start.x;
+	while (data->spr.stripe < data->spr.end.x)
 	{
-		spr->tex.x = (int)(256 * (spr->stripe - (-spr->width / 2
-						+ spr->screen_x)) * spr->img.width / spr->width) / 256;
-		y = spr->start.y;
-		if (spr->transform.y > 0 && spr->stripe > 0 && spr->stripe < data->res.x
-			&& spr->transform.y < data->ray.z_buffer[spr->stripe])
+		data->spr.tex.x = (int)(256 * (data->spr.stripe - (-data->spr.width / 2 + \
+			data->spr.screen_x)) * data->spr.img.width / data->spr.width) / 256;
+		y = data->spr.start.y;
+		if (data->spr.transform.y > 0 && data->spr.stripe > 0 && \
+		data->spr.stripe < data->res.x && \
+		data->spr.transform.y < data->ray.z_buffer[data->spr.stripe])
 		{
-			while (y < spr->end.y)
+			while (y < data->spr.end.y)
 			{
 				put_pixel_sprite(data, y);
 				y++;
 			}
 		}
-		spr->stripe++;
+		data->spr.stripe++;
 	}
 }
 
@@ -136,11 +125,11 @@ void	put_pixel_sprite(t_data *data, int y)
 	spr = &data->spr;
 	d = (y * 256) - (data->res.y * 128) + (spr->height * 128);
 	spr->tex.y = (d * spr->img.height) / spr->height / 256;
-	colour = *(int *)(spr->img.addr + (spr->tex.y * spr->img.len
-				+ spr->tex.x * (spr->img.bpp / 8)));
+	colour = *(int *)(spr->img.addr + (spr->tex.y * spr->img.len \
+		+ spr->tex.x * (spr->img.bpp / 8)));
 	if (colour > 0)
 	{
-		*(int *)(data->img.addr + (y * data->img.len) + (spr->stripe
-					* (data->img.bpp / 8))) = colour;
+		*(int *)(data->img.addr + (y * data->img.len) + (spr->stripe \
+			* (data->img.bpp / 8))) = colour;
 	}
 }
