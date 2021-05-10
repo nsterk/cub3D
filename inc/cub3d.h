@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 18:58:02 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 20:10:59 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ typedef struct s_file
 {
 	const char	*path;
 	char		*line;
+	int			ret;
+	int			fd;
 	char		spawn_char;
 	int			BMP;
 }				t_file;
@@ -187,6 +189,8 @@ int			complete_data(t_data *data);
 void		complete_tex(t_data *data);
 int			complete_sprites(t_data *data);
 
+char		first_char(char *str);
+
 /*
 **	Window management.
 */
@@ -202,9 +206,10 @@ typedef int	(*t_id)(t_data *data, char *id);
 int			parse_start(t_data *data);
 int			parse_res(t_data *data, char *line);
 int			parse_tex(t_data *data, char *line);
+int			parse_sprite(t_data *data, char *line);
 int			colour(t_data *data, char *line);
 int			parse_colour(int *colour, char *line);
-int			parse_map(int fd, t_data *data, int ret);
+int			parse_map(t_data *data);
 char		**copy_map(t_list *list, int size);
 int			get_map_info(t_map *map);
 int			get_spawn_info(t_map *map, int i);
@@ -235,7 +240,6 @@ void		rotate_left(t_data *data);
 void		rotate_right(t_data *data);
 void		calc_texture(t_data *data, int i);
 void		put_texture(t_data *data, int x, int i);
-int			get_colour(t_tex *tex);
 
 int			draw_sprites(t_data *data);
 void		sort_sprites(t_sprite *spr);

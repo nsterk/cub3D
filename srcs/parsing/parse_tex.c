@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 18:26:56 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 18:06:42 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 19:58:49 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ int	parse_tex(t_data *data, char *line)
 		if (!data->tex[3].path)
 			return (0);
 	}
-	else if (*line == 'S')
-	{
-		data->spr.path = ft_strtrim(line + 1, " ");
-		if (!data->spr.path)
-			return (0);
-	}
+	return (1);
+}
+
+int	parse_sprite(t_data *data, char *line)
+{
+	data->spr.path = ft_strtrim(line + 1, " ");
+	if (!data->spr.path)
+		return (0);
 	return (1);
 }

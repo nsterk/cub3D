@@ -6,22 +6,22 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/05 14:42:18 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 20:11:29 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	parse_map(int fd, t_data *data, int ret)
+int	parse_map(t_data *data)
 {
 	char	*line;
 	t_list	*head;
 
 	head = ft_lstnew(ft_strdup(data->file.line));
-	while (ret > 0)
+	while (data->file.ret > 0)
 	{
-		ret = get_next_line(fd, &line);
-		if (ret < 0)
+		data->file.ret = get_next_line(data->file.fd, &line);
+		if (data->file.ret < 0)
 			return (0);
 		ft_stradd_back(&head, ft_strdup(line));
 		free(line);
