@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 20:11:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 20:49:28 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	parse_map(t_data *data)
 	char	*line;
 	t_list	*head;
 
-	head = ft_lstnew(ft_strdup(data->file.line));
+	head = ft_lstnew(ft_strdup(data->file.line)); // MALLOC
 	while (data->file.ret > 0)
 	{
 		data->file.ret = get_next_line(data->file.fd, &line);
@@ -57,6 +57,52 @@ char	**copy_map(t_list *list, int size)
 	return (map);
 }
 
+static int	get_spawn_info(t_map *map, int y)
+{
+	int	x;
+
+	x = 0;
+	while (x < map->x[y])
+	{
+		if (map->grid[y][x] == '2')
+			map->nr_sprites++;
+		else if (ft_strchr("NSEW", map->grid[y][x]))
+		{
+			if (map->spawn_char != '@') // ERROR
+				return (0);
+			map->spawn_char = map->grid[y][x];
+			map->spawn_pos = (t_d2vec){x + 0.5, y + 0.5};
+			map->grid[y][x] = '0';
+		}
+		x++;
+	}
+	return (1);
+}
+
+static void	set_spawn_dir(t_map *map)
+{
+	if (map->spawn_char == 'N')
+	{
+		map->spawn_dir = (t_d2vec){0, -1};
+		map->plane = (t_d2vec){0.66, 0};
+	}
+	else if (map->spawn_char == 'E')
+	{
+		map->spawn_dir = (t_d2vec){1, 0};
+		map->plane = (t_d2vec){0, 0.66};
+	}
+	else if (map->spawn_char == 'S')
+	{
+		map->spawn_dir = (t_d2vec){0, 1};
+		map->plane = (t_d2vec){-0.66, 0};
+	}
+	else
+	{
+		map->spawn_dir = (t_d2vec){-1, 0};
+		map->plane = (t_d2vec){0, -0.66};
+	}
+}
+
 int	get_map_info(t_map *map)
 {
 	int	i;
@@ -75,50 +121,4 @@ int	get_map_info(t_map *map)
 	set_spawn_dir(map);
 	map->x[i] = 0;
 	return (1);
-}
-
-int	get_spawn_info(t_map *map, int y)
-{
-	int	x;
-
-	x = 0;
-	while (x < map->x[y])
-	{
-		if (map->grid[y][x] == '2')
-			map->nr_sprites++;
-		else if (ft_strchr("NSEW", map->grid[y][x]))
-		{
-			if (map->spawn_char != '@')
-				return (0);
-			map->spawn_char = map->grid[y][x];
-			map->spawn_pos = (t_d2vec){x + 0.5, y + 0.5};
-			map->grid[y][x] = '0';
-		}
-		x++;
-	}
-	return (1);
-}
-
-void	set_spawn_dir(t_map *map)
-{
-	if (map->spawn_char == 'N')
-	{
-		map->spawn_dir = (t_d2vec){0, -1};
-		map->plane = (t_d2vec){0.66, 0};
-	}
-	if (map->spawn_char == 'E')
-	{
-		map->spawn_dir = (t_d2vec){1, 0};
-		map->plane = (t_d2vec){0, 0.66};
-	}
-	if (map->spawn_char == 'S')
-	{
-		map->spawn_dir = (t_d2vec){0, 1};
-		map->plane = (t_d2vec){-0.66, 0};
-	}
-	if (map->spawn_char == 'W')
-	{
-		map->spawn_dir = (t_d2vec){-1, 0};
-		map->plane = (t_d2vec){0, -0.66};
-	}
 }

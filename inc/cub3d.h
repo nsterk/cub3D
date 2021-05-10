@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 20:10:59 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 20:44:06 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,6 @@ int			parse_colour(int *colour, char *line);
 int			parse_map(t_data *data);
 char		**copy_map(t_list *list, int size);
 int			get_map_info(t_map *map);
-int			get_spawn_info(t_map *map, int i);
-void		set_spawn_dir(t_map *map);
 int			validate_map(t_map *map, char **grid);
 int			floodfill(int y, int x, t_map *map);
 int			create_trgb(int t, int r, int g, int b);

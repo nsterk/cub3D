@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 20:11:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 20:28:29 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ static int	ready_for_map(t_data *data)
 		return (0);
 	return (1);
 }
+/*
+**	if error: FREE data->file.line	CLOSE data->file.fd
+*/
 
 int	parse_start(t_data *data)
 {

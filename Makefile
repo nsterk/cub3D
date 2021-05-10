@@ -6,13 +6,15 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/10 20:01:38 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/10 20:49:02 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
+# put back  -Wall --Wextra -Werror  flags
+
 NAME		=	cub3D
 CC			=	gcc
-W_FLAGS		=	-Wall -Werror -Wextra -std=c89 -Iinc
+W_FLAGS		=	-std=c89 -Iinc
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx -g -fsanitize=address
 
 # MLX_PATH	=	./mlx/
