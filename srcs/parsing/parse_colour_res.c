@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 13:52:13 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	parse_res(t_data *data, char *line)
 {
 	size_t	i;
+	int		screen_x;
+	int		screen_y;
 
 	i = 0;
 	line = (char *)ft_skipspace(line);
@@ -27,6 +29,9 @@ int	parse_res(t_data *data, char *line)
 	if (!ft_isdigit(*line))
 		return (0);
 	data->res.y = ft_atoi(line);
+	mlx_get_screen_size(data->mlx, &screen_x, &screen_y);
+	if (data->res.x > screen_x || data->res.y > screen_y)
+		data->res = (t_i2vec){screen_x, screen_y};
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/07 14:02:48 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/10 16:21:21 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,12 @@ void		complete_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
 int			alloc_sprite(t_sprite *sprites);
 int			complete_data(t_data *data);
 void		complete_tex(t_data *data);
+
+/*
+**	Window management.
+*/
+int			exit_window(t_data *data);
+int			window_loop(t_data *data);
 int			key_press(int keycode, t_data *data);
 int			key_release(int keycode, t_data *data);
 
@@ -217,7 +223,7 @@ void		move_left(t_data *data);
 void		move_right(t_data *data);
 
 /*
-**	Raycasting functions.
+**	Image to window functions.
 */
 
 void		raycaster(t_data *data, int x);
@@ -242,7 +248,6 @@ void		put_pixel_sprite(t_data *data, int y);
 */
 void		put_pixel(int x, int y, int colour, t_img *img);
 void		put_line(int x, t_ray *ray, int colour, t_img *img);
-void		init_environment(t_data *data);
 
 int			create_bmp(t_i2vec res, t_img *img);
 #endif
