@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 00:42:54 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 17:29:32 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static int	ready_for_map(t_data *data)
 	i = 0;
 	while (i < 4)
 	{
-		if (data->tex[i].path == NULL)
+		if (data->tex[i].img.path == NULL)
 			return (0);
 		i++;
 	}
-	if (data->spr.path == NULL)
+	if (data->spr.img.path == NULL)
 		return (0);
 	if (data->res.x < 0 || data->res.y < 0)
 		return (0);

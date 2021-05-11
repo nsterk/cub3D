@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 19:14:28 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 00:38:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 17:13:28 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	complete_tex(t_data *data)
 	i = 0;
 	while (i < 4)
 	{
-		len = ft_strlen(data->tex[i].path);
-		if (data->tex[i].path[len - 1] == 'm')
-			data->tex[i].img.ptr = mlx_xpm_file_to_image(data->mlx, data->tex[i].path, \
+		len = ft_strlen(data->tex[i].img.path);
+		if (data->tex[i].img.path[len - 1] == 'm')
+			data->tex[i].img.ptr = mlx_xpm_file_to_image(data->mlx, data->tex[i].img.path, \
 			&data->tex[i].img.width, &data->tex[i].img.height);
 		else
-			data->tex[i].img.ptr = mlx_png_file_to_image(data->mlx, data->tex[i].path, \
+			data->tex[i].img.ptr = mlx_png_file_to_image(data->mlx, data->tex[i].img.path, \
 			&data->tex[i].img.width, &data->tex[i].img.height);
 		data->tex[i].img.addr = mlx_get_data_addr(data->tex[i].img.ptr, &data->tex[i].img.bpp, \
 		&data->tex[i].img.len, &data->tex[i].img.endian);

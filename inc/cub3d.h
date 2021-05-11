@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 20:44:06 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 17:15:52 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 # define RIGHT	124
 # define ESC	53
 
+typedef enum e_error
+{
+	SUCCESS = 0,
+	INPUT_ERROR,
+	CONFIG_ERROR,
+	MALLOC_ERROR,
+}				t_error;
+
 /*
 **	Structs for vectors of type double & integer
 */
@@ -48,6 +56,7 @@ typedef struct s_i2vec
 
 typedef struct s_img
 {
+	char	*path;
 	void	*ptr;
 	char	*addr;
 	int		bpp;
@@ -190,6 +199,7 @@ void		complete_tex(t_data *data);
 int			complete_sprites(t_data *data);
 
 char		first_char(char *str);
+int			is_space(char *s);
 
 /*
 **	Window management.

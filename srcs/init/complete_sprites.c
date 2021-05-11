@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 17:54:52 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 00:39:34 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 17:14:02 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	complete_sprites(t_data *data)
 	data->spr.amount = data->map.nr_sprites;
 	if (!alloc_sprite(&data->spr))
 		return (0); // ERROR MALLOC
-	len = ft_strlen(data->spr.path);
-	if (data->spr.path[len - 1] == 'm')
-		data->spr.img.ptr = mlx_xpm_file_to_image(data->mlx, data->spr.path, \
+	len = ft_strlen(data->spr.img.path);
+	if (data->spr.img.path[len - 1] == 'm')
+		data->spr.img.ptr = mlx_xpm_file_to_image(data->mlx, data->spr.img.path, \
 		&data->spr.img.width, &data->spr.img.height);
 	else
-		data->spr.img.ptr = mlx_png_file_to_image(data->mlx, data->spr.path, \
+		data->spr.img.ptr = mlx_png_file_to_image(data->mlx, data->spr.img.path, \
 		&data->spr.img.width, &data->spr.img.height);
 	data->spr.img.addr = mlx_get_data_addr(data->spr.img.ptr, &data->spr.img.bpp, \
 	&data->spr.img.len, &data->spr.img.endian);
