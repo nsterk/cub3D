@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 20:13:41 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 00:43:38 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ int	validate_map(t_map *map, char **grid)
 
 	i = 0;
 	map->check = (char **)malloc(sizeof(char *) * (map->y + 1));
-	if (!map->check)
+	if (!map->check)  // ERROR
 		return (0);
 	while (i < map->y)
 	{
 		map->check[i] = ft_strdup(grid[i]);
-		if (!map->check[i])
+		if (!map->check[i])  // ERROR
 			return (0);
 		i++;
 	}
 	if (!floodfill(map->spawn_pos.y, map->spawn_pos.x, map))
-		return (0);
+		return (0);  // ERROR INVALID MAP
 	free_validate(map);
 	return (1);
 }
@@ -51,7 +51,7 @@ int	floodfill(int y, int x, t_map *map)
 	if (y == 0 || x == 0 || x == map->x[y] - 1
 		|| y == map->y - 1)
 	{
-		printf("Invalid map\n");
+		printf("Invalid map\n");  // ERROR INVALID MAP
 		return (0);
 	}
 	if (map->check[y][x] == '0')

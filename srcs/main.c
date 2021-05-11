@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 16:19:52 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 00:36:45 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,27 @@ int	loops(t_data *data)
 
 int	validate_input(int argc, char **argv, t_file *file)
 {
-	if (argc >= 2)
+	size_t	len;
+
+	if (argc > 1 && argc < 4)
 	{
-		file->path = argv[1];
-		file->BMP = 1;
+		len = ft_strlen(argv[1]);
+		if (!ft_strcmp(argv[1] + (len - 4), ".cub"))
+			file->path = argv[1];
+		else
+		{
+			return (0); // ERROR: check extension
+		}
+		if (argc == 3)
+		{
+			if (!ft_strcmp(argv[2], "--save"))
+				file->BMP = 1;
+			else
+				printf("specify --save\n"); // ERROR 
+		}
 	}
 	else
-		return (0);
+		return (0); //ERROR MESSAGE
 	return (1);
 }
 
@@ -60,7 +74,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (!validate_input(argc, argv, &data.file))
+	if (!validate_input(argc, argv, &data.file)) // ERROR MESSAGE 
 		return (0);
 	init_data(&data);
 	parse_start(&data);

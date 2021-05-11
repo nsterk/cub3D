@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 13:52:13 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 00:41:12 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int	parse_colour(int *colour, char *line)
 	i = 0;
 	str = ft_split(line, ',');
 	if (!str)
-		return (0);
+		return (0);  // ERROR
 	R = ft_atoi(str[0]);
 	G = ft_atoi(str[1]);
 	B = ft_atoi(str[2]);
 	if (R < 0 || G < 0 || B < 0
 		|| R > 255 || G > 255 || B > 255)
-	{
+	{  // ERROR
 		ft_free_array(str);
 		printf("Invalid ceiling or floor colour\n");
 		return (0);

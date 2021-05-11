@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 20:49:28 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 00:41:50 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	parse_map(t_data *data)
 	{
 		data->file.ret = get_next_line(data->file.fd, &line);
 		if (data->file.ret < 0)
-			return (0);
+			return (0);  // ERROR
 		ft_stradd_back(&head, ft_strdup(line));
 		free(line);
 	}
@@ -31,9 +31,9 @@ int	parse_map(t_data *data)
 	if (!data->map.grid)
 		return (0);
 	ft_lstclear(&head, free);
-	if (!get_map_info(&data->map))
+	if (!get_map_info(&data->map))  // ERROR
 		return (0);
-	if (!validate_map(&data->map, data->map.grid))
+	if (!validate_map(&data->map, data->map.grid))  // ERROR
 		return (0);
 	return (1);
 }
@@ -45,11 +45,11 @@ char	**copy_map(t_list *list, int size)
 
 	map = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!map)
-		return (NULL);
+		return (NULL);  // ERROR
 	i = 0;
 	while (list)
 	{
-		map[i] = ft_strdup(list->content);
+		map[i] = ft_strdup(list->content);  // ERROR
 		list = list->next;
 		i++;
 	}

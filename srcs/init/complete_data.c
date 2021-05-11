@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 19:14:28 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 18:38:59 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 00:38:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	complete_data(t_data *data)
 	data->dir = data->map.spawn_dir;
 	data->plane = data->map.plane;
 	data->ray.z_buffer = malloc(sizeof(*(data->ray.z_buffer)) * data->res.x);
-	if (!data->ray.z_buffer)
+	if (!data->ray.z_buffer) // ERROR MALLOC
 		return (0);
 	return (1);
 }

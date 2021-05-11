@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:03:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 19:48:48 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 00:45:14 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ void	put_pixel_sprite(t_data *data, int y)
 	d = (y * 256) - (data->res.y * 128) + (spr->height * 128);
 	spr->tex.y = (d * spr->img.height) / spr->height / 256;
 	colour = *(int *)(spr->img.addr + (spr->tex.y * spr->img.len \
-		+ spr->tex.x * (spr->img.bpp / 8)));
+		 + spr->tex.x * (spr->img.bpp / 8)));
 	if (colour > 0)
 	{
 		*(int *)(data->img.addr + (y * data->img.len) + (spr->stripe \
-			* (data->img.bpp / 8))) = colour;
+			 * (data->img.bpp / 8))) = colour;
 	}
 }

@@ -6,11 +6,11 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/10 20:49:02 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/10 22:43:57 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-# put back  -Wall --Wextra -Werror  flags
+# put back  -Wall -Wextra -Werror  flags
 
 NAME		=	cub3D
 CC			=	gcc
@@ -32,7 +32,7 @@ LIBFT_C		=	ft_atoi.c ft_bzero.c ft_calloc.c \
 				ft_lstnew.c ft_lstlast.c ft_lstsize.c \
 				ft_lstdelone.c ft_lstclear.c \
 				ft_stradd_back.c \
-				ft_skipspace.c \
+				ft_skipspace.c ft_strcmp.c \
 				ft_strchr.c ft_strcpy.c ft_strlcpy.c \
 				ft_strdup.c ft_strcdup.c ft_strccpy.c \
 				ft_strlen.c ft_strclen.c ft_substr.c \
