@@ -6,13 +6,13 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 00:41:50 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 20:02:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	parse_map(t_data *data)
+t_status	parse_map(t_data *data)
 {
 	char	*line;
 	t_list	*head;
@@ -22,7 +22,7 @@ int	parse_map(t_data *data)
 	{
 		data->file.ret = get_next_line(data->file.fd, &line);
 		if (data->file.ret < 0)
-			return (0);  // ERROR
+			return (MALLOC_ERROR);  // ERROR
 		ft_stradd_back(&head, ft_strdup(line));
 		free(line);
 	}
@@ -103,7 +103,7 @@ static void	set_spawn_dir(t_map *map)
 	}
 }
 
-int	get_map_info(t_map *map)
+	get_map_info(t_map *map)
 {
 	int	i;
 

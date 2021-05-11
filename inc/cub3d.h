@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 17:15:52 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 19:56:41 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@
 # define RIGHT	124
 # define ESC	53
 
-typedef enum e_error
+typedef enum e_status
 {
 	SUCCESS = 0,
-	INPUT_ERROR,
+	EXTENSION_ERROR,
+	ARGSAVE_ERROR,
+	ARGNO_ERROR,
+	FILE_ERROR,
 	CONFIG_ERROR,
 	MALLOC_ERROR,
-}				t_error;
+}				t_status;
 
 /*
 **	Structs for vectors of type double & integer
@@ -68,7 +71,6 @@ typedef struct s_img
 
 typedef struct s_tex
 {
-	char	*path;
 	t_img	img;
 	int		x;
 	int		y;
@@ -79,7 +81,6 @@ typedef struct s_tex
 
 typedef struct s_sprite
 {
-	char		*path;
 	int			amount;
 	t_img		img;
 	t_d2vec		*pos;
@@ -172,6 +173,7 @@ typedef struct s_ray
 
 typedef struct s_data
 {
+	t_status	status;
 	void		*mlx;
 	void		*window;
 	t_img		img;
@@ -212,18 +214,18 @@ int			key_release(int keycode, t_data *data);
 /*
 **	Parsing functions.
 */
-typedef int	(*t_id)(t_data *data, char *id);
-int			parse_start(t_data *data);
+typedef t_status	(*t_id)(t_data *data, char *id);
+t_status	parse_start(t_data *data);
 int			parse_res(t_data *data, char *line);
 int			parse_tex(t_data *data, char *line);
 int			parse_sprite(t_data *data, char *line);
 int			colour(t_data *data, char *line);
 int			parse_colour(int *colour, char *line);
-int			parse_map(t_data *data);
+t_status	parse_map(t_data *data);
 char		**copy_map(t_list *list, int size);
-int			get_map_info(t_map *map);
-int			validate_map(t_map *map, char **grid);
-int			floodfill(int y, int x, t_map *map);
+t_status	get_map_info(t_map *map);
+t_status	validate_map(t_map *map, char **grid);
+t_status	floodfill(int y, int x, t_map *map);
 int			create_trgb(int t, int r, int g, int b);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 00:43:38 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 19:57:43 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	validate_map(t_map *map, char **grid)
 	return (1);
 }
 
-int	floodfill(int y, int x, t_map *map)
+t_status	floodfill(int y, int x, t_map *map)
 {
 	if (y == 0 || x == 0 || x == map->x[y] - 1
 		|| y == map->y - 1)

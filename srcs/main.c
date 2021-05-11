@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 00:36:45 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/11 19:36:50 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	loops(t_data *data)
 	return (1);
 }
 
-int	validate_input(int argc, char **argv, t_file *file)
+static t_status	validate_input(int argc, char **argv, t_file *file)
 {
 	size_t	len;
 
@@ -54,30 +54,31 @@ int	validate_input(int argc, char **argv, t_file *file)
 		if (!ft_strcmp(argv[1] + (len - 4), ".cub"))
 			file->path = argv[1];
 		else
-		{
-			return (0); // ERROR: check extension
-		}
+			return (EXTENSION_ERROR);
 		if (argc == 3)
 		{
 			if (!ft_strcmp(argv[2], "--save"))
 				file->BMP = 1;
 			else
-				printf("specify --save\n"); // ERROR 
+				return (ARGSAVE_ERROR);
 		}
 	}
 	else
-		return (0); //ERROR MESSAGE
-	return (1);
+		return (ARGNO_ERROR);
+	return (SUCCESS);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (!validate_input(argc, argv, &data.file)) // ERROR MESSAGE 
-		return (0);
+	data.status = validate_input(argc, argv, &data.file);
+	if (data.status != SUCCESS)
+		return (exit_window(&data));
 	init_data(&data);
-	parse_start(&data);
+	data.status = parse_start(&data);
+	if (data.status != SUCCESS)
+		return (exit_window(&data));
 	start_mlx(&data);
 	complete_data(&data);
 	loops(&data);
