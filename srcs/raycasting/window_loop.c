@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 15:22:51 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 19:10:14 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 02:30:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	window_loop(t_data *data)
 	{
 		data->file.BMP = 0;
 		if (!create_bmp(data->res, &data->img))
-			return (0);  // ERROR
+			return (set_status(&data->status, BMP_ERROR));
+		else
+			return (exit_window(data));
 	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img.ptr, 0, 0);
 	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, data->window);

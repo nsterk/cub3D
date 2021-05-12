@@ -6,30 +6,33 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 20:02:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 14:56:41 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-t_status	parse_map(t_data *data)
+int	parse_map(t_data *data)
 {
 	char	*line;
 	t_list	*head;
 
-	head = ft_lstnew(ft_strdup(data->file.line)); // MALLOC
+	head = ft_lstnew(ft_strdup(data->file.line));
+	if (!head)
+		return (set_status(&data->status, MALLOC_ERROR));
 	while (data->file.ret > 0)
 	{
 		data->file.ret = get_next_line(data->file.fd, &line);
 		if (data->file.ret < 0)
-			return (MALLOC_ERROR);  // ERROR
-		ft_stradd_back(&head, ft_strdup(line));
+			return (set_status(&data->status, FILE_ERROR));
+		if (!ft_stradd_back(&head, ft_strdup(line));
+			return (set_status(&data->status, MALLOC_ERROR));
 		free(line);
 	}
 	data->map.y = ft_lstsize(head);
-	data->map.grid = copy_map(head, data->map.y);
+	copy_map(data->map.grid, head, data->map.y);
 	if (!data->map.grid)
-		return (0);
+		return (set_status(&data->status, MALLOC_ERROR));
 	ft_lstclear(&head, free);
 	if (!get_map_info(&data->map))  // ERROR
 		return (0);
@@ -38,23 +41,24 @@ t_status	parse_map(t_data *data)
 	return (1);
 }
 
-char	**copy_map(t_list *list, int size)
+int	copy_map(char **map, t_list *list, int size)
 {
-	char	**map;
 	int		i;
 
 	map = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!map)
-		return (NULL);  // ERROR
+		return (0);
 	i = 0;
 	while (list)
 	{
-		map[i] = ft_strdup(list->content);  // ERROR
+		map[i] = ft_strdup(list->content);
+		if (!map[i])
+			return (0);
 		list = list->next;
 		i++;
 	}
 	map[i] = NULL;
-	return (map);
+	return (1);
 }
 
 static int	get_spawn_info(t_map *map, int y)

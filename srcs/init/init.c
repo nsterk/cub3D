@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 19:39:46 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 02:23:05 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_data(t_data *data)
 	data->file.line = NULL;
 	data->file.ret = 1;
 	data->file.fd = -1;
+	data->ray.z_buffer = NULL;
 	data->spr.img.path = NULL;
 	data->map.nr_sprites = 0;
 	data->map.spawn_char = '@';

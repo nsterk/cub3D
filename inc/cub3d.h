@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 20:05:18 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 14:58:12 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ typedef enum e_status
 	ARGNO_ERROR,
 	FILE_ERROR,
 	CONFIG_ERROR,
+	MAP_ERROR,
+	IMG_ERROR,
 	MALLOC_ERROR,
+	BMP_ERROR,
 }				t_status;
 
 /*
@@ -197,11 +200,12 @@ void		init_data(t_data *data);
 void		pos_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
 int			alloc_sprite(t_sprite *sprites);
 int			complete_data(t_data *data);
-void		complete_tex(t_data *data);
+int			complete_tex(t_data *data);
 int			complete_sprites(t_data *data);
 
 char		first_char(char *str);
 int			is_space(char *s);
+int			set_status(t_status *status, t_status num);
 
 /*
 **	Window management.
@@ -214,18 +218,18 @@ int			key_release(int keycode, t_data *data);
 /*
 **	Parsing functions.
 */
-typedef t_status	(*t_id)(t_data *data, char *id);
-t_status	parse_start(t_data *data);
+typedef int	(*t_id)(t_data *data, char *id);
+int			parse_start(t_data *data);
 int			parse_res(t_data *data, char *line);
 int			parse_tex(t_data *data, char *line);
 int			parse_sprite(t_data *data, char *line);
 int			colour(t_data *data, char *line);
 int			parse_colour(int *colour, char *line);
-t_status	parse_map(t_data *data);
-char		**copy_map(t_list *list, int size);
-int	get_map_info(t_map *map);
-int	validate_map(t_map *map, char **grid);
-int	floodfill(int y, int x, t_map *map);
+int			parse_map(t_data *data);
+int			copy_map(char **map, t_list *list, int size);
+int			get_map_info(t_map *map);
+int			validate_map(t_map *map, char **grid);
+int			floodfill(int y, int x, t_map *map);
 int			create_trgb(int t, int r, int g, int b);
 
 /*

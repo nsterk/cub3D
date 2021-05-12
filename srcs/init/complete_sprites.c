@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 17:54:52 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 17:14:02 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 04:51:39 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	complete_sprites(t_data *data)
 
 	data->spr.amount = data->map.nr_sprites;
 	if (!alloc_sprite(&data->spr))
-		return (0); // ERROR MALLOC
+		return (set_status(&data->status, MALLOC_ERROR));
 	len = ft_strlen(data->spr.img.path);
 	if (data->spr.img.path[len - 1] == 'm')
 		data->spr.img.ptr = mlx_xpm_file_to_image(data->mlx, data->spr.img.path, \
@@ -26,6 +26,8 @@ int	complete_sprites(t_data *data)
 	else
 		data->spr.img.ptr = mlx_png_file_to_image(data->mlx, data->spr.img.path, \
 		&data->spr.img.width, &data->spr.img.height);
+	if (data->spr.img.ptr)
+		return (set_status(&data->status, IMG_ERROR));
 	data->spr.img.addr = mlx_get_data_addr(data->spr.img.ptr, &data->spr.img.bpp, \
 	&data->spr.img.len, &data->spr.img.endian);
 	pos_sprites(data->map.grid, data->spr.pos, data->map.x, data->map.y);
@@ -36,9 +38,9 @@ int	alloc_sprite(t_sprite *sprites)
 {
 	sprites->pos = malloc(sizeof(t_d2vec) * sprites->amount);
 	if (!sprites->pos)
-		return (0);  // ERROR
+		return (0);
 	sprites->distance = malloc(sizeof(double) * sprites->amount);
-	if (!sprites->distance)  // ERROR
+	if (!sprites->distance)
 		return (0);
 	return (1);
 }

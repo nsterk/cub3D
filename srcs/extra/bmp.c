@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/28 14:27:57 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 00:47:58 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 00:45:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	create_bmp(t_i2vec res, t_img *img)
 
 	fd = open("image.bmp", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd < 1)
-	{
-		printf("opening failed\n");  // ERROR
 		return (0);
-	}
 	if ((res.x * (img->bpp / 8)) % 4 == 0)
 		pad_size = 0;
 	else
@@ -44,11 +41,11 @@ int	create_bmp(t_i2vec res, t_img *img)
 
 int	write_fileh_to_file(int bpp, int pad_size, int fd, t_i2vec res)
 {
-	unsigned char	*header;
+	unsigned char	header[14];
 	unsigned int	size;
 
+	ft_bzero(header, 14);
 	size = 54 + (((bpp / 8) * (res.x + pad_size)) * res.y);
-	header = ft_calloc(14, sizeof(unsigned char));  // ERROR
 	header[0] = 'B';
 	header[1] = 'M';
 	header[3] = size;
@@ -57,7 +54,6 @@ int	write_fileh_to_file(int bpp, int pad_size, int fd, t_i2vec res)
 	header[5] = size >> 24;
 	header[10] = 54;
 	write(fd, header, 14);
-	free(header);
 	return (1);
 }
 

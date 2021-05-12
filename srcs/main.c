@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 19:36:50 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 02:28:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ int	main(int argc, char **argv)
 	if (data.status != SUCCESS)
 		return (exit_window(&data));
 	start_mlx(&data);
-	complete_data(&data);
+	if (!complete_data(&data))
+		return (exit_window(&data));
 	loops(&data);
+	exit_window(&data);
 	return (0);
 }

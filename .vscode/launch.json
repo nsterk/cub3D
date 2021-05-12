@@ -8,8 +8,16 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/cub3d",
+			"program": "${workspaceFolder}/cub3D",
 			"args": ["scene.cub"],
+			"cwd": "${workspaceFolder}"
+		}
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug argument",
+			"program": "${workspaceFolder}/cub3D",
+			"args": ["scene.cub", "--save"],
 			"cwd": "${workspaceFolder}"
 		}
 	]

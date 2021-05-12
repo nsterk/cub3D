@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 20:05:31 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 02:33:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	free_validate(t_map *map)
 		free(map->check[i]);
 		i++;
 	}
-	free(map->check);
+	//free(map->check);
 }
 
 int	validate_map(t_map *map, char **grid)

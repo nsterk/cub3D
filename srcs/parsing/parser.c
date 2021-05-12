@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 19:56:21 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/12 05:12:46 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ static int	ready_for_map(t_data *data)
 **	if error: FREE data->file.line	CLOSE data->file.fd
 */
 
-t_status	parse_start(t_data *data)
+int	parse_start(t_data *data)
 {
 	int		i;
 
 	data->file.fd = open(data->file.path, O_RDONLY);
 	if (data->file.fd < 0)
-		return (FILE_ERROR);
+		return (set_status(&data->status, FILE_ERROR));
 	while (data->file.ret > 0)
 	{
 		data->file.ret = get_next_line(data->file.fd, &data->file.line);
@@ -72,7 +72,7 @@ t_status	parse_start(t_data *data)
 			while (!ft_isalpha(data->file.line[i]))
 				i++;
 			if (!id_path(data, data->file.line + i))
-				return (CONFIG_ERROR);
+				return (set_status(&data->status, CONFIG_ERROR));
 		}
 		else if (ready_for_map(data) && ft_isdigit(first_char(data->file.line)))
 		{
