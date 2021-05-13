@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 05:12:46 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 19:45:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,8 @@ static int	ready_for_map(t_data *data)
 		return (0);
 	return (1);
 }
-/*
-**	if error: FREE data->file.line	CLOSE data->file.fd
-*/
 
-int	parse_start(t_data *data)
+int	parser(t_data *data)
 {
 	int		i;
 
@@ -76,10 +73,10 @@ int	parse_start(t_data *data)
 		}
 		else if (ready_for_map(data) && ft_isdigit(first_char(data->file.line)))
 		{
-			if (!parse_map(data))  // ERROR
+			if (!parse_map(data))
 				return (0);
 		}
 		free(data->file.line);
 	}
-	return (1);
+	return (complete_data(data));
 }

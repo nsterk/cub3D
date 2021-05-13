@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 14:56:41 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 19:07:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,43 +25,50 @@ int	parse_map(t_data *data)
 		data->file.ret = get_next_line(data->file.fd, &line);
 		if (data->file.ret < 0)
 			return (set_status(&data->status, FILE_ERROR));
-		if (!ft_stradd_back(&head, ft_strdup(line));
+		if (!ft_stradd_back(&head, ft_strdup(line)))
 			return (set_status(&data->status, MALLOC_ERROR));
 		free(line);
 	}
 	data->map.y = ft_lstsize(head);
-	copy_map(data->map.grid, head, data->map.y);
+	data->map.grid = copy_map(&data->status, head, data->map.y);
+	ft_lstclear(&head, free);
 	if (!data->map.grid)
 		return (set_status(&data->status, MALLOC_ERROR));
-	ft_lstclear(&head, free);
-	if (!get_map_info(&data->map))  // ERROR
+	if (!get_map_info(&data->status, &data->map))
 		return (0);
-	if (!validate_map(&data->map, data->map.grid))  // ERROR
+	if (!validate_map(&data->status, &data->map, data->map.grid))
 		return (0);
 	return (1);
 }
 
-int	copy_map(char **map, t_list *list, int size)
+char	**copy_map(t_status *status, t_list *list, int size)
 {
+	char	**map;
 	int		i;
 
 	map = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!map)
-		return (0);
+	{
+		*status = MALLOC_ERROR;
+		return (NULL);
+	}
 	i = 0;
 	while (list)
 	{
 		map[i] = ft_strdup(list->content);
 		if (!map[i])
-			return (0);
+		{
+			*status = MALLOC_ERROR;
+			return (NULL);
+		}
 		list = list->next;
 		i++;
 	}
 	map[i] = NULL;
-	return (1);
+	return (map);
 }
 
-static int	get_spawn_info(t_map *map, int y)
+static int	get_spawn_info(t_status *status, t_map *map, int y)
 {
 	int	x;
 
@@ -72,8 +79,8 @@ static int	get_spawn_info(t_map *map, int y)
 			map->nr_sprites++;
 		else if (ft_strchr("NSEW", map->grid[y][x]))
 		{
-			if (map->spawn_char != '@') // ERROR
-				return (0);
+			if (map->spawn_char != '@')
+				return (set_status(status, MAP_ERROR));
 			map->spawn_char = map->grid[y][x];
 			map->spawn_pos = (t_d2vec){x + 0.5, y + 0.5};
 			map->grid[y][x] = '0';
@@ -107,18 +114,18 @@ static void	set_spawn_dir(t_map *map)
 	}
 }
 
-	get_map_info(t_map *map)
+	get_map_info(t_status *status, t_map *map)
 {
 	int	i;
 
 	i = 0;
 	map->x = malloc(sizeof(int) * (map->y + 1));
 	if (!map->x)
-		return (0);
+		return (set_status(status, MALLOC_ERROR));
 	while (i < map->y)
 	{
 		map->x[i] = (int)ft_strlen(map->grid[i]);
-		if (!get_spawn_info(map, i))
+		if (!get_spawn_info(status, map, i))
 			return (0);
 		i++;
 	}

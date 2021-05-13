@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/11 19:09:30 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 14:59:51 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 18:12:45 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,6 @@ static void	write_error_msg(t_status status)
 	};
 
 	printf("Error\n%s\n", msg[status]);
-}
-
-static void	free_alloc(void **data, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		free(data[i]);
-		i++;
-	}
-	free(data);
-}
-
-static void	close_free(t_data *data)
-{
-	if (data->file.fd != -1)
-		close(data->file.fd);
-	if (data->ray.z_buffer)
-		free(data->ray.z_buffer);
-	if (data->spr.pos)
-		free(data->spr.pos);
 }
 
 int	exit_window(t_data *data)

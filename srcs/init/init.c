@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 02:23:05 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 18:51:47 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_data(t_data *data)
 
 	init_keys(&data->keys);
 	data->file.line = NULL;
+	data->status = SUCCESS;
 	data->file.ret = 1;
 	data->file.fd = -1;
 	data->ray.z_buffer = NULL;

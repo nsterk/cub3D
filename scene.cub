@@ -2,7 +2,7 @@ R 900 600
 C 219, 213, 213
 F 188, 205, 206
 NO ./textures/redbrick.xpm
-EA ./textures/redbrick.png
+EA ./textures/redbrick.xpm
 SO ./textures/redbrick.xpm
 WE ./textures/redbrick.xpm
 

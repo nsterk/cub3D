@@ -6,43 +6,34 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 02:33:33 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 18:31:50 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-static void	free_validate(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->y)
-	{
-		free(map->check[i]);
-		i++;
-	}
-	//free(map->check);
-}
-
-int	validate_map(t_map *map, char **grid)
+int	validate_map(t_status *status, t_map *map, char **grid)
 {
 	int	i;
 
 	i = 0;
 	map->check = (char **)malloc(sizeof(char *) * (map->y + 1));
-	if (!map->check)  // ERROR
-		return (0);
+	if (!map->check)
+		return (set_status(status, MALLOC_ERROR));
 	while (i < map->y)
 	{
 		map->check[i] = ft_strdup(grid[i]);
-		if (!map->check[i])  // ERROR
-			return (0);
+		if (!map->check[i])
+		{
+			free_map(map, i);
+			return (set_status(status, MALLOC_ERROR));
+		}
 		i++;
 	}
-	if (!floodfill(map->spawn_pos.y, map->spawn_pos.x, map))
-		return (0);  // ERROR INVALID MAP
-	free_validate(map);
+	i = floodfill(map->spawn_pos.y, map->spawn_pos.x, map);
+	free_map(map, 0);
+	if (!i)
+		return (set_status(status, MAP_ERROR));
 	return (1);
 }
 
@@ -50,10 +41,7 @@ int	floodfill(int y, int x, t_map *map)
 {
 	if (y == 0 || x == 0 || x == map->x[y] - 1
 		|| y == map->y - 1)
-	{
-		printf("Invalid map\n");  // ERROR INVALID MAP
 		return (0);
-	}
 	if (map->check[y][x] == '0')
 	{
 		map->check[y][x] = '9';

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 02:28:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 19:55:01 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static void	*start_mlx(t_data *data)
+void	*start_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
@@ -44,7 +44,8 @@ int	loops(t_data *data)
 	return (1);
 }
 
-static t_status	validate_input(int argc, char **argv, t_file *file)
+static int	validate_input(int argc, char **argv, t_file *file, \
+	t_status *status)
 {
 	size_t	len;
 
@@ -54,33 +55,28 @@ static t_status	validate_input(int argc, char **argv, t_file *file)
 		if (!ft_strcmp(argv[1] + (len - 4), ".cub"))
 			file->path = argv[1];
 		else
-			return (EXTENSION_ERROR);
+			return (set_status(status, EXTENSION_ERROR));
 		if (argc == 3)
 		{
 			if (!ft_strcmp(argv[2], "--save"))
 				file->BMP = 1;
 			else
-				return (ARGSAVE_ERROR);
+				return (set_status(status, ARGSAVE_ERROR));
 		}
 	}
 	else
-		return (ARGNO_ERROR);
-	return (SUCCESS);
+		return (set_status(status, ARGNO_ERROR));
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	data.status = validate_input(argc, argv, &data.file);
-	if (data.status != SUCCESS)
+	if (!validate_input(argc, argv, &data.file, &data.status))
 		return (exit_window(&data));
 	init_data(&data);
-	data.status = parse_start(&data);
-	if (data.status != SUCCESS)
-		return (exit_window(&data));
-	start_mlx(&data);
-	if (!complete_data(&data))
+	if (!parser(&data))
 		return (exit_window(&data));
 	loops(&data);
 	exit_window(&data);

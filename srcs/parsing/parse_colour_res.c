@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/11 19:56:57 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 19:59:26 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	parse_res(t_data *data, char *line)
 		return (0);
 	data->res.y = ft_atoi(line);
 	mlx_get_screen_size(data->mlx, &screen_x, &screen_y);
-	if (data->res.x > screen_x || data->res.y > screen_y)
+	if (!data->file.BMP && data->res.x > screen_x || data->res.y > screen_y)
 		data->res = (t_i2vec){screen_x, screen_y};
 	return (1);
 }
@@ -57,13 +57,15 @@ int	parse_colour(int *colour, char *line)
 	R = ft_atoi(str[0]);
 	G = ft_atoi(str[1]);
 	B = ft_atoi(str[2]);
+	while (i < 3)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 	if (R < 0 || G < 0 || B < 0
 		|| R > 255 || G > 255 || B > 255)
-	{
-		ft_free_array(str);
 		return (0);
-	}
 	*colour = create_trgb(0, R, G, B);
-	ft_free_array(str);
 	return (1);
 }

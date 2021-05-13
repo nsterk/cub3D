@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 17:54:52 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 04:51:39 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 19:15:56 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	complete_sprites(t_data *data)
 	else
 		data->spr.img.ptr = mlx_png_file_to_image(data->mlx, data->spr.img.path, \
 		&data->spr.img.width, &data->spr.img.height);
-	if (data->spr.img.ptr)
+	if (!data->spr.img.ptr)
 		return (set_status(&data->status, IMG_ERROR));
 	data->spr.img.addr = mlx_get_data_addr(data->spr.img.ptr, &data->spr.img.bpp, \
 	&data->spr.img.len, &data->spr.img.endian);

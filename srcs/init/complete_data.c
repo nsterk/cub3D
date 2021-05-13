@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 19:14:28 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 05:08:48 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/13 19:44:33 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 int	complete_data(t_data *data)
 {
+	start_mlx(data);
 	complete_tex(data);
 	if (!complete_sprites(data))
-		exit_window(data);
+		return (0);
 	data->pos = data->map.spawn_pos;
 	data->dir = data->map.spawn_dir;
 	data->plane = data->map.plane;
 	data->ray.z_buffer = malloc(sizeof(*(data->ray.z_buffer)) * data->res.x);
 	if (!data->ray.z_buffer)
 		return (set_status(&data->status, MALLOC_ERROR));
+	free_parse(data);
 	return (1);
 }
 
