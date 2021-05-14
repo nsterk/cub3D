@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/13 19:07:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/14 03:46:14 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ int	parse_map(t_data *data)
 	{
 		data->file.ret = get_next_line(data->file.fd, &line);
 		if (data->file.ret < 0)
-			return (set_status(&data->status, FILE_ERROR));
-		if (!ft_stradd_back(&head, ft_strdup(line)))
-			return (set_status(&data->status, MALLOC_ERROR));
+		{
+			return (set_status(&data->status, READ_ERROR));
+		}
+		if (data->file.ret < 0 || !ft_stradd_back(&head, ft_strdup(line)))
+		{
+			ft_lstclear(&head, free);
+			return (set_status(&data->status, READ_ERROR));
+		}
 		free(line);
 	}
 	data->map.y = ft_lstsize(head);

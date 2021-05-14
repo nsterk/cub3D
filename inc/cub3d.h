@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/13 19:05:42 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/14 00:00:29 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef enum e_status
 	ARGSAVE_ERROR,
 	ARGNO_ERROR,
 	FILE_ERROR,
+	READ_ERROR,
 	CONFIG_ERROR,
 	MAP_ERROR,
 	IMG_ERROR,

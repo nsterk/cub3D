@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/13 18:12:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/13 19:42:52 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/14 04:33:35 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ void	free_alloc(void **data, int len)
 
 void	close_free(t_data *data)
 {
-	if (data->status != SUCCESS && data->status != BMP_ERROR)
+	if (data->status != SUCCESS)
 		free_parse(data);
-	if (data->file.fd != -1)
-		close(data->file.fd);
 	if (data->ray.z_buffer)
 		free(data->ray.z_buffer);
 	if (data->spr.pos)
@@ -47,13 +45,17 @@ void	free_parse(t_data *data)
 	while (i < 4)
 	{
 		if (data->tex[i].img.path)
+		{
 			free(data->tex[i].img.path);
+			data->tex[i].img.path = NULL;
+		}
 		i++;
 	}
 	if (data->spr.img.path)
 		free(data->spr.img.path);
 	if (data->file.fd != -1)
 		close(data->file.fd);
+	data->spr.img.path = NULL;
 }
 
 void	free_map(t_map *map, int len)

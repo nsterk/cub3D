@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/11 19:09:30 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/13 18:12:45 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/14 00:06:18 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 static void	write_error_msg(t_status status)
 {
-	static const char	*msg[10] =
+	static const char	*msg[11] =
 	{
 		"Successful game exit",
 		"Incorrect file extension, expect .cub",
 		"Incorrect 2nd argument provided. Specify save using --save",
 		"Expect minimum 1 and maximum 2 aguments",
+		"Unable to open configuration file",
 		"Error reading configuration file",
 		"Invalid configuration file",
 		"Invalid map",
