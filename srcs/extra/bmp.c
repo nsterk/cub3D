@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/28 14:27:57 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 00:45:33 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/14 14:51:45 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	create_bmp(t_i2vec res, t_img *img)
 		pad_size = 0;
 	else
 		pad_size = 4 - (res.x * (img->bpp / 8) % 4);
-	write_fileh_to_file(img->bpp, pad_size, fd, res);
+	write_fileheader(img->bpp, pad_size, fd, res);
 	fill_info_header(&info_header, img, res);
 	write(fd, &info_header, 40);
 	y = res.y - 1;
@@ -39,7 +39,7 @@ int	create_bmp(t_i2vec res, t_img *img)
 	return (1);
 }
 
-int	write_fileh_to_file(int bpp, int pad_size, int fd, t_i2vec res)
+void	write_fileheader(int bpp, int pad_size, int fd, t_i2vec res)
 {
 	unsigned char	header[14];
 	unsigned int	size;
@@ -54,7 +54,6 @@ int	write_fileh_to_file(int bpp, int pad_size, int fd, t_i2vec res)
 	header[5] = size >> 24;
 	header[10] = 54;
 	write(fd, header, 14);
-	return (1);
 }
 
 void	fill_info_header(t_info_h *dib, t_img *img, t_i2vec res)

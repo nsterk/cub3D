@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/13 18:12:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/14 04:33:35 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/14 14:33:19 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	free_parse(t_data *data)
 	}
 	if (data->spr.img.path)
 		free(data->spr.img.path);
-	if (data->file.fd != -1)
+	if (data->file.fd != -1 && data->file.fd != 1)
 		close(data->file.fd);
 	data->spr.img.path = NULL;
 }

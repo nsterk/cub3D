@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/13 19:55:01 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 00:11:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv)
 	if (!validate_input(argc, argv, &data.file, &data.status))
 		return (exit_window(&data));
 	init_data(&data);
-	if (!parser(&data))
+	if (!parsing(&data))
 		return (exit_window(&data));
 	loops(&data);
 	exit_window(&data);

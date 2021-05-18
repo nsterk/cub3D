@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/13 19:45:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 13:39:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,13 @@ static int	ready_for_map(t_data *data)
 	return (1);
 }
 
-int	parser(t_data *data)
+int	parser(t_data *data, int fd)
 {
-	int		i;
+	int	i;
 
-	data->file.fd = open(data->file.path, O_RDONLY);
-	if (data->file.fd < 0)
-		return (set_status(&data->status, FILE_ERROR));
 	while (data->file.ret > 0)
 	{
-		data->file.ret = get_next_line(data->file.fd, &data->file.line);
+		data->file.ret = get_next_line(fd, &data->file.line);
 		i = 0;
 		if (ft_isalpha(first_char(data->file.line)))
 		{
@@ -73,10 +70,26 @@ int	parser(t_data *data)
 		}
 		else if (ready_for_map(data) && ft_isdigit(first_char(data->file.line)))
 		{
-			if (!parse_map(data))
+			if (!parse_map(data, fd))
 				return (0);
 		}
 		free(data->file.line);
 	}
+	return (1);
+}
+
+int	parsing(t_data *data)
+{
+	int		fd;
+
+	fd = open(data->file.path, O_RDONLY);
+	if (fd < 0)
+		return (set_status(&data->status, FILE_ERROR));
+	if (!parser(data, fd))
+	{
+		close(fd);
+		return (0);
+	}
+	close(fd);
 	return (complete_data(data));
 }

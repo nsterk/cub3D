@@ -6,13 +6,13 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/14 03:46:14 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 19:14:46 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	parse_map(t_data *data)
+int	parse_map(t_data *data, int fd)
 {
 	char	*line;
 	t_list	*head;
@@ -22,11 +22,7 @@ int	parse_map(t_data *data)
 		return (set_status(&data->status, MALLOC_ERROR));
 	while (data->file.ret > 0)
 	{
-		data->file.ret = get_next_line(data->file.fd, &line);
-		if (data->file.ret < 0)
-		{
-			return (set_status(&data->status, READ_ERROR));
-		}
+		data->file.ret = get_next_line(fd, &line);
 		if (data->file.ret < 0 || !ft_stradd_back(&head, ft_strdup(line)))
 		{
 			ft_lstclear(&head, free);
@@ -34,14 +30,13 @@ int	parse_map(t_data *data)
 		}
 		free(line);
 	}
-	data->map.y = ft_lstsize(head);
+	data->map.y = ft_lstsize(head) - 1;
 	data->map.grid = copy_map(&data->status, head, data->map.y);
 	ft_lstclear(&head, free);
 	if (!data->map.grid)
 		return (set_status(&data->status, MALLOC_ERROR));
-	if (!get_map_info(&data->status, &data->map))
-		return (0);
-	if (!validate_map(&data->status, &data->map, data->map.grid))
+	if (!get_map_info(&data->status, &data->map) || \
+		!validate_map(&data->status, &data->map, data->map.grid))
 		return (0);
 	return (1);
 }
@@ -51,14 +46,14 @@ char	**copy_map(t_status *status, t_list *list, int size)
 	char	**map;
 	int		i;
 
-	map = (char **)malloc(sizeof(char *) * (size + 1));
+	map = (char **)malloc(sizeof(char *) * size + 1);
 	if (!map)
 	{
 		*status = MALLOC_ERROR;
 		return (NULL);
 	}
 	i = 0;
-	while (list)
+	while (i < size)
 	{
 		map[i] = ft_strdup(list->content);
 		if (!map[i])
@@ -69,7 +64,6 @@ char	**copy_map(t_status *status, t_list *list, int size)
 		list = list->next;
 		i++;
 	}
-	map[i] = NULL;
 	return (map);
 }
 
@@ -78,7 +72,7 @@ static int	get_spawn_info(t_status *status, t_map *map, int y)
 	int	x;
 
 	x = 0;
-	while (x < map->x[y])
+	while (x < (map->x[y] - 1))
 	{
 		if (map->grid[y][x] == '2')
 			map->nr_sprites++;
@@ -129,7 +123,7 @@ static void	set_spawn_dir(t_map *map)
 		return (set_status(status, MALLOC_ERROR));
 	while (i < map->y)
 	{
-		map->x[i] = (int)ft_strlen(map->grid[i]);
+		map->x[i] = (int)ft_strlen(map->grid[i]) + 1;
 		if (!get_spawn_info(status, map, i))
 			return (0);
 		i++;

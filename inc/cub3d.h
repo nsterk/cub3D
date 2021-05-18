@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/14 00:00:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 17:03:51 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,20 @@ typedef struct s_i2vec
 	int	x;
 	int	y;
 }				t_i2vec;
+
+typedef struct s_rgb
+{
+	unsigned char	B;
+	unsigned char	G;
+	unsigned char	R;
+	unsigned char	T;
+}				t_rgb;
+
+typedef union u_colour
+{
+	unsigned int	colour;
+	t_rgb			parts;
+}				t_colour;
 
 typedef struct s_img
 {
@@ -221,17 +235,26 @@ int			key_release(int keycode, t_data *data);
 **	Parsing functions.
 */
 typedef int	(*t_id)(t_data *data, char *id);
-int			parser(t_data *data);
+int			parsing(t_data *data);
 int			parse_res(t_data *data, char *line);
 int			parse_tex(t_data *data, char *line);
 int			parse_sprite(t_data *data, char *line);
 int			colour(t_data *data, char *line);
 int			parse_colour(int *colour, char *line);
-int			parse_map(t_data *data);
+int			parse_map(t_data *data, int fd);
 char		**copy_map(t_status *status, t_list *list, int size);
 int			get_map_info(t_status *status, t_map *map);
 int			validate_map(t_status *status, t_map *map, char **grid);
-int			floodfill(int y, int x, t_map *map);
+int			allocate_check(t_status *status, t_map *map);
+void		copy_to_check(t_map *map);
+void		floodfill(t_status *status, int y, int x, t_map *map);
+int			create_trgb(int t, int r, int g, int b);
+void		apply_shade(t_sprite *spr, t_colour *colour);
+t_colour	get_colour(t_sprite *spr);
+int			get_t(int trgb);
+int			get_r(int trgb);
+int			get_g(int trgb);
+int			get_b(int trgb);
 int			create_trgb(int t, int r, int g, int b);
 
 /*

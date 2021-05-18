@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/29 19:18:46 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 15:15:41 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/14 14:46:08 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,6 @@
 # include <unistd.h>
 # include <sys/uio.h>
 # include <fcntl.h>
-
-typedef struct s_file_h
-{
-	char			type[2];
-	unsigned int	file_size;
-	unsigned int	na;
-	unsigned int	offset;
-}				t_file_h;
 
 typedef struct s_info_h
 {
@@ -41,12 +33,6 @@ typedef struct s_info_h
 
 }				t_info_h;
 
-typedef struct s_bmp_extra
-{
-	int				fd;
-	int				pad_size;
-}				t_bmp_extra;
-
 void		fill_info_header(t_info_h *dib, t_img *img, t_i2vec res);
-int			write_fileh_to_file(int bpp, int pad_size, int fd, t_i2vec res);
+void		write_fileheader(int bpp, int pad_size, int fd, t_i2vec res);
 #endif
