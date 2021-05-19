@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 13:39:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 04:15:01 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,6 @@ static int	id_path(t_data *data, char *s)
 		|| ((*(u_int16_t *)s == *(u_int16_t *) "S ") && id[3](data, s)));
 }
 
-static int	ready_for_map(t_data *data)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (data->tex[i].img.path == NULL)
-			return (0);
-		i++;
-	}
-	if (data->spr.img.path == NULL)
-		return (0);
-	if (data->res.x < 0 || data->res.y < 0)
-		return (0);
-	if (data->floor < 0 || data->ceiling < 0)
-		return (0);
-	return (1);
-}
-
 int	parser(t_data *data, int fd)
 {
 	int	i;
@@ -61,6 +41,8 @@ int	parser(t_data *data, int fd)
 	{
 		data->file.ret = get_next_line(fd, &data->file.line);
 		i = 0;
+		if (!ft_strchr("RCFNSWE01", first_char(data->file.line)))
+			return (set_status(&data->status, CONFIG_ERROR));
 		if (ft_isalpha(first_char(data->file.line)))
 		{
 			while (!ft_isalpha(data->file.line[i]))
@@ -69,10 +51,7 @@ int	parser(t_data *data, int fd)
 				return (set_status(&data->status, CONFIG_ERROR));
 		}
 		else if (ready_for_map(data) && ft_isdigit(first_char(data->file.line)))
-		{
-			if (!parse_map(data, fd))
-				return (0);
-		}
+			parse_map(data, fd);
 		free(data->file.line);
 	}
 	return (1);
@@ -85,11 +64,9 @@ int	parsing(t_data *data)
 	fd = open(data->file.path, O_RDONLY);
 	if (fd < 0)
 		return (set_status(&data->status, FILE_ERROR));
-	if (!parser(data, fd))
-	{
-		close(fd);
-		return (0);
-	}
+	parser(data, fd);
 	close(fd);
+	if (data->status != SUCCESS)
+		return (0);
 	return (complete_data(data));
 }

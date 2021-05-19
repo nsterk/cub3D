@@ -6,23 +6,26 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/13 18:12:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/14 14:33:19 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 04:04:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-void	free_alloc(void **data, int len)
+void	free_alloc(char **str, int len)
 {
 	int	i;
 
 	i = 0;
-	while (i < len)
+	if (str)
 	{
-		free(data[i]);
-		i++;
+		while (i < len)
+		{
+			free(str[i]);
+			i++;
+		}
+		free(str);
 	}
-	free(data);
 }
 
 void	close_free(t_data *data)
@@ -53,8 +56,6 @@ void	free_parse(t_data *data)
 	}
 	if (data->spr.img.path)
 		free(data->spr.img.path);
-	if (data->file.fd != -1 && data->file.fd != 1)
-		close(data->file.fd);
 	data->spr.img.path = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:03:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 19:22:28 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 19:34:08 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,7 @@ void	put_pixel_sprite(t_data *data, int y)
 	d = (y * 256) - (data->res.y * 128) + (spr->height * 128);
 	spr->tex.y = (d * spr->img.height) / spr->height / 256;
 	colour = get_colour(spr);
-	// colour.colour = *(unsigned int *)(spr->img.addr + (spr->tex.y * spr->img.len \
-	// 	 + spr->tex.x * (spr->img.bpp / 8)));
-	// apply_shade(spr, &colour);
-	colour.parts.B = colour.parts.B / (spr->transform.y / 10.0 + 1.0);
-	colour.parts.G = colour.parts.G / (spr->transform.y / 10.0 + 1.0);
-	colour.parts.R = colour.parts.R / (spr->transform.y / 10.0 + 1.0);
-	colour.parts.T = 0;
+	apply_shade(spr, &colour);
 	if ((colour.colour & 0x00FFFFFF) != 0)
 	{
 		*(unsigned int *)(data->img.addr + (y * data->img.len) + (spr->stripe \

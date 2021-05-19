@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 19:16:17 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 20:17:38 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	validate_map(t_status *status, t_map *map, char **grid)
 {
 	if (!allocate_check(status, map))
 		return (set_status(status, MALLOC_ERROR));
-	copy_to_check(map);
+	if (!copy_to_check(map))
+		return (set_status(status, MAP_ERROR));
 	floodfill(status, map->spawn_pos.y, map->spawn_pos.x, map);
 	free_map(map, 0);
 	if (*status != SUCCESS)
@@ -47,7 +48,7 @@ int	allocate_check(t_status *status, t_map *map)
 	return (1);
 }
 
-void	copy_to_check(t_map *map)
+int	copy_to_check(t_map *map)
 {
 	int	y;
 	int	x;
@@ -58,6 +59,8 @@ void	copy_to_check(t_map *map)
 		x = 0;
 		while (x < map->x[y])
 		{
+			if (!ft_strchr("012", map->grid[y][x]))
+				return (0);
 			map->check[y][x] = map->grid[y][x];
 			if (map->check[y][x] == '2')
 				map->check[y][x] = '0';
@@ -65,6 +68,7 @@ void	copy_to_check(t_map *map)
 		}
 		y++;
 	}
+	return (1);
 }
 
 // int	validate_map(t_status *status, t_map *map, char **grid)

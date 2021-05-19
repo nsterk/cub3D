@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/14 03:44:05 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 22:51:04 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	init_data(t_data *data)
 
 	init_keys(&data->keys);
 	data->file.line = NULL;
+	data->ceiling = 0;
+	data->floor = 0;
+	data->res = (t_i2vec){0, 0};
 	data->status = SUCCESS;
 	data->file.ret = 1;
 	data->file.fd = -1;

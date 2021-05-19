@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/18 00:16:46 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/18 21:31:03 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ INIT_C		=	complete_data.c complete_sprites.c init.c
 EXTRA_C		=	bmp.c draw.c colours.c keys.c utils.c \
 				free_alloc.c exit.c
 PARSE_C		=	parser.c parse_map.c parse_colour_res.c \
-				parse_tex.c validate_map.c
+				parse_tex.c validate_map.c utils.c
 RAYCST_C	=	move.c rotate.c raycaster.c \
 				textures.c sprites.c \
 				window_loop.c

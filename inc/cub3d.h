@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 17:03:51 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 04:19:03 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,12 +241,15 @@ int			parse_tex(t_data *data, char *line);
 int			parse_sprite(t_data *data, char *line);
 int			colour(t_data *data, char *line);
 int			parse_colour(int *colour, char *line);
+int			ready_for_map(t_data *data);
+int			str_array_size(char **str);
+int			validate_res(t_data *data, char *line);
 int			parse_map(t_data *data, int fd);
 char		**copy_map(t_status *status, t_list *list, int size);
 int			get_map_info(t_status *status, t_map *map);
 int			validate_map(t_status *status, t_map *map, char **grid);
 int			allocate_check(t_status *status, t_map *map);
-void		copy_to_check(t_map *map);
+int			copy_to_check(t_map *map);
 void		floodfill(t_status *status, int y, int x, t_map *map);
 int			create_trgb(int t, int r, int g, int b);
 void		apply_shade(t_sprite *spr, t_colour *colour);
@@ -297,7 +300,7 @@ int			create_bmp(t_i2vec res, t_img *img);
 /*
 **	Utils
 */
-void		free_alloc(void **data, int len);
+void		free_alloc(char **str, int len);
 void		close_free(t_data *data);
 void		free_map(t_map *map, int len);
 void		free_parse(t_data *data);

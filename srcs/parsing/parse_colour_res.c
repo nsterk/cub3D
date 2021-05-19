@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 13:38:57 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 04:20:49 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	parse_res(t_data *data, char *line)
 {
-	size_t	i;
-	int		screen_x;
-	int		screen_y;
+	int	i;
 
 	i = 0;
+	if (data->res.x || data->res.y)
+		return (set_status(&data->status, CONFIG_ERROR));
 	line = (char *)ft_skipspace(line);
 	if (!ft_isdigit(*line))
 		return (0);
@@ -29,16 +29,20 @@ int	parse_res(t_data *data, char *line)
 	if (!ft_isdigit(*line))
 		return (0);
 	data->res.y = ft_atoi(line);
-	mlx_get_screen_size(data->mlx, &screen_x, &screen_y);
-	if (!data->file.BMP && data->res.x > screen_x || data->res.y > screen_y)
-		data->res = (t_i2vec){screen_x, screen_y};
-	return (1);
+	return (validate_res(data, line + i));
 }
 
 int	colour(t_data *data, char *line)
 {
 	if (*line == 'C')
-		return (parse_colour(&data->ceiling, line + 1));
+	{
+		if (data->ceiling)
+			return (set_status(&data->status, CONFIG_ERROR));
+		else
+			return (parse_colour(&data->ceiling, line + 1));
+	}
+	if (data->floor)
+		return (set_status(&data->status, CONFIG_ERROR));
 	return (parse_colour(&data->floor, line + 1));
 }
 
@@ -50,19 +54,17 @@ int	parse_colour(int *colour, char *line)
 	int		G;
 	int		B;
 
-	i = 0;
 	str = ft_split(line, ',');
 	if (!str)
 		return (0);
-	R = ft_atoi(str[0]);
-	G = ft_atoi(str[1]);
-	B = ft_atoi(str[2]);
-	while (i < 3)
+	i = str_array_size(str);
+	if (i == 3)
 	{
-		free(str[i]);
-		i++;
+		R = ft_atoi(str[0]);
+		G = ft_atoi(str[1]);
+		B = ft_atoi(str[2]);
 	}
-	free(str);
+	free_alloc(str, i);
 	if (R < 0 || G < 0 || B < 0
 		|| R > 255 || G > 255 || B > 255)
 		return (0);

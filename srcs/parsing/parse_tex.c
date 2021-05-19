@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 18:26:56 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/12 04:48:12 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 01:21:57 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	fill_tex_paths(char *s, t_img *img, t_status *status)
 {
+	if (img->path != NULL)
+		return (set_status(status, CONFIG_ERROR));
 	img->path = ft_strtrim(s + 2, " \t\n\f\r\v");
 	if (!img->path)
 		return (set_status(status, MALLOC_ERROR));
@@ -37,6 +39,8 @@ int	parse_tex(t_data *data, char *line)
 
 int	parse_sprite(t_data *data, char *line)
 {
+	if (data->spr.img.path != NULL)
+		return (set_status(&data->status, CONFIG_ERROR));
 	data->spr.img.path = ft_strtrim(line + 1, " \t\n\f\r\v");
 	if (!data->spr.img.path)
 		return (0);

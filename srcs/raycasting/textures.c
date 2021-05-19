@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 16:17:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 13:37:38 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/18 22:41:23 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	put_texture(t_data *data, int x, int i)
 		colour = *(int *)(data->tex[i].img.addr + \
 			(data->tex[i].y * data->tex[i].img.len + \
 			data->tex[i].x * (data->tex[i].img.bpp / 8)));
-		if (data->ray.side == 1)
+		if (data->ray.side == 0)
 			colour = (colour >> 1) & 8355711;
 		put_pixel(x, y, colour, &data->img);
 		y++;
