@@ -1,51 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
+/*   init_01.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 22:51:04 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 20:34:24 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
-
-static void	init_keys(t_keys *keys)
-{
-	keys->w = 0;
-	keys->a = 0;
-	keys->s = 0;
-	keys->d = 0;
-	keys->left = 0;
-	keys->right = 0;
-}
+#include <init.h>
 
 void	init_data(t_data *data)
 {
-	size_t	i;
+	int	i;
 
-	init_keys(&data->keys);
-	data->file.line = NULL;
-	data->ceiling = 0;
-	data->floor = 0;
-	data->res = (t_i2vec){0, 0};
-	data->status = SUCCESS;
-	data->file.ret = 1;
-	data->file.fd = -1;
-	data->ray.z_buffer = NULL;
-	data->spr.img.path = NULL;
-	data->spr.distance = NULL;
-	data->spr.pos = NULL;
-	data->map.nr_sprites = 0;
-	data->map.spawn_char = '@';
-	data->move_speed = 0.15;
-	data->rot_speed = 0.05;
 	i = 0;
 	while (i < 4)
 	{
-		data->tex[i].img.path = NULL;
+		init_tex(&data->tex[i]);
 		i++;
 	}
+	init_sprite(&data->spr);
+	init_keys(&data->keys);
+	init_mlx(&data->img, data->mlx, data->window);
+	init_file(&data->file);
+	init_unsorted(data);
+}
+
+void	init_img(t_img *img)
+{
+	img->path = NULL;
+	img->ptr = NULL;
+	img->addr = NULL;
+	img->bpp = 0;
+	img->len = 0;
+	img->endian = 0;
+	img->width = 0;
+	img->height = 0;
+}
+
+void	init_tex(t_tex *tex)
+{
+	init_img(&tex->img);
+	tex->x = 0;
+	tex->y = 0;
+	tex->wall_x = 0;
+	tex->step = 0;
+	tex->pos = 0;
+}
+
+void	init_sprite(t_sprite *spr)
+{
+	init_img(&spr->img);
+	spr->distance = NULL;
+	spr->pos = NULL;
+	spr->amount = 0;
 }

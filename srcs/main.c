@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 00:11:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 20:35:11 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	validate_input(int argc, char **argv, t_file *file, \
 {
 	size_t	len;
 
+	file->BMP = 0;
 	if (argc > 1 && argc < 4)
 	{
 		len = ft_strlen(argv[1]);
@@ -66,6 +67,7 @@ static int	validate_input(int argc, char **argv, t_file *file, \
 	}
 	else
 		return (set_status(status, ARGNO_ERROR));
+	*status = SUCCESS;
 	return (1);
 }
 

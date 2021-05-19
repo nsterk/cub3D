@@ -6,21 +6,21 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 13:20:11 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 18:28:59 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	validate_map(t_status *status, t_map *map, char **grid)
+int	validate_map(t_data *data)
 {
-	if (!allocate_check(status, map))
-		return (set_status(status, MALLOC_ERROR));
-	if (!copy_to_check(map))
-		return (set_status(status, MAP_ERROR));
-	floodfill(status, map->spawn_pos.y, map->spawn_pos.x, map);
-	free_map(map, 0);
-	if (*status != SUCCESS)
+	if (!allocate_check(&data->status, &data->map))
+		return (set_status(&data->status, MALLOC_ERROR));
+	if (!copy_to_check(&data->map))
+		return (set_status(&data->status, MAP_ERROR));
+	floodfill(&data->status, data->pos.y, data->pos.x, &data->map);
+	free_map(&data->map, 0);
+	if (data->status != SUCCESS)
 		return (0);
 	return (1);
 }

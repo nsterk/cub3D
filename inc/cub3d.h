@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 17:26:40 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 19:48:47 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define RIGHT	124
 # define ESC	53
 
-void		init_data(t_data *data);
 int			complete_data(t_data *data);
-int			complete_tex(t_status *status, t_img *img, void *mlx);
-int			complete_sprites(t_data *data);
+int			complete_img(t_status *status, t_img *img, void *mlx);
+int			complete_sprites(t_status *status, t_sprite *spr, t_map *map);
+void		position_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
 
 /*
 **	Window management.
@@ -68,8 +68,8 @@ int			str_array_size(char **str);
 int			validate_res(t_data *data, char *line);
 int			parse_map(t_data *data, int fd);
 char		**copy_map(t_status *status, t_list *list, int size);
-int			get_map_info(t_status *status, t_map *map);
-int			validate_map(t_status *status, t_map *map, char **grid);
+int			get_map_info(t_data *data);
+int			validate_map(t_data *data);
 int			allocate_check(t_status *status, t_map *map);
 int			copy_to_check(t_map *map);
 void		floodfill(t_status *status, int y, int x, t_map *map);

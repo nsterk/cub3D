@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:20:08 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 19:14:46 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 20:27:07 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int	parse_map(t_data *data, int fd)
 	ft_lstclear(&head, free);
 	if (!data->map.grid)
 		return (set_status(&data->status, MALLOC_ERROR));
-	if (!get_map_info(&data->status, &data->map) || \
-		!validate_map(&data->status, &data->map, data->map.grid))
+	if (!get_map_info(data))
+		return (0);
+	if (!validate_map(data))
 		return (0);
 	return (1);
 }
@@ -67,68 +68,68 @@ char	**copy_map(t_status *status, t_list *list, int size)
 	return (map);
 }
 
-static int	get_spawn_info(t_status *status, t_map *map, int y)
+static int	get_spawn_info(t_data *data, int y)
 {
 	int	x;
 
 	x = 0;
-	while (x < (map->x[y] - 1))
+	while (x < (data->map.x[y] - 1))
 	{
-		if (map->grid[y][x] == '2')
-			map->nr_sprites++;
-		else if (ft_strchr("NSEW", map->grid[y][x]))
+		if (data->map.grid[y][x] == '2')
+			data->spr.amount++;
+		else if (ft_strchr("NSEW", data->map.grid[y][x]))
 		{
-			if (map->spawn_char != '@')
-				return (set_status(status, MAP_ERROR));
-			map->spawn_char = map->grid[y][x];
-			map->spawn_pos = (t_d2vec){x + 0.5, y + 0.5};
-			map->grid[y][x] = '0';
+			if (data->map.spawn_char != '@')
+				return (set_status(&data->status, MAP_ERROR));
+			data->map.spawn_char = data->map.grid[y][x];
+			data->pos = (t_d2vec){x + 0.5, y + 0.5};
+			data->map.grid[y][x] = '0';
 		}
 		x++;
 	}
 	return (1);
 }
 
-static void	set_spawn_dir(t_map *map)
+static void	set_spawn_dir(char c, t_d2vec *dir, t_d2vec *plane)
 {
-	if (map->spawn_char == 'N')
+	if (c == 'N')
 	{
-		map->spawn_dir = (t_d2vec){0, -1};
-		map->plane = (t_d2vec){0.66, 0};
+		*dir = (t_d2vec){0, -1};
+		*plane = (t_d2vec){0.66, 0};
 	}
-	else if (map->spawn_char == 'E')
+	else if (c == 'E')
 	{
-		map->spawn_dir = (t_d2vec){1, 0};
-		map->plane = (t_d2vec){0, 0.66};
+		*dir = (t_d2vec){1, 0};
+		*plane = (t_d2vec){0, 0.66};
 	}
-	else if (map->spawn_char == 'S')
+	else if (c == 'S')
 	{
-		map->spawn_dir = (t_d2vec){0, 1};
-		map->plane = (t_d2vec){-0.66, 0};
+		*dir = (t_d2vec){0, 1};
+		*plane = (t_d2vec){-0.66, 0};
 	}
 	else
 	{
-		map->spawn_dir = (t_d2vec){-1, 0};
-		map->plane = (t_d2vec){0, -0.66};
+		*dir = (t_d2vec){-1, 0};
+		*plane = (t_d2vec){0, -0.66};
 	}
 }
 
-	get_map_info(t_status *status, t_map *map)
+	get_map_info(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	map->x = malloc(sizeof(int) * (map->y + 1));
-	if (!map->x)
-		return (set_status(status, MALLOC_ERROR));
-	while (i < map->y)
+	data->map.x = malloc(sizeof(int) * (data->map.y + 1));
+	if (!data->map.x )
+		return (set_status(&data->status, MALLOC_ERROR));
+	while (i < data->map.y)
 	{
-		map->x[i] = (int)ft_strlen(map->grid[i]) + 1;
-		if (!get_spawn_info(status, map, i))
+		data->map.x[i] = (int)ft_strlen(data->map.grid[i]) + 1;
+		if (!get_spawn_info(data, i))
 			return (0);
 		i++;
 	}
-	set_spawn_dir(map);
-	map->x[i] = 0;
+	set_spawn_dir(data->map.spawn_char, &data->dir, &data->plane);
+	data->map.x[i] = 0;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 16:53:07 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 16:55:32 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 20:28:05 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,7 @@ typedef struct s_map
 	char		**check;
 	int			*x;
 	int			y;
-	int			nr_sprites;
 	char		spawn_char;
-	t_d2vec		spawn_pos;
-	t_d2vec		spawn_dir;
-	t_d2vec		plane;
 }				t_map;
 
 typedef struct s_keys
@@ -122,8 +118,6 @@ typedef struct s_file
 	const char	*path;
 	char		*line;
 	int			ret;
-	int			fd;
-	char		spawn_char;
 	int			BMP;
 }				t_file;
 
@@ -151,8 +145,6 @@ typedef struct s_ray
 	int			line_height;
 	int			line_start;
 	int			line_end;
-	double		time;
-	double		old_time;
 	double		*z_buffer;
 }				t_ray;
 
