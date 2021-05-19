@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 20:01:20 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 04:06:50 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 16:43:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	validate_res(t_data *data, char *line)
 	mlx_get_screen_size(data->mlx, &screen_x, &screen_y);
 	if (data->res.x < 1 || data->res.y < 1)
 		return (set_status(&data->status, CONFIG_ERROR));
-	if (!data->file.BMP && data->res.x > screen_x || data->res.y > screen_y)
+	if (!data->file.BMP && (data->res.x > screen_x || data->res.y > screen_y))
 		data->res = (t_i2vec){screen_x, screen_y};
 	return (1);
 }

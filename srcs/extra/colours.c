@@ -6,11 +6,10 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/23 17:24:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/03 18:24:56 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 13:26:16 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3D.h>
 
 int	create_trgb(int t, int r, int g, int b)
 {

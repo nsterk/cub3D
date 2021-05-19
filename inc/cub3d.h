@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 04:19:03 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/19 17:26:40 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 # define CUB3D_H
 
 # include <mlx.h>
+# include <structs.h>
 # include <get_next_line.h>
 # include <libft.h>
 # include <stdio.h>
-
-/*
-**	DEFINES
-*/
 
 # define W		13
 # define A		0
@@ -30,206 +27,30 @@
 # define RIGHT	124
 # define ESC	53
 
-typedef enum e_status
-{
-	SUCCESS = 0,
-	EXTENSION_ERROR,
-	ARGSAVE_ERROR,
-	ARGNO_ERROR,
-	FILE_ERROR,
-	READ_ERROR,
-	CONFIG_ERROR,
-	MAP_ERROR,
-	IMG_ERROR,
-	MALLOC_ERROR,
-	BMP_ERROR,
-}				t_status;
-
-/*
-**	Structs for vectors of type double & integer
-*/
-
-typedef struct s_d2vec
-{
-	double	x;
-	double	y;
-}				t_d2vec;
-
-typedef struct s_i2vec
-{
-	int	x;
-	int	y;
-}				t_i2vec;
-
-typedef struct s_rgb
-{
-	unsigned char	B;
-	unsigned char	G;
-	unsigned char	R;
-	unsigned char	T;
-}				t_rgb;
-
-typedef union u_colour
-{
-	unsigned int	colour;
-	t_rgb			parts;
-}				t_colour;
-
-typedef struct s_img
-{
-	char	*path;
-	void	*ptr;
-	char	*addr;
-	int		bpp;
-	int		len;
-	int		endian;
-	int		width;
-	int		height;
-}				t_img;
-
-typedef struct s_tex
-{
-	t_img	img;
-	int		x;
-	int		y;
-	double	wall_x;
-	double	step;
-	double	pos;
-}				t_tex;
-
-typedef struct s_sprite
-{
-	int			amount;
-	t_img		img;
-	t_d2vec		*pos;
-	double		*distance;
-	int			stripe;
-	t_d2vec		cam;
-	double		inv;
-	t_d2vec		transform;
-	int			screen_x;
-	int			height;
-	int			width;
-	t_i2vec		start;
-	t_i2vec		end;
-	t_i2vec		tex;
-}				t_sprite;
-
-typedef struct s_map
-{
-	char		**grid;
-	char		**check;
-	int			*x;
-	int			y;
-	int			nr_sprites;
-	char		spawn_char;
-	t_d2vec		spawn_pos;
-	t_d2vec		spawn_dir;
-	t_d2vec		plane;
-}				t_map;
-
-typedef struct s_keys
-{
-	int			w;
-	int			a;
-	int			s;
-	int			d;
-	int			left;
-	int			right;
-}				t_keys;
-
-typedef struct s_file
-{
-	const char	*path;
-	char		*line;
-	int			ret;
-	int			fd;
-	char		spawn_char;
-	int			BMP;
-}				t_file;
-
-/*
-**	RAYCASTING STRUCT
-**	camera_x:	x-coordinate in camera space.
-**	side_dist:	distance to next x- or y-side.
-**	delta_dist:	distance from one x- or y-side to next.
-**	perp_dist:	perpendicular distance to wall.
-**	step:		what x- and -y direction to step in (+1 or -1).
-**	side:		if horizontal (y/NS) wall or vertical (x/EW) wall is hit.
-**	line_height: the height of the line corresponding to the ray.
-**	line_start:	the y-coordinate to start drawing the line at.
-**	line_end:	the y-coordinate to stop drawing the line at.
-*/
-
-typedef struct s_ray
-{
-	t_d2vec		plane;
-	double		camera_x;
-	t_i2vec		map;
-	t_d2vec		dir;
-	t_d2vec		side_dist;
-	t_d2vec		delta_dist;
-	double		perp_dist;
-	t_i2vec		step;
-	int			side;
-	int			line_height;
-	int			line_start;
-	int			line_end;
-	double		time;
-	double		old_time;
-	double		*z_buffer;
-}				t_ray;
-
-/*
-**	Time stores the time of the current frame, old_time stores
-**	the time of the previous frame: difference between them determines
-**	the speed player moves at (in order to keep speed constant no matter how
-**	long the calculation takes).
-**	ceiling:	ceiling colour.
-**	floor:		floor colour.
-*/
-
-typedef struct s_data
-{
-	t_status	status;
-	void		*mlx;
-	void		*window;
-	t_img		img;
-	t_file		file;
-	t_ray		ray;
-	t_map		map;
-	t_tex		tex[4];
-	t_sprite	spr;
-	t_keys		keys;
-	t_i2vec		res;
-	t_d2vec		pos;
-	t_d2vec		dir;
-	t_d2vec		plane;
-	double		move_speed;
-	double		rot_speed;
-	int			ceiling;
-	int			floor;
-}			t_data;
-
-void		*start_mlx(t_data *data);
 void		init_data(t_data *data);
-void		pos_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
-int			alloc_sprite(t_sprite *sprites);
 int			complete_data(t_data *data);
-int			complete_tex(t_data *data);
+int			complete_tex(t_status *status, t_img *img, void *mlx);
 int			complete_sprites(t_data *data);
-
-char		first_char(char *str);
-int			is_space(char *s);
-int			set_status(t_status *status, t_status num);
 
 /*
 **	Window management.
 */
+void		*start_mlx(t_data *data);
+
 int			exit_window(t_data *data);
 int			window_loop(t_data *data);
+
 int			key_press(int keycode, t_data *data);
 int			key_release(int keycode, t_data *data);
+
+void		move_hooks(t_data *data);
+void		move_up(t_data *data);
+void		move_down(t_data *data);
+void		move_left(t_data *data);
+void		move_right(t_data *data);
+
+void		rotate_left(t_data *data);
+void		rotate_right(t_data *data);
 
 /*
 **	Parsing functions.
@@ -239,6 +60,7 @@ int			parsing(t_data *data);
 int			parse_res(t_data *data, char *line);
 int			parse_tex(t_data *data, char *line);
 int			parse_sprite(t_data *data, char *line);
+
 int			colour(t_data *data, char *line);
 int			parse_colour(int *colour, char *line);
 int			ready_for_map(t_data *data);
@@ -251,35 +73,16 @@ int			validate_map(t_status *status, t_map *map, char **grid);
 int			allocate_check(t_status *status, t_map *map);
 int			copy_to_check(t_map *map);
 void		floodfill(t_status *status, int y, int x, t_map *map);
-int			create_trgb(int t, int r, int g, int b);
-void		apply_shade(t_sprite *spr, t_colour *colour);
-t_colour	get_colour(t_sprite *spr);
-int			get_t(int trgb);
-int			get_r(int trgb);
-int			get_g(int trgb);
-int			get_b(int trgb);
-int			create_trgb(int t, int r, int g, int b);
 
 /*
-**	Moving functions.
-*/
-
-void		move_hooks(t_data *data);
-void		move_up(t_data *data);
-void		move_down(t_data *data);
-void		move_left(t_data *data);
-void		move_right(t_data *data);
-
-/*
-**	Image to window functions.
+**	Raycasting.
 */
 
 void		raycaster(t_data *data, int x);
 void		calc_step_distance(t_d2vec pos, t_ray *ray);
 void		differential_analysis(t_data *data);
 void		calc_line(t_d2vec pos, t_i2vec res, t_ray *ray);
-void		rotate_left(t_data *data);
-void		rotate_right(t_data *data);
+
 void		calc_texture(t_data *data, int i);
 void		put_texture(t_data *data, int x, int i);
 
@@ -290,19 +93,26 @@ void		put_sprite(t_data *data);
 void		put_pixel_sprite(t_data *data, int y);
 
 /*
-**	Drawing functions.
+**	Utils.
 */
-void		put_pixel(int x, int y, int colour, t_img *img);
-void		put_line(int x, t_ray *ray, int colour, t_img *img);
 
-int			create_bmp(t_i2vec res, t_img *img);
+int			get_t(int trgb);
+int			get_r(int trgb);
+int			get_g(int trgb);
+int			get_b(int trgb);
+int			create_trgb(int t, int r, int g, int b);
+t_colour	get_colour(t_sprite *spr);
+void		apply_shade(t_sprite *spr, t_colour *colour);
 
-/*
-**	Utils
-*/
 void		free_alloc(char **str, int len);
 void		close_free(t_data *data);
 void		free_map(t_map *map, int len);
 void		free_parse(t_data *data);
 
+int			create_bmp(t_i2vec res, t_img *img);
+void		put_pixel(int x, int y, int colour, t_img *img);
+
+char		first_char(char *str);
+int			is_space(char *s);
+int			set_status(t_status *status, t_status num);
 #endif
