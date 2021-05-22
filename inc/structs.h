@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 16:53:07 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 20:28:05 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/20 03:06:41 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ typedef enum e_status
 	ARGSAVE_ERROR,
 	ARGNO_ERROR,
 	FILE_ERROR,
+	MEM_PARSE_ERROR_1,
 	READ_ERROR,
 	CONFIG_ERROR,
+	MEM_MAP_ERROR,
 	MAP_ERROR,
+	MEM_PARSE_ERROR_2,
 	IMG_ERROR,
 	MALLOC_ERROR,
 	BMP_ERROR,

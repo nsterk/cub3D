@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 19:48:47 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 15:59:32 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define LEFT	123
 # define RIGHT	124
 # define ESC	53
+
+void		init_data(t_data *data);
 
 int			complete_data(t_data *data);
 int			complete_img(t_status *status, t_img *img, void *mlx);
@@ -62,13 +64,17 @@ int			parse_tex(t_data *data, char *line);
 int			parse_sprite(t_data *data, char *line);
 
 int			colour(t_data *data, char *line);
-int			parse_colour(int *colour, char *line);
+int			parse_colour(t_status *status, int *colour, char *line);
 int			ready_for_map(t_data *data);
 int			str_array_size(char **str);
 int			validate_res(t_data *data, char *line);
+int			get_largest_number(int *x, int y);
 int			parse_map(t_data *data, int fd);
-char		**copy_map(t_status *status, t_list *list, int size);
+int			read_map(t_data *data, int fd);
+int			copy_map(t_list *list, t_data *data);
 int			get_map_info(t_data *data);
+int			get_spawn_info(t_data *data, int y);
+void		set_spawn_dir(char c, t_d2vec *dir, t_d2vec *plane);
 int			validate_map(t_data *data);
 int			allocate_check(t_status *status, t_map *map);
 int			copy_to_check(t_map *map);
@@ -104,9 +110,8 @@ int			create_trgb(int t, int r, int g, int b);
 t_colour	get_colour(t_sprite *spr);
 void		apply_shade(t_sprite *spr, t_colour *colour);
 
-void		free_alloc(char **str, int len);
+void		free_str_array(char **str, int len);
 void		close_free(t_data *data);
-void		free_map(t_map *map, int len);
 void		free_parse(t_data *data);
 
 int			create_bmp(t_i2vec res, t_img *img);

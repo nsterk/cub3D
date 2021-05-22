@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 11:00:39 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/10 22:44:57 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/21 14:50:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 }					t_list;
 

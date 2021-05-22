@@ -6,13 +6,13 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/13 18:12:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 04:04:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/20 22:41:17 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-void	free_alloc(char **str, int len)
+void	free_str_array(char **str, int len)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	free_alloc(char **str, int len)
 
 void	close_free(t_data *data)
 {
-	if (data->status != SUCCESS)
+	if (data->status >= READ_ERROR)
 		free_parse(data);
 	if (data->ray.z_buffer)
 		free(data->ray.z_buffer);
@@ -59,17 +59,17 @@ void	free_parse(t_data *data)
 	data->spr.img.path = NULL;
 }
 
-void	free_map(t_map *map, int len)
-{
-	int	i;
+// void	free_map(t_map *map, int len)
+// {
+// 	int	i;
 
-	i = 0;
-	if (len == 0)
-		len = map->y;
-	while (i < len)
-	{
-		free(map->check[i]);
-		i++;
-	}
-	free(map->check);
-}
+// 	i = 0;
+// 	if (len == 0)
+// 		len = map->y;
+// 	while (i < len)
+// 	{
+// 		free(map->check[i]);
+// 		i++;
+// 	}
+// 	free(map->check);
+// }

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/12 18:26:56 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 01:21:57 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/21 15:08:13 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int	parse_sprite(t_data *data, char *line)
 		return (set_status(&data->status, CONFIG_ERROR));
 	data->spr.img.path = ft_strtrim(line + 1, " \t\n\f\r\v");
 	if (!data->spr.img.path)
-		return (0);
+		return (set_status(&data->status, MALLOC_ERROR));
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/19 20:30:01 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/22 16:01:50 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ GNL_C		=	get_next_line.c get_next_line_utils.c
 INIT_C		=	complete_data.c init_01.c init_02.c
 EXTRA_C		=	bmp.c draw.c colours.c keys.c utils.c \
 				free_alloc.c exit.c
-PARSE_C		=	parser.c parse_map.c parse_colour_res.c \
+PARSE_C		=	parser.c parse_map_01.c parse_map_02.c \
+				parse_colour_res.c \
 				parse_tex.c validate_map.c utils.c
 RAYCST_C	=	move.c rotate.c raycaster.c \
 				textures.c sprites.c \

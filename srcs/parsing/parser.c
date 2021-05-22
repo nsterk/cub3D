@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 19:54:10 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 16:13:21 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	parser(t_data *data, int fd)
 	while (data->file.ret > 0)
 	{
 		data->file.ret = get_next_line(fd, &data->file.line);
+		if (data->file.ret < 0)
+			return (set_status(&data->status, FILE_ERROR));
 		i = 0;
 		if (!ft_strchr("RCFNSWE01", first_char(data->file.line)))
 			return (set_status(&data->status, CONFIG_ERROR));
@@ -48,12 +50,14 @@ int	parser(t_data *data, int fd)
 			while (!ft_isalpha(data->file.line[i]))
 				i++;
 			if (!id_path(data, data->file.line + i))
-				return (set_status(&data->status, CONFIG_ERROR));
+				return (0);
 		}
 		else if (ready_for_map(data) && ft_isdigit(first_char(data->file.line)))
 			parse_map(data, fd);
 		free(data->file.line);
 	}
+	if (!ready_for_map(data))
+		return (set_status(&data->status, CONFIG_ERROR));
 	return (1);
 }
 

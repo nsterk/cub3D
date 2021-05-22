@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 16:50:33 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/21 15:09:04 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	parse_res(t_data *data, char *line)
 		return (set_status(&data->status, CONFIG_ERROR));
 	line = (char *)ft_skipspace(line);
 	if (!ft_isdigit(*line))
-		return (0);
+		return (set_status(&data->status, CONFIG_ERROR));
 	data->res.x = ft_atoi(line);
 	while (ft_isdigit(line[i]))
 		i++;
 	line = (char *)ft_skipspace(line + i);
 	if (!ft_isdigit(*line))
-		return (0);
+		return (set_status(&data->status, CONFIG_ERROR));
 	data->res.y = ft_atoi(line);
 	return (validate_res(data, line + i));
 }
@@ -39,14 +39,14 @@ int	colour(t_data *data, char *line)
 		if (data->ceiling)
 			return (set_status(&data->status, CONFIG_ERROR));
 		else
-			return (parse_colour(&data->ceiling, line + 1));
+			return (parse_colour(&data->status, &data->ceiling, line + 1));
 	}
 	if (data->floor)
 		return (set_status(&data->status, CONFIG_ERROR));
-	return (parse_colour(&data->floor, line + 1));
+	return (parse_colour(&data->status, &data->floor, line + 1));
 }
 
-int	parse_colour(int *colour, char *line)
+int	parse_colour(t_status *status, int *colour, char *line)
 {
 	char	**str;
 	int		i;
@@ -56,7 +56,7 @@ int	parse_colour(int *colour, char *line)
 
 	str = ft_split(line, ',');
 	if (!str)
-		return (0);
+		return (set_status(status, MALLOC_ERROR));
 	i = str_array_size(str);
 	if (i == 3)
 	{
@@ -64,7 +64,7 @@ int	parse_colour(int *colour, char *line)
 		G = ft_atoi(str[1]);
 		B = ft_atoi(str[2]);
 	}
-	free_alloc(str, i);
+	free_str_array(str, i);
 	if (R < 0 || G < 0 || B < 0
 		|| R > 255 || G > 255 || B > 255)
 		return (0);

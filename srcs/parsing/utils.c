@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 20:01:20 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 16:43:44 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 15:48:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	ready_for_map(t_data *data)
 	}
 	if (data->spr.img.path == NULL)
 		return (0);
-	if (data->res.x < 0 || data->res.y < 0)
+	if (!data->res.x || !data->res.y)
 		return (0);
-	if (data->floor < 0 || data->ceiling < 0)
+	if (!data->floor || !data->ceiling)
 		return (0);
 	return (1);
 }
@@ -47,13 +47,38 @@ int	str_array_size(char **str)
 
 int	validate_res(t_data *data, char *line)
 {
-	int	screen_x;
-	int	screen_y;
+	int		screen_x;
+	int		screen_y;
 
 	mlx_get_screen_size(data->mlx, &screen_x, &screen_y);
 	if (data->res.x < 1 || data->res.y < 1)
 		return (set_status(&data->status, CONFIG_ERROR));
 	if (!data->file.BMP && (data->res.x > screen_x || data->res.y > screen_y))
 		data->res = (t_i2vec){screen_x, screen_y};
+	while (ft_isdigit(*line))
+		line++;
+	if (*line)
+	{
+		while (line)
+		{
+			if (!is_space(line))
+				return (set_status(&data->status, CONFIG_ERROR));
+			line++;
+		}
+	}
 	return (1);
+}
+
+int	get_largest_number(int *x, int y)
+{
+	int	num;
+
+	num = x[y];
+	while (y > 0)
+	{
+		if (x[y - 1] > x[y])
+			num = x[y - 1];
+		y--;
+	}
+	return (num);
 }

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/19 13:11:35 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 20:34:24 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/20 14:58:50 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_data(t_data *data)
 	init_keys(&data->keys);
 	init_mlx(&data->img, data->mlx, data->window);
 	init_file(&data->file);
+	init_map(&data->map);
 	init_unsorted(data);
 }
 

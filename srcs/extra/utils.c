@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 20:01:20 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/18 22:41:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/20 14:57:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	first_char(char *str)
 {
-	while (*str && *str == ' ')
+	while (*str && is_space(str))
 		str++;
 	return (*str);
 }

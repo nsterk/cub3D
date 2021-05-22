@@ -6,11 +6,12 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 20:28:47 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 20:34:15 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/20 14:58:25 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
+#include <init.h>
 
 void	init_keys(t_keys *keys)
 {
@@ -35,14 +36,21 @@ void	init_file(t_file *file)
 	file->ret = 1;
 }
 
+void	init_map(t_map *map)
+{
+	map->spawn_char = '@';
+	map->y = 0;
+	map->grid = NULL;
+	map->check = NULL;
+	map->x = NULL;
+}
+
 void	init_unsorted(t_data *data)
 {
 	data->ceiling = 0;
 	data->floor = 0;
 	data->res = (t_i2vec){0, 0};
-	data->status = SUCCESS;
 	data->ray.z_buffer = NULL;
-	data->map.spawn_char = '@';
 	data->move_speed = 0.15;
 	data->rot_speed = 0.05;
 }
