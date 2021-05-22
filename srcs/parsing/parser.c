@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 16:13:21 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 16:27:29 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	parser(t_data *data, int fd)
 			while (!ft_isalpha(data->file.line[i]))
 				i++;
 			if (!id_path(data, data->file.line + i))
-				return (0);
+				return (set_status(&data->status, CONFIG_ERROR));
 		}
 		else if (ready_for_map(data) && ft_isdigit(first_char(data->file.line)))
 			parse_map(data, fd);

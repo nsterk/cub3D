@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 15:59:32 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 17:21:00 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		init_data(t_data *data);
 
 int			complete_data(t_data *data);
 int			complete_img(t_status *status, t_img *img, void *mlx);
+int			check_validity_path(char *str);
 int			complete_sprites(t_status *status, t_sprite *spr, t_map *map);
 void		position_sprites(char **map, t_d2vec *pos, int *xmax, int ymax);
 
@@ -96,7 +97,8 @@ int			draw_sprites(t_data *data);
 void		sort_sprites(t_sprite *spr);
 void		calculate_sprite(t_data *data, int i);
 void		put_sprite(t_data *data);
-void		put_pixel_sprite(t_data *data, int y);
+//void		put_pixel_sprite(t_data *data, int y);
+void		put_pixel_sprite(t_sprite *spr, int res_y, t_img *mlx_img, int y);
 
 /*
 **	Utils.

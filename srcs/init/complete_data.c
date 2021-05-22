@@ -6,11 +6,12 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 19:14:28 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 20:27:22 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 16:37:45 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
+#include <fcntl.h>
 
 int	complete_data(t_data *data)
 {
@@ -20,10 +21,12 @@ int	complete_data(t_data *data)
 	i = 0;
 	while (i < 4)
 	{
-		complete_img(&data->status, &data->tex[i].img, data->mlx);
+		if (!complete_img(&data->status, &data->tex[i].img, data->mlx))
+			return (0);
 		i++;
 	}
-	complete_img(&data->status, &data->spr.img, data->mlx);
+	if (!complete_img(&data->status, &data->spr.img, data->mlx))
+		return (0);
 	complete_sprites(&data->status, &data->spr, &data->map);
 	data->ray.z_buffer = malloc(sizeof(*(data->ray.z_buffer)) * data->res.x);
 	if (!data->ray.z_buffer)
@@ -37,6 +40,8 @@ int	complete_img(t_status *status, t_img *img, void *mlx)
 	size_t		len;
 
 	len = ft_strlen(img->path);
+	if (!check_validity_path(img->path))
+		return (set_status(status, CONFIG_ERROR));
 	if (!ft_strcmp(img->path + (len - 4), ".xpm"))
 		img->ptr = mlx_xpm_file_to_image(mlx, \
 		img->path, &img->width, &img->height);
@@ -85,4 +90,15 @@ void	position_sprites(char **map, t_d2vec *pos, int *xmax, int ymax)
 		}
 		y++;
 	}
+}
+
+int	check_validity_path(char *str)
+{
+	int	fd;
+
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
 }

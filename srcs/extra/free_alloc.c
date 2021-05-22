@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/13 18:12:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/20 22:41:17 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 16:53:04 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ void	free_str_array(char **str, int len)
 void	close_free(t_data *data)
 {
 	if (data->status >= READ_ERROR)
+	{
 		free_parse(data);
-	if (data->ray.z_buffer)
-		free(data->ray.z_buffer);
-	if (data->spr.pos)
-		free(data->spr.pos);
-	if (data->spr.distance)
-		free(data->spr.distance);
+		if (data->ray.z_buffer)
+			free(data->ray.z_buffer);
+		if (data->spr.pos)
+			free(data->spr.pos);
+		if (data->spr.distance)
+			free(data->spr.distance);
+	}
 }
 
 void	free_parse(t_data *data)

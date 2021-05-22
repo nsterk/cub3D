@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 16:03:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 16:49:59 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 17:22:03 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	put_sprite(t_data *data)
 		{
 			while (y < data->spr.end.y)
 			{
-				put_pixel_sprite(data, y);
+				put_pixel_sprite(&data->spr, data->res.y, &data->img, y);
 				y++;
 			}
 		}
@@ -116,21 +116,19 @@ void	put_sprite(t_data *data)
 	}
 }
 
-void	put_pixel_sprite(t_data *data, int y)
+void	put_pixel_sprite(t_sprite *spr, int res_y, t_img *mlx_img, int y)
 {
 	int			d;
 	t_colour	colour;
-	t_sprite	*spr;
 
-	spr = &data->spr;
-	d = (y * 256) - (data->res.y * 128) + (spr->height * 128);
+	d = (y * 256) - (res_y * 128) + (spr->height * 128);
 	spr->tex.y = (d * spr->img.height) / spr->height / 256;
 	colour = get_colour(spr);
 	apply_shade(spr, &colour);
 	if ((colour.colour & 0x00FFFFFF) != 0)
 	{
-		*(unsigned int *)(data->img.addr + (y * data->img.len) + (spr->stripe \
-			 * (data->img.bpp / 8))) = colour.colour;
+		*(unsigned int *)(mlx_img->addr + (y * mlx_img->len) + (spr->stripe \
+			 * (mlx_img->bpp / 8))) = colour.colour;
 	}
 }
  

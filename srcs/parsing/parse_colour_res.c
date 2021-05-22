@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/21 15:09:04 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 16:50:19 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int	colour(t_data *data, char *line)
 {
 	if (*line == 'C')
 	{
-		if (data->ceiling)
+		if (data->ceiling != -1)
 			return (set_status(&data->status, CONFIG_ERROR));
 		else
 			return (parse_colour(&data->status, &data->ceiling, line + 1));
 	}
-	if (data->floor)
+	if (data->floor != -1)
 		return (set_status(&data->status, CONFIG_ERROR));
 	return (parse_colour(&data->status, &data->floor, line + 1));
 }

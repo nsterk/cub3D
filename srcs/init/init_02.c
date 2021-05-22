@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 20:28:47 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/20 14:58:25 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 17:36:18 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	init_map(t_map *map)
 
 void	init_unsorted(t_data *data)
 {
-	data->ceiling = 0;
-	data->floor = 0;
+	data->ceiling = -1;
+	data->floor = -1;
 	data->res = (t_i2vec){0, 0};
 	data->ray.z_buffer = NULL;
 	data->move_speed = 0.15;
