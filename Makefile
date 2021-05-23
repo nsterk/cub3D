@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/22 17:39:30 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/23 16:53:54 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 
 NAME		=	cub3D
 CC			=	gcc
-W_FLAGS		=	-std=c89 -Iinc
+W_FLAGS		=	-Wall -Wextra -Werror -std=c89 -Iinc
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx # -g -fsanitize=address
 
 # MLX_PATH	=	./mlx/

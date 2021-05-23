@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 15:55:00 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 16:55:42 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	validate_map(t_data *data)
 {
-	if (!allocate_check(&data->status, &data->map))
+	if (!allocate_check(&data->map))
 		return (set_status(&data->status, MALLOC_ERROR));
 	if (!copy_to_check(&data->map))
 		return (set_status(&data->status, MAP_ERROR));
@@ -25,7 +25,7 @@ int	validate_map(t_data *data)
 	return (1);
 }
 
-int	allocate_check(t_status *status, t_map *map)
+int	allocate_check(t_map *map)
 {
 	int	y;
 	int	x;

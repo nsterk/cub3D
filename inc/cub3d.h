@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/23 16:49:51 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 16:56:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			get_map_info(t_data *data);
 int			get_spawn_info(t_data *data, int y);
 void		set_spawn_dir(char c, t_d2vec *dir, t_d2vec *plane);
 int			validate_map(t_data *data);
-int			allocate_check(t_status *status, t_map *map);
+int			allocate_check(t_map *map);
 int			copy_to_check(t_map *map);
 void		floodfill(t_status *status, int y, int x, t_map *map);
 

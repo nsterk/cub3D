@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/13 18:12:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 16:53:04 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 16:56:34 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,3 @@ void	free_parse(t_data *data)
 		free(data->spr.img.path);
 	data->spr.img.path = NULL;
 }
-
-// void	free_map(t_map *map, int len)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (len == 0)
-// 		len = map->y;
-// 	while (i < len)
-// 	{
-// 		free(map->check[i]);
-// 		i++;
-// 	}
-// 	free(map->check);
-// }

@@ -6,15 +6,11 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/27 14:57:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/19 20:35:11 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 16:52:47 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
-#include <stdio.h>
-#include <math.h>
-#include <fcntl.h>
-#include <unistd.h>
 
 void	*start_mlx(t_data *data)
 {
