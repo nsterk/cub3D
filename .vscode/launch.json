@@ -17,7 +17,7 @@
 			"request": "launch",
 			"name": "Debug argument",
 			"program": "${workspaceFolder}/cub3D",
-			"args": ["scene.cub", "--save"],
+			"args": ["scene.cub", "--sav"],
 			"cwd": "${workspaceFolder}"
 		}
 	]
