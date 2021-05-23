@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 20:28:47 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 17:36:18 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 17:20:45 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	init_keys(t_keys *keys)
 	keys->right = 0;
 }
 
-void	init_mlx(t_img *img, void *mlx, void *window)
+void	init_mlx(t_img *img, void *mlx, void *window, int *mlx_status)
 {
+	*mlx_status = 0;
 	mlx = NULL;
 	window = NULL;
 	init_img(img);

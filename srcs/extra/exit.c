@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/11 19:09:30 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 21:27:31 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 17:21:44 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exit_window(t_data *data)
 {
 	if (data->status != SUCCESS)
 		write_error_msg(data->status);
-	if (data->mlx)
+	if (data->mlx_status)
 		mlx_destroy_window(data->mlx, data->window);
 	close_free(data);
 	exit(1);

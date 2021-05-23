@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/23 16:55:42 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 17:43:26 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int	copy_to_check(t_map *map)
 		x = 0;
 		while (x < map->x[y])
 		{
-			if (!ft_strchr("012 ", map->grid[y][x])
-				|| map->grid[y][x] == '\0')
+			if (!ft_strchr("012 ", map->grid[y][x]))
 			{
 				free_str_array(map->check, map->y);
 				return (0);
@@ -81,7 +80,7 @@ int	copy_to_check(t_map *map)
 
 void	floodfill(t_status *status, int y, int x, t_map *map)
 {
-	if (y == 0 || x == 0 || x == map->x[y] - 1 || y == map->y - 1)
+	if (y == 0 || x == 0 || x >= map->x[y] - 1 || y >= map->y - 1)
 	{
 		set_status(status, MAP_ERROR);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 16:53:07 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/20 03:06:41 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 17:19:01 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ typedef struct s_data
 	t_status	status;
 	void		*mlx;
 	void		*window;
+	int			mlx_status;
 	t_img		img;
 	t_file		file;
 	t_ray		ray;

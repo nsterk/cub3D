@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/10 20:01:20 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 16:46:52 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 17:14:16 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ready_for_map(t_data *data)
 	if (!data->res.x || !data->res.y)
 		return (0);
 	if (data->floor == -1 || data->ceiling == -1)
+		return (0);
+	if (data->status != SUCCESS)
 		return (0);
 	return (1);
 }
