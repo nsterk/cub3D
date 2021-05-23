@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/11 19:09:30 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/21 18:16:00 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/22 21:27:31 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 static void	write_error_msg(t_status status)
 {
-	static const char	*msg[14] =
-	{
+	static const char	*msg[14] = {
 		"Successful game exit",
 		"Incorrect file extension, expect .cub",
 		"Incorrect 2nd argument provided. Specify save using --save",

@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/05/05 16:03:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 17:22:03 by nsterk        ########   odam.nl         */
+/*   Created: 2021/05/23 16:30:33 by nsterk        #+#    #+#                 */
+/*   Updated: 2021/05/23 16:44:58 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	draw_sprites(t_data *data)
 	while (i < data->spr.amount)
 	{
 		data->spr.distance[i] = ((data->pos.x - data->spr.pos[i].x) * \
-			(data->pos.x - data->spr.pos[i].x)) + ((data->pos.y - data->spr.pos[i].y) \
-			* (data->pos.y - data->spr.pos[i].y));
+			(data->pos.x - data->spr.pos[i].x)) + ((data->pos.y - \
+			data->spr.pos[i].y) * (data->pos.y - data->spr.pos[i].y));
 		i++;
 	}
 	i = 0;
@@ -30,7 +30,7 @@ int	draw_sprites(t_data *data)
 	while (i < data->spr.amount)
 	{
 		calculate_sprite(data, i);
-		put_sprite(data);
+		put_sprite(&data->spr, data->res, data->ray.z_buffer, &data->img);
 		i++;
 	}
 	return (0);
@@ -72,8 +72,8 @@ void	calculate_sprite(t_data *data, int i)
 		(data->dir.x * data->plane.y));
 	data->spr.transform.x = data->spr.inv * ((data->dir.y * data->spr.cam.x) - \
 		(data->dir.x * data->spr.cam.y));
-	data->spr.transform.y = data->spr.inv * ((-data->plane.y * data->spr.cam.x) + \
-		(data->plane.x * data->spr.cam.y));
+	data->spr.transform.y = data->spr.inv * ((-data->plane.y * data->spr.cam.x) \
+	+ (data->plane.x * data->spr.cam.y));
 	data->spr.screen_x = (int)((data->res.x / 2) * (1 + \
 		(data->spr.transform.x / data->spr.transform.y)));
 	data->spr.height = abs((int)(1 * (data->res.y / data->spr.transform.y)));
@@ -92,27 +92,26 @@ void	calculate_sprite(t_data *data, int i)
 		data->spr.end.x = data->res.x - 1;
 }
 
-void	put_sprite(t_data *data)
+void	put_sprite(t_sprite *spr, t_i2vec res, double *z_buf, t_img *img)
 {
 	int			y;
 
-	data->spr.stripe = data->spr.start.x;
-	while (data->spr.stripe < data->spr.end.x)
+	spr->stripe = spr->start.x;
+	while (spr->stripe < spr->end.x)
 	{
-		data->spr.tex.x = (int)(256 * (data->spr.stripe - (-data->spr.width / 2 + \
-			data->spr.screen_x)) * data->spr.img.width / data->spr.width) / 256;
-		y = data->spr.start.y;
-		if (data->spr.transform.y > 0 && data->spr.stripe > 0 && \
-		data->spr.stripe < data->res.x && \
-		data->spr.transform.y < data->ray.z_buffer[data->spr.stripe])
+		spr->tex.x = (int)(256 * (spr->stripe - (-spr->width / 2 \
+			+ spr->screen_x)) * spr->img.width / spr->width) / 256;
+		y = spr->start.y;
+		if (spr->transform.y > 0 && spr->stripe > 0 && spr->stripe < res.x \
+			&& spr->transform.y < z_buf[spr->stripe])
 		{
-			while (y < data->spr.end.y)
+			while (y < spr->end.y)
 			{
-				put_pixel_sprite(&data->spr, data->res.y, &data->img, y);
+				put_pixel_sprite(spr, res.y, img, y);
 				y++;
 			}
 		}
-		data->spr.stripe++;
+		spr->stripe++;
 	}
 }
 
@@ -131,4 +130,3 @@ void	put_pixel_sprite(t_sprite *spr, int res_y, t_img *mlx_img, int y)
 			 * (mlx_img->bpp / 8))) = colour.colour;
 	}
 }
- 

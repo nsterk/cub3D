@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   cub3D.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 17:21:00 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/23 16:49:51 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ void		put_texture(t_data *data, int x, int i);
 int			draw_sprites(t_data *data);
 void		sort_sprites(t_sprite *spr);
 void		calculate_sprite(t_data *data, int i);
-void		put_sprite(t_data *data);
-//void		put_pixel_sprite(t_data *data, int y);
+void		put_sprite(t_sprite *spr, t_i2vec res, double *z_buf, t_img *img);
 void		put_pixel_sprite(t_sprite *spr, int res_y, t_img *mlx_img, int y);
 
 /*
