@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/05 19:14:28 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/23 17:19:33 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/24 13:44:47 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	complete_data(t_data *data)
 {
 	int	i;
 
-	start_mlx(data);
+	if (!start_mlx(data))
+		return (set_status(&data->status, IMG_ERROR));
 	data->mlx_status = 1;
 	i = 0;
 	while (i < 4)

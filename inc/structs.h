@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 16:53:07 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/23 17:19:01 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/24 13:35:03 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ typedef enum e_status
 	ARGSAVE_ERROR,
 	ARGNO_ERROR,
 	FILE_ERROR,
-	MEM_PARSE_ERROR_1,
 	READ_ERROR,
 	CONFIG_ERROR,
-	MEM_MAP_ERROR,
 	MAP_ERROR,
-	MEM_PARSE_ERROR_2,
 	IMG_ERROR,
 	MALLOC_ERROR,
 	BMP_ERROR,
@@ -150,11 +147,6 @@ typedef struct s_ray
 	int			line_end;
 	double		*z_buffer;
 }				t_ray;
-
-/*
-**	ceiling:	ceiling colour.
-**	floor:		floor colour.
-*/
 
 typedef struct s_data
 {

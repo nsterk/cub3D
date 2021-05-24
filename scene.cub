@@ -4,7 +4,7 @@ EA ./textures/colorstone.xpm
 SO ./textures/redbrick.xpm
 WE ./textures/redbrick.xpm
 S ./textures/barrel.xpm
-F 188, 205, 206
+F 147, 159, 153
 C 219, 213, 213
 
                  1111

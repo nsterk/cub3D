@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/28 14:27:57 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/14 14:51:45 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/24 13:51:52 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	create_bmp(t_i2vec res, t_img *img)
 	int			pad_size;
 	int			y;
 
-	fd = open("image.bmp", O_CREAT | O_TRUNC | O_RDWR, 0644);
+	fd = open("screenshot.bmp", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd < 1)
 		return (0);
 	if ((res.x * (img->bpp / 8)) % 4 == 0)
