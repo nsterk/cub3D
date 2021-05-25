@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 17:21:29 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/23 16:55:04 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/25 17:49:49 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	parse_colour(t_status *status, int *colour, char *line)
 	int		G;
 	int		B;
 
-	R = 0;
-	G = 0;
-	B = 0;
+	R = -1;
+	G = -1;
+	B = -1;
 	str = ft_split(line, ',');
 	if (!str)
 		return (set_status(status, MALLOC_ERROR));

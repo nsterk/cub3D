@@ -1,10 +1,10 @@
-R 600 900 900
-NO ./textures/redbriaack.xpm
+R 900 600
+NO ./textures/redbrick.xpm
 EA ./textures/colorstone.xpm
 SO ./textures/redbrick.xpm
 WE ./textures/redbrick.xpm
-S ./taxtures/barrel.xpm
-F 147, 159, 153
+S ./textures/barrel.xpm
+F -147, 159, 153
 C 219, 213, 213
 
                  1111

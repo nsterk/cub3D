@@ -6,12 +6,12 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/24 14:07:22 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/25 17:48:15 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
-W_FLAGS		=	-Wall -Wextra -Werror -Wunused-function -std=c89 -Iinc
+W_FLAGS		=	-Wall -Wextra -Werror -std=c89 -Iinc -g
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx
 
 MLX_PATH	=	./mlx/
@@ -60,12 +60,12 @@ OBJS		=	$(SRCS:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(SRCS)
-	make -C ./mlx
-	cp ./mlx/libmlx.dylib .
+#	make -C ./mlx
+#	cp ./mlx/libmlx.dylib .
 	$(CC) $(W_FLAGS) $(MLX_FLAGS) $(SRCS) libmlx.dylib -o $(NAME)
 
 clean:
-	make clean -C ./mlx
+#	make clean -C ./mlx
 	rm -rf $(OBJS)
 
 fclean: clean
