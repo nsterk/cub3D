@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/02 13:44:38 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/22 16:27:29 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/24 17:12:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	parser(t_data *data, int fd)
 			parse_map(data, fd);
 		free(data->file.line);
 	}
-	if (!ready_for_map(data))
+	if (!ready_for_map(data) || data->map.spawn_char == '@')
 		return (set_status(&data->status, CONFIG_ERROR));
 	return (1);
 }

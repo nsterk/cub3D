@@ -6,12 +6,12 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/24 14:00:56 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/24 14:07:22 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
-W_FLAGS		=	-Wall -Wextra -Werror -std=c89 -Iinc
+W_FLAGS		=	-Wall -Wextra -Werror -Wunused-function -std=c89 -Iinc
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx
 
 MLX_PATH	=	./mlx/
