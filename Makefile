@@ -6,12 +6,14 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/25 17:48:15 by nsterk        ########   odam.nl          #
+#    Updated: 2021/05/27 18:45:38 by nsterk        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
+# -Wall -Wextra -Werror 
+
 NAME		=	cub3D
-W_FLAGS		=	-Wall -Wextra -Werror -std=c89 -Iinc -g
+W_FLAGS		=	-std=c89 -Iinc -g
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx
 
 MLX_PATH	=	./mlx/
@@ -36,8 +38,8 @@ INIT_C		=	complete_data.c init_01.c init_02.c
 EXTRA_C		=	bmp.c draw.c colours.c keys.c utils.c \
 				free_alloc.c exit.c
 PARSE_C		=	parser.c parse_map_01.c parse_map_02.c \
-				parse_colour_res.c \
-				parse_tex.c validate_map.c utils.c
+				parse_colour_res.c queue.c \
+				parse_tex.c oefen_validate_map.c utils.c
 RAYCST_C	=	move.c rotate.c raycaster.c \
 				textures.c sprites.c \
 				window_loop.c

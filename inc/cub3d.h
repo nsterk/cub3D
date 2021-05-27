@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/24 13:47:24 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/27 18:52:36 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ t_colour	get_colour(t_sprite *spr);
 void		apply_shade(t_sprite *spr, t_colour *colour);
 
 void		free_str_array(char **str, int len);
+void		free_int_array(int **arr, int len);
 void		close_free(t_data *data);
 void		free_parse(t_data *data);
 

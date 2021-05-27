@@ -4,6 +4,7 @@
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations": [
+
 		{
 			"type": "lldb",
 			"request": "launch",
@@ -18,6 +19,14 @@
 			"name": "Debug argument",
 			"program": "${workspaceFolder}/cub3D",
 			"args": ["scene.cub", "--sav"],
+			"cwd": "${workspaceFolder}"
+		}
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Queue list",
+			"program": "${workspaceFolder}/a.out",
+			"args": [],
 			"cwd": "${workspaceFolder}"
 		}
 	]

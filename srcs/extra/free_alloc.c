@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/13 18:12:11 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/23 16:56:34 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/27 18:52:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ void	free_str_array(char **str, int len)
 			i++;
 		}
 		free(str);
+	}
+}
+
+void	free_int_array(int **arr, int len)
+{
+	int	i;
+
+	i = 0;
+	if (arr)
+	{
+		while (i < len)
+		{
+			free(arr[i]);
+			i++;
+		}
+		free(arr);
 	}
 }
 
