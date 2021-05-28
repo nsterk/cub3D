@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/27 19:57:49 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/05/28 18:58:09 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,26 @@ int	check_walls(t_status *status, t_map *map, int x, int y)
 	return (1);
 }
 
-void	floodfill(t_status *status, t_map *map, t_queue *q)
+int	floodfill(t_status *status, t_map *map, t_queue *q)
 {
 	int	x;
 	int	y;
+	int	empty;
 
-	while (q->next != NULL || map->first_iteration)
+	empty = 0;
+	while (q->next != NULL || !empty)
 	{
 		x = q->x;
 		y = q->y;
-		if (valid_coordinate(y + 1, x, map->map_x, map->map_y) && \
+		if (!valid_coordinate(y, x, map->map_x, map->map_y))
+			return (set_status(status, MAP_ERROR));
+		 && \
 			map->visited[y + 1][x] == 0)
+		{
 			queue_add_back(&q, y + 1, x);
+		}
+		if (q->next == NULL)
+			empty = 1;
 		queue_delone(q, free);
 	}
 }
@@ -150,7 +158,7 @@ int	copy_to_check(t_map *map)
 				return (0);
 			}
 			if (map->grid[y][x] == ' ')
-				map->grid[y][x] = '0';
+				map->grid[y][x] = '1';
 			map->check[y][x] = map->grid[y][x];
 			if (map->check[y][x] == '2')
 				map->check[y][x] = '0';
@@ -170,34 +178,17 @@ int	valid_coordinate(int y, int x, int *map_x, int map_y)
 	return (1);
 }
 
-// void	floodfill(t_status *status, int y, int x, t_map *map)
-// {
-// 	if (y == 0 || x == 0 || x >= map->x[y] - 1 || y >= map->y - 1)
-// 	{
-// 		set_status(status, MAP_ERROR);
-// 		return ;
-// 	}
-// 	if (map->check[y][x] == '0')
-// 	{
-// 		map->check[y][x] = '9';
-// 		if (map->check[y + 1][x] != '1')
-// 			floodfill(status, y + 1, x, map);
-// 		if (map->check[y + 1][x + 1] != '1')
-// 			floodfill(status, y + 1, x + 1, map);
-// 		if (map->check[y + 1][x - 1] != '1')
-// 			floodfill(status, y + 1, x - 1, map);
-// 		if (map->check[y - 1][x] != '1')
-// 			floodfill(status, y - 1, x, map);
-// 		if (map->check[y - 1][x + 1] != '1')
-// 			floodfill(status, y - 1, x + 1, map);
-// 		if (map->check[y - 1][x - 1] != '1')
-// 			floodfill(status, y - 1, x - 1, map);
-// 		if (map->check[y][x + 1] != '1')
-// 			floodfill(status, y, x + 1, map);
-// 		if (map->check[y][x - 1] != '1')
-// 			floodfill(status, y, x - 1, map);
-// 	}
-// }
+int	empty_coordinate(int y, int x, t_map *map)
+{
+	if (map->check[y][x] != '1' && map->check[y][x] != '9')
+		return (0);
+	return (1);
+}
+
+/*
+**	Als ik deze recursieve floodfill hou: volgens mij is de if (map-check == 0) statement
+**	nu overbodig. Moet dus nog weg.
+*/
 
 void	floodfill(t_status *status, int y, int x, t_map *map)
 {
@@ -227,3 +218,34 @@ void	floodfill(t_status *status, int y, int x, t_map *map)
 			floodfill(status, y, x - 1, map);
 	}
 }
+
+/* Met checks voor '9' erin */
+
+// void	floodfill(t_status *status, int y, int x, t_map *map)
+// {
+// 	if (y == 0 || x == 0 || x >= map->x[y] - 1 || y >= map->y - 1)
+// 	{
+// 		set_status(status, MAP_ERROR);
+// 		return ;
+// 	}
+// 	if (map->check[y][x] == '0')
+// 	{
+// 		map->check[y][x] = '9';
+// 		if (map->check[y + 1][x] != '1' && map->check[y + 1][x] != '9')
+// 			floodfill(status, y + 1, x, map);
+// 		if (map->check[y + 1][x + 1] != '1' && map->check[y + 1][x + 1] != '9')
+// 			floodfill(status, y + 1, x + 1, map);
+// 		if (map->check[y + 1][x - 1] != '1' && map->check[y + 1][x - 1] != '9')
+// 			floodfill(status, y + 1, x - 1, map);
+// 		if (map->check[y - 1][x] != '1' && map->check[y - 1][x] != '9')
+// 			floodfill(status, y - 1, x, map);
+// 		if (map->check[y - 1][x + 1] != '1' && map->check[y - 1][x + 1] != '9')
+// 			floodfill(status, y - 1, x + 1, map);
+// 		if (map->check[y - 1][x - 1] != '1' && map->check[y - 1][x - 1] != '9')
+// 			floodfill(status, y - 1, x - 1, map);
+// 		if (map->check[y][x + 1] != '1' && map->check[y][x + 1] != '9')
+// 			floodfill(status, y, x + 1, map);
+// 		if (map->check[y][x - 1] != '1' && map->check[y][x - 1] != '9')
+// 			floodfill(status, y, x - 1, map);
+// 	}
+// }

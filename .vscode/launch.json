@@ -29,5 +29,13 @@
 			"args": [],
 			"cwd": "${workspaceFolder}"
 		}
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug floodfill - simple map",
+			"program": "${workspaceFolder}/cub3D",
+			"args": ["maps/simple.cub"],
+			"cwd": "${workspaceFolder}"
+		}
 	]
 }
