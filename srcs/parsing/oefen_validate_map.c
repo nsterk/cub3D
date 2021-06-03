@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/28 18:58:09 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/03 14:15:27 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,10 @@ int	floodfill(t_status *status, t_map *map, t_queue *q)
 	empty = 0;
 	while (q->next != NULL || !empty)
 	{
-		x = q->x;
-		y = q->y;
-		if (!valid_coordinate(y, x, map->map_x, map->map_y))
+		if (!valid_coordinate(q->y, q->x, map->map_x, map->map_y))
 			return (set_status(status, MAP_ERROR));
-		 && \
-			map->visited[y + 1][x] == 0)
-		{
+		if (map->check[q->y + 1][q->x] != '1' && map->visited[y + 1][x] == 0)
 			queue_add_back(&q, y + 1, x);
-		}
 		if (q->next == NULL)
 			empty = 1;
 		queue_delone(q, free);
