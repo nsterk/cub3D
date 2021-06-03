@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/06/03 14:15:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/03 14:16:15 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int	copy_to_check(t_map *map)
 				map->check[y][x] = '0';
 			x++;
 		}
-		y++;
+		y++; 
 	}
 	return (1);
 }
