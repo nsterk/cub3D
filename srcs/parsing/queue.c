@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/01 14:54:17 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/27 19:57:09 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/05 19:17:37 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ t_queue	*queue_new(int x, int y)
 	new = malloc(sizeof(t_queue));
 	if (!new)
 		return (NULL);
-	new->x = malloc(sizeof(int));
-	*new->x = x;
-	new->y = malloc(sizeof(int));
-	*new->y = y;
+	new->x = x;
+	new->y = y;
 	new->next = NULL;
 	return (new);
 }
@@ -73,30 +71,5 @@ void	queue_delone(t_queue *queue, void (*del)(void*))
 {
 	if (!queue || !del)
 		return ;
-	del(queue->x);
-	del(queue->y);
 	free(queue);
 }
-
-/*
-
-int main(void)
-{
-	t_queue	*head;
-	t_queue	*temp;
-	int x;
-	int y;
-
-	x = 1;
-	y = 0;
-	head = queue_new(x, y);
-	queue_add_back(&head, x + 1, y + 1);
-	temp = head;
-	while (temp)
-	{
-		printf("%i, %i\n", *temp->x, *temp->y);
-		temp = temp->next;
-	}
-	return (0);
-}
-*/

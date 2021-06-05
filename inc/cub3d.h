@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3D.h                                            :+:    :+:            */
+/*   cub3d.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/27 18:52:36 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/05 19:06:20 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <structs.h>
 # include <get_next_line.h>
 # include <libft.h>
+# include <stdio.h>
 
 # define W		13
 # define A		0

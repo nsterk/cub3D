@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/05/28 16:30:45 by nsterk        ########   odam.nl          #
+#    Updated: 2021/06/05 18:46:37 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ EXTRA_C		=	bmp.c draw.c colours.c keys.c utils.c \
 				free_alloc.c exit.c
 PARSE_C		=	parser.c parse_map_01.c parse_map_02.c \
 				parse_colour_res.c \
-				parse_tex.c validate_map.c utils.c
+				parse_tex.c oefen_validate_map.c utils.c \
+				floodfill.c floodfill_utils.c queue.c 
 RAYCST_C	=	move.c rotate.c raycaster.c \
 				textures.c sprites.c \
 				window_loop.c
@@ -62,12 +63,12 @@ OBJS		=	$(SRCS:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(SRCS)
-#	make -C ./mlx
-#	cp ./mlx/libmlx.dylib .
+	make -C ./mlx
+	cp ./mlx/libmlx.dylib .
 	$(CC) $(W_FLAGS) $(MLX_FLAGS) $(SRCS) libmlx.dylib -o $(NAME)
 
 clean:
-#	make clean -C ./mlx
+	make clean -C ./mlx
 	rm -rf $(OBJS)
 
 fclean: clean
