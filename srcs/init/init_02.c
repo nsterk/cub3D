@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 20:28:47 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/27 19:28:03 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/06 15:25:44 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	init_map(t_map *map)
 	map->y = 0;
 	map->grid = NULL;
 	map->check = NULL;
-	map->visited = NULL;
-	map->first_iteration = 1;
 	map->x = NULL;
 	map->max_x = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 16:53:07 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/05/27 19:27:30 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/06 15:24:29 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ typedef struct s_map
 {
 	char		**grid;
 	char		**check;
-	int			**visited;
-	int			first_iteration;
 	int			*x;
 	int			max_x;
 	int			y;

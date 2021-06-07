@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/06/05 19:07:45 by naomisterk    ########   odam.nl         */
+/*   Updated: 2021/06/06 15:25:08 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,12 @@
 **	dont forget to free visited!!
 */
 
-int	check_walls(t_status *status, t_map *map, int x, int y)
-{
-	t_queue	*q;
-
-	// if (!allocate_visited(map))
-	// 	return (set_status(status, MALLOC_ERROR));
-	q = NULL;
-	q = queue_new(x, y);
-	if (!q)
-		return (set_status(status, MALLOC_ERROR));
-	// map->visited[y][x] = 1;
-	return (1);
-}
-
-// int	allocate_visited(t_map *map)
-// {
-// 	int	**visited;
-// 	int	x;
-// 	int	y;
-
-// 	y = 0;
-// 	map->visited = (int **)malloc(sizeof(int *) * map->y);
-// 	if (!map->visited)
-// 		return (0);
-// 	while (y < map->y)
-// 	{
-// 		x = 0;
-// 		map->visited[y] = ft_calloc(map->max_x, sizeof(int));
-// 		if (!map->visited[y])
-// 		{
-// 			free_int_array(map->visited, y);
-// 			return (0);
-// 		}
-// 		y++;
-// 	}
-// 	return (1);
-// }
-
 int	validate_map(t_data *data)
 {
 	if (!allocate_check(&data->map))
 		return (set_status(&data->status, MALLOC_ERROR));
 	if (!copy_to_check(&data->map))
 		return (set_status(&data->status, MAP_ERROR));
-	// check_walls(&data->status, &data->map, data->pos.x, data->pos.y);
 	flood_fill(&data->status, &data->map, data->pos.y, data->pos.x);
 	free_str_array(data->map.check, data->map.y);
 	if (data->status != SUCCESS)
