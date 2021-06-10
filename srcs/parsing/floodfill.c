@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/05 16:33:51 by naomisterk    #+#    #+#                 */
-/*   Updated: 2021/06/05 19:47:47 by naomisterk    ########   odam.nl         */
+/*   Updated: 2021/06/07 19:24:31 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	flood_fill(t_status *status, t_map *map, int y, int x)
 
 int	check_coordinate(t_i2vec pos, t_map *map, t_queue *q, t_status *status)
 {
-	if (!empty_coordinate(pos.y, pos.x, map))
+	if (map->check[pos.y][pos.x] == '1')
 		return (0);
-	if (visited_coordinate(pos.y, pos.x, map))
+	if (map->check[pos.y][pos.x] == '9')
 		return (0);
 	if (!queue_add_back(&q, pos.y, pos.x))
 		return (set_status(status, MALLOC_ERROR));
