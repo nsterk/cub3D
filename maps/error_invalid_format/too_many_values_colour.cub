@@ -6,7 +6,7 @@ SO ./textures/redbrick.xpm
 WE ./textures/redbrick.xpm
 S ./textures/barrel.xpm
 F 147, 159, 213
-C 219, 213, 213
+C 219, 213, 213, 12
 
                  1111
                  1201
