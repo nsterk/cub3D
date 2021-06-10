@@ -6,7 +6,7 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/19 16:53:07 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/06/06 15:12:48 by naomisterk    ########   odam.nl         */
+/*   Updated: 2021/06/10 10:51:48 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		queue_size(t_queue *queue);
 int		check_surrounding(t_queue *q, t_map *map, t_status *status);
 int		valid_coordinate(int y, int x, int *map_x, int map_y);
 int		check_coordinate(t_i2vec pos, t_map *map, t_queue *q, t_status *status);
-int		flood_fill(t_status *status, t_map *map, int y, int x);
+int		floodfill(t_status *status, t_map *map, int y, int x);
 t_queue	*remove_first(t_queue *q);
 
 #endif

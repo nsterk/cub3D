@@ -6,14 +6,14 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/05 16:33:51 by naomisterk    #+#    #+#                 */
-/*   Updated: 2021/06/10 09:55:13 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/10 10:51:35 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 #include <iterative_floodfill.h>
 
-int	flood_fill(t_status *status, t_map *map, int y, int x)
+int	floodfill(t_status *status, t_map *map, int y, int x)
 {
 	t_queue	*q;
 	int		empty;
