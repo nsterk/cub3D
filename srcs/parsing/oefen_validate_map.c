@@ -6,26 +6,16 @@
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/08 15:47:00 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/06/07 19:23:27 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/10 09:55:14 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 #include <iterative_floodfill.h>
 
-int	check_walls(t_status *status, t_map *map, int x, int y)
-{
-	t_queue	*q;
-
-	// if (!allocate_visited(map))
-	// 	return (set_status(status, MALLOC_ERROR));
-	q = NULL;
-	q = queue_new(x, y);
-	if (!q)
-		return (set_status(status, MALLOC_ERROR));
-	// map->visited[y][x] = 1;
-	return (1);
-}
+/*
+**	dont forget to free visited!!
+*/
 
 int	validate_map(t_data *data)
 {
@@ -33,7 +23,6 @@ int	validate_map(t_data *data)
 		return (set_status(&data->status, MALLOC_ERROR));
 	if (!copy_to_check(&data->map))
 		return (set_status(&data->status, MAP_ERROR));
-	// check_walls(&data->status, &data->map, data->pos.x, data->pos.y);
 	flood_fill(&data->status, &data->map, data->pos.y, data->pos.x);
 	free_str_array(data->map.check, data->map.y);
 	if (data->status != SUCCESS)

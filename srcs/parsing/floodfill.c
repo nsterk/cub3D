@@ -6,7 +6,7 @@
 /*   By: naomisterk <naomisterk@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/05 16:33:51 by naomisterk    #+#    #+#                 */
-/*   Updated: 2021/06/07 19:24:31 by nsterk        ########   odam.nl         */
+/*   Updated: 2021/06/10 09:55:13 by nsterk        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	flood_fill(t_status *status, t_map *map, int y, int x)
 
 	empty = 0;
 	q = queue_new(x, y);
+	if (!q)
+		return (set_status(status, MALLOC_ERROR));
 	while (!empty)
 	{
 		if (!valid_coordinate(q->y, q->x, map->x, map->y))
@@ -47,7 +49,7 @@ int	check_coordinate(t_i2vec pos, t_map *map, t_queue *q, t_status *status)
 	return (1);
 }
 
-void	check_surrounding(t_queue *q, t_map *map, t_status *status)
+int	check_surrounding(t_queue *q, t_map *map, t_status *status)
 {
 	check_coordinate((t_i2vec){q->x, q->y + 1}, map, q, status);
 	check_coordinate((t_i2vec){q->x + 1, q->y + 1}, map, q, status);
@@ -57,4 +59,7 @@ void	check_surrounding(t_queue *q, t_map *map, t_status *status)
 	check_coordinate((t_i2vec){q->x - 1, q->y - 1}, map, q, status);
 	check_coordinate((t_i2vec){q->x + 1, q->y}, map, q, status);
 	check_coordinate((t_i2vec){q->x - 1, q->y}, map, q, status);
+	if (*status != SUCCESS)
+		return (0);
+	return (1);
 }

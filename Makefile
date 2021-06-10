@@ -6,14 +6,26 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/06/07 16:37:31 by nsterk        ########   odam.nl          #
+<<<<<<< Updated upstream
+#    Updated: 2021/06/07 19:43:12 by naomisterk    ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+
+# -Wall -Wextra -Werror -fsanitize=address -g
+
+NAME		=	cub3D
+W_FLAGS		=	-std=c89 -Iinc -g -O0
+=======
+#    Updated: 2021/06/06 15:16:56 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # -Wall -Wextra -Werror -fsanitize=address -g
 
 NAME		=	cub3D
-W_FLAGS		=	-std=c89 -Iinc -g -O0
+>>>>>>> Stashed changes
+W_FLAGS		=	-std=c89 -Iinc
 MLX_FLAGS	=	-framework OpenGL -framework Appkit -Imlx
 
 MLX_PATH	=	./mlx/
