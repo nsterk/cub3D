@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   cub3D.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nsterk <nsterk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/12 11:58:10 by nsterk        #+#    #+#                 */
-/*   Updated: 2021/06/05 19:06:20 by naomisterk    ########   odam.nl         */
+/*   Updated: 2021/06/12 16:48:49 by naomisterk    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <structs.h>
 # include <get_next_line.h>
 # include <libft.h>
-# include <stdio.h>
 
 # define W		13
 # define A		0
@@ -81,7 +80,6 @@ void		set_spawn_dir(char c, t_d2vec *dir, t_d2vec *plane);
 int			validate_map(t_data *data);
 int			allocate_check(t_map *map);
 int			copy_to_check(t_map *map);
-void		floodfill(t_status *status, int y, int x, t_map *map);
 
 /*
 **	Raycasting.
