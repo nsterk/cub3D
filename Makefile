@@ -6,7 +6,7 @@
 #    By: nsterk <nsterk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/27 11:29:07 by nsterk        #+#    #+#                  #
-#    Updated: 2021/06/10 10:01:31 by nsterk        ########   odam.nl          #
+#    Updated: 2021/06/15 13:20:19 by naomisterk    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,5 +85,8 @@ fclean: clean
 	rm -rf $(NAME)
 
 re:	fclean all
+
+bonus:
+	all
 
 .PHONY: all clean fclean re
